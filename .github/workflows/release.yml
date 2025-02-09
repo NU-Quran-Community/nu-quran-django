@@ -1,0 +1,100 @@
+name: Release
+on:
+  push:
+    tags:
+      - v*.*.*
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+env:
+  REGISTRY: ghcr.io/${{ github.repository_owner }}
+  REGISTRY_USER: ${{ github.actor }}
+  REGISTRY_PASS: ${{ github.token }}
+  IMAGE_NAME: nu-quran-api
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: pyproject.toml
+          sparse-checkout-cone-mode: false
+
+      - id: check
+        name: Check release version and commit
+        run: |
+          echo "::group::Check tag commit matches latest commit on main"
+          MAIN_SHA="$(git rev-parse --verify main)"
+          if [ "$MAIN_SHA" != "$GITHUB_SHA" ]; then
+            echo "::error title=Commit mismatch::Latest commit on main ($MAIN_SHA) does not match tag commit ($GITHUB_SHA)"
+            exit 1
+          fi
+          echo "::endgroup::"
+          echo "::group::Check project version matches tag"
+          PACKAGE_VERSION="$(grep version pyproject.toml | cut -d'"' -f2)"
+          TAG_VERSION="$(echo "${{ github.ref_name }}" | cut -d'v' -f2)"
+          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error title=Version mismatch::Package version ($PACKAGE_VERSION) does not match tag version ($TAG_VERSION)"
+            exit 1
+          fi
+          echo "version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "::endgroup::"
+
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    environment:
+      name: ghcr
+      url: https://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.prepare.outputs.version }}
+    permissions:
+      packages: write
+      id-token: write
+      attestations: write
+    steps:
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@v4
+
+      - id: build
+        name: Build image
+        uses: redhat-actions/buildah-build@v2
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        with:
+          containerfiles: Dockerfile
+          image: ${{ env.IMAGE_NAME }}
+          tags: ${{ env.VERSION }} latest
+
+      - id: login
+        name: Login to registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.REGISTRY_USER }}
+          password: ${{ env.REGISTRY_PASS }}
+
+      - id: push
+        name: Push image to reigstry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          image: ${{ steps.build.outputs.image }}
+          tags: ${{ steps.build.outputs.tags }}
+          extra-args: |
+            --compression-format
+            zstd
+            --compression-level
+            20
+
+      - id: attest
+        name: Generate image attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true

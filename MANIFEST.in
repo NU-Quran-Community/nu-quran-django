@@ -1,0 +1,6 @@
+graft nu_quran_api/env
+graft nu_quran_api/staticfiles
+graft nu_quran_api/apps/*/fixtures
+graft src/nu_quran_api/env
+graft src/nu_quran_api/staticfiles
+graft src/nu_quran_api/apps/*/fixtures

@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nu-quran-api"
+version = "0.1.0"
+description = "NU Quran Community platform backend API"
+classifiers = [
+  "Framework :: Django",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
+requires-python = ">= 3.12"
+dependencies = [
+  "django",
+  "django-filter",
+  "django-cors-headers",
+  "psycopg2-binary",
+  "djangorestframework",
+  "djangorestframework-simplejwt",
+  "drf-spectacular",
+  "python-dotenv",
+  "uvicorn",
+]
+
+[project.optional-dependencies]
+tests = ["pytest","pytest-django"]
+dev = [
+  "ruff",
+  "black",
+  "mypy",
+  "django-stubs",
+  "djangorestframework-stubs",
+]
+
+[project.scripts]
+nu-quran-server = "nu_quran_api.server.main:run"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.mypy]
+disable_error_code = ["import-untyped"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "nu_quran_api.settings"
+pythonpath = ["src"]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
