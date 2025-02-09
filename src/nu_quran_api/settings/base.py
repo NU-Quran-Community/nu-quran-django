@@ -80,6 +80,8 @@ STATIC_ROOT: Path = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD: str = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL: str = "users.User"
+
 REST_FRAMEWORK: dict[str, str | Iterable] = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
