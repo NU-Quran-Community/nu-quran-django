@@ -17,4 +17,6 @@ COPY --from=build /usr/local/bin /usr/local/bin
 
 EXPOSE 8000
 
-ENTRYPOINT ["/usr/local/bin/nu-quran-server"]
+ENTRYPOINT ["/usr/local/bin/nu-quran"]
+
+CMD [ "server" ]
