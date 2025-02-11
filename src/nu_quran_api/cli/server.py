@@ -12,6 +12,10 @@ def initialize_db() -> None:
         management.call_command("loaddata", *settings.INIT_FIXTURES)
 
 
+def initialize_roles() -> None:
+    management.call_command("setuproles")
+
+
 @click.command(
     "server",
     short_help="Start HTTP server",
@@ -34,6 +38,7 @@ def initialize_db() -> None:
 )
 def server(host: str, port: int) -> None:
     initialize_db()
+    initialize_roles()
     uvicorn.run(
         application,
         host=host,
