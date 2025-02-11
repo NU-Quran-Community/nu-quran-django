@@ -16,7 +16,7 @@ class Command(BaseCommand):
         )
         supervisors.permissions.add(
             Permission.objects.get(codename="view_user"),
-            Permission.objects.get(codename="change_user_achievements"),
+            Permission.objects.get(codename="change_user_activities"),
         )
         admins.permissions.add(
             Permission.objects.get(codename="view_user"),

@@ -7,7 +7,7 @@ from django.db import models
 class User(AbstractUser):
     class Meta:
         permissions: t.Iterable[tuple[str, str]] = (
-            ("change_user_achievements", "Can change the user's achievements"),
+            ("change_user_activities", "Can change the user's activities"),
         )
 
     referrer: models.ForeignKey = models.ForeignKey(
