@@ -83,7 +83,7 @@ DEFAULT_AUTO_FIELD: str = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL: str = "users.User"
 
-REST_FRAMEWORK: dict[str, str | Iterable] = {
+REST_FRAMEWORK: dict[str, int | Iterable] = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
@@ -92,6 +92,8 @@ REST_FRAMEWORK: dict[str, str | Iterable] = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.LimitOffsetPagination"),
+    "PAGE_SIZE": 100,
 }
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {

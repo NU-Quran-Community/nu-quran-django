@@ -4,6 +4,37 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
+class Category(models.Model):
+    name: models.CharField = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+        unique=True,
+    )
+    value: models.IntegerField = models.IntegerField(
+        blank=False,
+        null=False,
+    )
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Activity(models.Model):
+    category: models.ForeignKey = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+    )
+    date: models.DateTimeField = models.DateTimeField(
+        blank=False,
+        null=False,
+        auto_now_add=True,
+    )
+
+    def __str__(self) -> str:
+        return f"{self.category} - {self.date}"
+
+
 class User(AbstractUser):
     class Meta:
         permissions: t.Iterable[tuple[str, str]] = (
@@ -25,4 +56,11 @@ class User(AbstractUser):
         on_delete=models.SET_NULL,
         help_text="User supervisor reference (required for students).",
         related_name="supervised",
+    )
+    activities: models.ForeignKey = models.ForeignKey(
+        Activity,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text="User activities reference.",
     )

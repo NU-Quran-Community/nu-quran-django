@@ -1,0 +1,49 @@
+[
+    {
+        "model": "users.category",
+        "pk": 1,
+        "fields": {
+            "name": "Attend the weekly thought session",
+            "value": 1
+        }
+    },
+    {
+        "model": "users.category",
+        "pk": 2,
+        "fields": {
+            "name": "Preparing a thought",
+            "value": 2
+        }
+    },
+    {
+        "model": "users.category",
+        "pk": 3,
+        "fields": {
+            "name": "Reading Quran without reciting",
+            "value": 1
+        }
+    },
+    {
+        "model": "users.category",
+        "fields": {
+            "name": "Recitation from memory",
+            "value": 2
+        }
+    },
+    {
+        "model": "users.category",
+        "pk": 5,
+        "fields": {
+            "name": "Inviting a new member to the group",
+            "value": 1
+        }
+    },
+    {
+        "model": "users.category",
+        "pk": 6,
+        "fields": {
+            "name": "Attending your team meeting",
+            "value": 1
+        }
+    }
+]
