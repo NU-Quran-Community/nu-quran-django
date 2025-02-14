@@ -20,21 +20,6 @@ class Category(models.Model):
         return self.name
 
 
-class Activity(models.Model):
-    category: models.ForeignKey = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE,
-    )
-    date: models.DateTimeField = models.DateTimeField(
-        blank=False,
-        null=False,
-        auto_now_add=True,
-    )
-
-    def __str__(self) -> str:
-        return f"{self.category} - {self.date}"
-
-
 class User(AbstractUser):
     class Meta:
         permissions: t.Iterable[tuple[str, str]] = (
@@ -57,10 +42,25 @@ class User(AbstractUser):
         help_text="User supervisor reference (required for students).",
         related_name="supervised",
     )
-    activities: models.ForeignKey = models.ForeignKey(
-        Activity,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        help_text="User activities reference.",
+
+
+class Activity(models.Model):
+    user: models.ForeignKey = models.ForeignKey(
+        User,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="activities",
     )
+    category: models.ForeignKey = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+    )
+    date: models.DateTimeField = models.DateTimeField(
+        blank=False,
+        null=False,
+        auto_now_add=True,
+    )
+
+    def __str__(self) -> str:
+        return f"{self.user} - {self.category} - {self.date}"
