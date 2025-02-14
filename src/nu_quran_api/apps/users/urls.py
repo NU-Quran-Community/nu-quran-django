@@ -1,15 +1,14 @@
-from django.urls import URLPattern, URLResolver, path
+from django.urls import URLPattern, URLResolver, include, path
+from rest_framework.routers import DefaultRouter
 
 from . import views
 
 app_name: str = "users"
 
+router: DefaultRouter = DefaultRouter()
+router.register("", views.UserViewSet)
+
 urlpatterns: list[URLPattern | URLResolver] = [
-    path("", views.ListUsersAPIView.as_view(), name="users_list"),
-    path("<int:id>/", views.UserAPIView.as_view(), name="user_id"),
-    path(
-        "<int:id>/activities/",
-        views.UserActivitiesAPIView.as_view(),
-        name="user_activities",
-    ),
+    path("", include(router.urls)),
+    path("<int:pk>/activities/", views.UserActivitiesAPIView.as_view()),
 ]

@@ -1,55 +1,30 @@
+import typing as t
+
 from django.db.models import QuerySet
-from rest_framework import permissions, pagination, status
-from rest_framework.request import Request
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from . import models, serializers
+from . import models
+from . import permissions as userperms
+from . import serializers
 
 
-class ListUsersAPIView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    pagination_class = pagination.PageNumberPagination
+@extend_schema_view(create=extend_schema(auth=[]))
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserSerializer
 
-    def get(self, request: Request) -> Response:
-        users: QuerySet = models.User.objects.all()
-        paginator = self.pagination_class()
-        paginated_users = paginator.paginate_queryset(users, request)
-        serializer: serializers.UserSerializer = serializers.UserSerializer(
-            paginated_users, many=True
-        )
-        return paginator.get_paginated_response(serializer.data)
-
-
-class UserAPIView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request: Request, id: int) -> Response:
-        user: models.User = models.User.objects.get(id=id)
-        serializer: serializers.UserSerializer = serializers.UserSerializer(user)
-        return Response(serializer.data)
-
-    def post(self, request: Request, id: int) -> Response:
-        user: models.User = models.User.objects.get(id=id)
-        serializer: serializers.UserSerializer = serializers.UserSerializer(
-            user, data=request.data
-        )
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request: Request, id: int) -> Response:
-        if request.user.has_perm("delete_user"):
-            user: models.User = models.User.objects.get(id=id)
-            user.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        else:
-            return Response(
-                {"error": "You do not have permission to delete this user"},
-                status=status.HTTP_403_FORBIDDEN,
-            )
+    def get_permissions(self) -> t.Sequence[permissions.BasePermission]:
+        permission_classes: t.Sequence[type[permissions.BasePermission]] = []
+        if self.action in ("list", "retrieve"):
+            permission_classes = [permissions.IsAuthenticated]
+        elif self.action in ("update", "partial_update"):
+            permission_classes = [permissions.IsAuthenticated, userperms.CanModifyUser]
+        elif self.action in ("delete"):
+            permission_classes = [permissions.IsAuthenticated, userperms.CanDeleteUser]
+        return [permission() for permission in permission_classes]
 
 
 class UserActivitiesAPIView(APIView):
