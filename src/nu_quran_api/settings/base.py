@@ -102,4 +102,4 @@ SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "VERSION": "0.1.0",
 }
 
-INIT_FIXTURES: set[str] = set()
+INIT_FIXTURES: set[str] = {"category"}
