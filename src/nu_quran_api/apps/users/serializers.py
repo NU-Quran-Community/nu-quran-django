@@ -1,5 +1,6 @@
 import typing as t
 
+from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 
 from . import models
@@ -27,13 +28,20 @@ class ActivitySerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    username: serializers.CharField = serializers.CharField(trim_whitespace=True)
     referrer: serializers.SlugRelatedField = serializers.SlugRelatedField(
-        read_only=True,
+        queryset=models.User.objects.all(),
         slug_field="username",
+        error_messages={
+            "does_not_exist": "No referrer was found with the given username"
+        },
     )
     supervisor: serializers.SlugRelatedField = serializers.SlugRelatedField(
-        read_only=True,
+        queryset=models.User.objects.all(),
         slug_field="username",
+        error_messages={
+            "does_not_exist": "No supervisor was found with the given username"
+        },
     )
 
     class Meta:
@@ -42,9 +50,29 @@ class UserSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "email",
+            "password",
             "first_name",
             "last_name",
             "referrer",
             "supervisor",
+            "date_joined",
         )
         read_only_fields: t.Iterable[str] = ("date_joined",)
+        extra_kwargs: dict = {"password": {"write_only": True}}
+
+    def validate_username(self, value: str) -> str:
+        if models.User.objects.filter(username__exact=value).exists():
+            raise serializers.ValidationError("Username already taken")
+        return value
+
+    def validate_supervisor(self, value: str) -> str:
+        user: models.User = models.User.objects.filter(username__exact=value).first()
+        if not user or not user.groups.filter(name__iexact="Supervisor").exists():
+            raise serializers.ValidationError(
+                "No supervisor found with the given username"
+            )
+        return value
+
+    def create(self, validated_data: dict) -> models.User:
+        validated_data["password"] = make_password(validated_data["password"])
+        return super().create(validated_data)
