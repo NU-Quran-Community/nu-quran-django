@@ -4,22 +4,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class Category(models.Model):
-    name: models.CharField = models.CharField(
-        max_length=255,
-        blank=False,
-        null=False,
-        unique=True,
-    )
-    value: models.IntegerField = models.IntegerField(
-        blank=False,
-        null=False,
-    )
-
-    def __str__(self) -> str:
-        return self.name
-
-
 class User(AbstractUser):
     class Meta:
         permissions: t.Iterable[tuple[str, str]] = (
@@ -42,6 +26,22 @@ class User(AbstractUser):
         help_text="User supervisor reference (required for students).",
         related_name="supervised",
     )
+
+
+class Category(models.Model):
+    name: models.CharField = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+        unique=True,
+    )
+    value: models.IntegerField = models.IntegerField(
+        blank=False,
+        null=False,
+    )
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Activity(models.Model):
