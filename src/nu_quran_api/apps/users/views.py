@@ -3,6 +3,8 @@ import typing as t
 from django.db.models import QuerySet
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import permissions, status, viewsets
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -22,9 +24,14 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes = [permissions.IsAuthenticated]
         elif self.action in ("update", "partial_update"):
             permission_classes = [permissions.IsAuthenticated, userperms.CanModifyUser]
-        elif self.action in ("delete"):
+        elif self.action == "destroy":
             permission_classes = [permissions.IsAuthenticated, userperms.CanDeleteUser]
         return [permission() for permission in permission_classes]
+
+    def create(self, request: Request, *args, **kwargs) -> Response:
+        if "groups" in request.data:
+            raise PermissionDenied("Insufficient permissions to set user groups")
+        return super().create(request, *args, **kwargs)
 
 
 class UserActivitiesAPIView(APIView):
