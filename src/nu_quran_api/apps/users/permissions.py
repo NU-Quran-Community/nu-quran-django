@@ -30,3 +30,30 @@ class CanDeleteUser(BasePermission):
         if request.user and request.user.has_perm("user.delete_user"):
             return True
         return obj == request.user
+
+
+class CanModifyActivity(BasePermission):
+    def has_object_permission(
+        self, request: Request, view: APIView, obj: models.Activity
+    ) -> bool:
+        if request.user and request.user.has_perm("user.change_activity"):
+            if (
+                request.user.groups.filter(name="Admin").exists()
+                or obj.supervisor == request.user
+            ):
+                return True
+        return obj.user == request.user
+
+
+class CanDeleteActivity(BasePermission):
+    def has_object_permission(
+        self, request: Request, view: APIView, obj: models.Activity
+    ) -> bool:
+        if request.user and request.user.has_perm("activity.delete_activity"):
+            # Admins and supervisors can delete activities
+            if (
+                request.user.groups.filter(name="Admin").exists()
+                or obj.supervisor == request.user
+            ):
+                return True
+        return obj.user == request.user
