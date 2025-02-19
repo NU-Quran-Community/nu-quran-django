@@ -34,22 +34,33 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().create(request, *args, **kwargs)
 
 
-class UserActivitiesAPIView(APIView):
+class UserActivitiesViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
-    serializers_classes = (
-        serializers.ActivitySerializer,
-        serializers.UserSerializer,
-    )
+    queryset = models.Activity.objects.all()
+    serializers_classes = serializers.ActivitySerializer
 
-    def get(self, request, id: int):
-        user: models.User = models.User.objects.get(id=id)
-        if user:
-            activities: QuerySet[models.Activity] = models.Activity.objects.filter(
-                user=user
-            )
-            serializer = serializers.ActivitySerializer(activities, many=True)
-            return Response(serializer.data)
-        else:
-            return Response(
-                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
-            )
+    def get_permissions(self) -> t.Sequence[permissions.BasePermission]:
+        permission_classes: t.Sequence[type[permissions.BasePermission]] = []
+        if self.action in ("list", "retrieve"):
+            permission_classes = [permissions.IsAuthenticated]
+        elif self.action in ("update", "partial_update"):
+            permission_classes = [
+                permissions.IsAuthenticated,
+                userperms.CanModifyActivity,
+            ]
+        elif self.action == "destroy":
+            permission_classes = [
+                permissions.IsAuthenticated,
+                userperms.CanDeleteActivity,
+            ]
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        user_id = self.kwargs.get("user_id")
+        if user_id:
+            return self.queryset.filter(user_id=user_id)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        user_id = self.kwargs["user"]
+        serializer.save(user_id=user_id)
