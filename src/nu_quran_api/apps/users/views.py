@@ -34,9 +34,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class UserActivitiesViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
     queryset = models.Activity.objects.all()
-    serializers_classes = serializers.ActivitySerializer
+    serializer_class = serializers.ActivitySerializer
 
     def get_permissions(self) -> t.Sequence[permissions.BasePermission]:
         permission_classes: t.Sequence[type[permissions.BasePermission]] = []
@@ -53,13 +52,3 @@ class UserActivitiesViewSet(viewsets.ModelViewSet):
                 userperms.CanDeleteActivity,
             ]
         return [permission() for permission in permission_classes]
-
-    def get_queryset(self):
-        user_id = self.kwargs.get("user_id")
-        if user_id:
-            return self.queryset.filter(user_id=user_id)
-        return self.queryset
-
-    def perform_create(self, serializer):
-        user_id = self.kwargs["user"]
-        serializer.save(user_id=user_id)
