@@ -9,7 +9,7 @@ class CanModifyUser(BasePermission):
     def has_object_permission(
         self, request: Request, view: APIView, obj: models.User
     ) -> bool:
-        if request.user and request.user.has_perm("user.change_user"):
+        if request.user and request.user.has_perm("users.change_user"):
             # NOTE: only admins can edit the following fields of a user:
             # - referrer
             # - supervisor
@@ -27,7 +27,7 @@ class CanDeleteUser(BasePermission):
     def has_object_permission(
         self, request: Request, view: APIView, obj: models.User
     ) -> bool:
-        if request.user and request.user.has_perm("user.delete_user"):
+        if request.user and request.user.has_perm("users.delete_user"):
             return True
         return obj == request.user
 
@@ -36,24 +36,17 @@ class CanModifyActivity(BasePermission):
     def has_object_permission(
         self, request: Request, view: APIView, obj: models.Activity
     ) -> bool:
-        if request.user and request.user.has_perm("user.change_activity"):
-            if (
-                request.user.groups.filter(name="Admin").exists()
-                or obj.supervisor == request.user
-            ):
-                return True
-        return obj.user == request.user
+        # Allow admins and supervisors to modify activities
+        if request.user.is_authenticated:
+            return request.user.groups.filter(name__in=["Admin", "Supervisor"]).exists()
+        return False
 
 
 class CanDeleteActivity(BasePermission):
     def has_object_permission(
         self, request: Request, view: APIView, obj: models.Activity
     ) -> bool:
-        if request.user and request.user.has_perm("activity.delete_activity"):
-            # Admins and supervisors can delete activities
-            if (
-                request.user.groups.filter(name="Admin").exists()
-                or obj.supervisor == request.user
-            ):
-                return True
-        return obj.user == request.user
+        # Allow admins and supervisors to delete activities
+        if request.user.is_authenticated:
+            return request.user.groups.filter(name__in=["Admin", "Supervisor"]).exists()
+        return False
