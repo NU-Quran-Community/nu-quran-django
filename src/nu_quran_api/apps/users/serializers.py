@@ -18,9 +18,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ActivitySerializer(serializers.ModelSerializer):
-    category: CategorySerializer = CategorySerializer(
-        many=True,
-        read_only=True,
+    category: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
+        queryset=models.Category.objects.all(),
     )
 
     class Meta:
