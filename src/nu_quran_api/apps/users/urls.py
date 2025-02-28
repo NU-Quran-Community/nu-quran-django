@@ -8,7 +8,7 @@ app_name: str = "users"
 router: DefaultRouter = DefaultRouter()
 router.register("", views.UserViewSet)
 router.register(
-    r"(?P<user_id>\d+)/activities",
+    r"(?P<uid>\d+)/activities",
     views.UserActivitiesViewSet,
     basename="activity",
 )
