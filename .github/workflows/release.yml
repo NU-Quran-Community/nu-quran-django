@@ -10,7 +10,8 @@ env:
   REGISTRY: ghcr.io/${{ github.repository_owner }}
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASS: ${{ github.token }}
-  IMAGE_NAME: nu-quran-api
+  IMAGE_NAME: nu-quran-django
+  IMAGE_PLATFROMS: linux/amd64,linux/arm64
 
 jobs:
   prepare:
@@ -60,6 +61,12 @@ jobs:
         name: Checkout repository
         uses: actions/checkout@v4
 
+      - id: install
+        name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
+
       - id: build
         name: Build image
         uses: redhat-actions/buildah-build@v2
@@ -67,6 +74,7 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         with:
           containerfiles: Dockerfile
+          platforms: ${{ env.IMAGE_PLATFROMS }}
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.VERSION }} latest
 
