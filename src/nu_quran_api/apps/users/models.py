@@ -59,7 +59,6 @@ class Activity(models.Model):
     date: models.DateTimeField = models.DateTimeField(
         blank=False,
         null=False,
-        auto_now_add=True,
     )
 
     def __str__(self) -> str:
