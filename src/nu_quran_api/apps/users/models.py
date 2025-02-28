@@ -9,6 +9,7 @@ class User(AbstractUser):
         permissions: t.Iterable[tuple[str, str]] = (
             ("change_user_activities", "Can change the user's activities"),
         )
+        ordering = ["id"]
 
     referrer: models.ForeignKey = models.ForeignKey(
         "self",
@@ -45,6 +46,9 @@ class Category(models.Model):
 
 
 class Activity(models.Model):
+    class Meta:
+        ordering = ["-date"]
+
     user: models.ForeignKey = models.ForeignKey(
         User,
         null=False,
