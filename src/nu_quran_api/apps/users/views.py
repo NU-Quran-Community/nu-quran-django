@@ -1,18 +1,75 @@
+import typing as t
+
 from django.db.models import QuerySet
-from rest_framework import permissions
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import permissions, viewsets
+from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from . import models, serializers
+from . import filters, models
+from . import permissions as userperms
+from . import serializers
 
 
-class ListUsersAPIView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+@extend_schema_view(create=extend_schema(auth=[]))
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserSerializer
+    filterset_class = filters.UserFilter
 
-    def get(self, request: Request) -> Response:
-        users: QuerySet = models.User.objects.all()
-        serializer: serializers.UserSerializer = serializers.UserSerializer(
-            users, many=True
-        )
-        return Response(data=serializer.data)
+    def get_permissions(self) -> t.Sequence[permissions.BasePermission]:
+        permission_classes: t.Sequence[type[permissions.BasePermission]] = []
+        if self.action in ("list", "retrieve"):
+            permission_classes = [permissions.IsAuthenticated]
+        elif self.action in ("update", "partial_update"):
+            permission_classes = [permissions.IsAuthenticated, userperms.CanModifyUser]
+        elif self.action == "destroy":
+            permission_classes = [permissions.IsAuthenticated, userperms.CanDeleteUser]
+        return [permission() for permission in permission_classes]
+
+    def create(self, request: Request, *args, **kwargs) -> Response:
+        if "groups" in request.data:
+            raise PermissionDenied("Insufficient permissions to set user groups")
+        return super().create(request, *args, **kwargs)
+
+
+class UserActivitiesViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.ActivitySerializer
+    filterset_class = filters.UserActivitiesFilter
+
+    def get_user(self) -> models.User:
+        uid: t.Optional[int] = self.kwargs.get("uid")
+        user = models.User.objects.filter(id=uid).first()
+        if not user:
+            raise NotFound(detail="No user was found with the given ID.")
+        return user
+
+    def get_permissions(self) -> t.Sequence[permissions.BasePermission]:
+        permission_classes: t.Sequence[type[permissions.BasePermission]] = []
+        if self.action in ("list", "retrieve"):
+            permission_classes = [permissions.IsAuthenticated]
+        elif self.action in ("update", "partial_update"):
+            permission_classes = [
+                permissions.IsAuthenticated,
+                userperms.CanModifyActivity,
+            ]
+        elif self.action == "destroy":
+            permission_classes = [
+                permissions.IsAuthenticated,
+                userperms.CanDeleteActivity,
+            ]
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self) -> QuerySet[models.Activity]:
+        if getattr(self, "swagger_fake_view", False):
+            return models.Activity.objects.none()
+
+        user: models.User = self.get_user()
+        return user.activities.all()
+
+    def perform_create(self, serializer) -> None:
+        serializer.save(user=self.get_user())
+
+    def perform_update(self, serializer) -> None:
+        serializer.save(user=self.get_user())

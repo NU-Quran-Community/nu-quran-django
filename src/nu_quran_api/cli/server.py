@@ -2,6 +2,7 @@ import click
 import uvicorn
 from django.conf import settings
 from django.core import management
+from django.db.utils import IntegrityError
 
 from ..asgi import application
 
@@ -9,7 +10,10 @@ from ..asgi import application
 def initialize_db() -> None:
     management.call_command("migrate")
     if len(settings.INIT_FIXTURES) > 0:
-        management.call_command("loaddata", *settings.INIT_FIXTURES)
+        try:
+            management.call_command("loaddata", *settings.INIT_FIXTURES)
+        except IntegrityError:
+            pass
 
 
 def initialize_roles() -> None:
