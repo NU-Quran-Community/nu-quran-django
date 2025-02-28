@@ -1,9 +1,10 @@
 import pytest
 from django.contrib.auth.models import Group
-from nu_quran_api.apps.users.models import User, Activity, Category
 from django.core.management import call_command
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import AccessToken
+
+from nu_quran_api.apps.users.models import Activity, Category, User
 
 
 @pytest.fixture
@@ -100,6 +101,6 @@ def category(db) -> Category:
 @pytest.fixture
 def activity(db, existing_user, category) -> Activity:
     activity = Activity.objects.create(
-        category=category, user=existing_user, date="2025-02-27"
+        category=category, user=existing_user, date="2025-02-27T00:00:00Z"
     )
     return activity
