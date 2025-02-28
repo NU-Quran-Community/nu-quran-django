@@ -36,7 +36,7 @@ dev = [
 ]
 
 [project.scripts]
-nu-quran-server = "nu_quran_api.server.main:run"
+nu-quran = "nu_quran_api.cli.main:main"
 
 [tool.setuptools]
 include-package-data = true

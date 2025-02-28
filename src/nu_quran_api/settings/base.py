@@ -1,10 +1,12 @@
+from datetime import timedelta
 from pathlib import Path
-from typing import Iterable
+from typing import Any, Iterable
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 INSTALLED_APPS: list[str] = [
     # NOTE: django apps
+    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -80,7 +82,13 @@ STATIC_ROOT: Path = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD: str = "django.db.models.BigAutoField"
 
-REST_FRAMEWORK: dict[str, str | Iterable] = {
+AUTH_USER_MODEL: str = "users.User"
+
+SIMPLE_JWT: dict[str, Any] = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+}
+
+REST_FRAMEWORK: dict[str, int | Iterable] = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_PARSER_CLASSES": ("rest_framework.parsers.JSONParser",),
@@ -89,6 +97,8 @@ REST_FRAMEWORK: dict[str, str | Iterable] = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.PageNumberPagination"),
+    "PAGE_SIZE": 50,
 }
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
@@ -97,4 +107,4 @@ SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "VERSION": "0.1.0",
 }
 
-INIT_FIXTURES: set[str] = set()
+INIT_FIXTURES: set[str] = {"category"}

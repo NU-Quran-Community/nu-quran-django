@@ -1,9 +1,18 @@
-from django.urls import URLPattern, URLResolver, path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.urls import URLPattern, URLResolver, include, path
+from rest_framework.routers import DefaultRouter
+
+from . import views
 
 app_name: str = "users"
 
+router: DefaultRouter = DefaultRouter()
+router.register("", views.UserViewSet)
+router.register(
+    r"(?P<uid>\d+)/activities",
+    views.UserActivitiesViewSet,
+    basename="activity",
+)
+
 urlpatterns: list[URLPattern | URLResolver] = [
-    path("auth/", TokenObtainPairView.as_view(), name="authtoken"),
-    path("auth/refresh/", TokenRefreshView.as_view(), name="authtoken-refresh"),
+    path("", include(router.urls)),
 ]
