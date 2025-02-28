@@ -20,11 +20,12 @@ class CategorySerializer(serializers.ModelSerializer):
 class ActivitySerializer(serializers.ModelSerializer):
     category: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
         queryset=models.Category.objects.all(),
+        default=1,
     )
 
     class Meta:
         model = models.Activity
-        fields: str = "__all__"
+        fields: t.Iterable = ("id", "category", "date")
 
 
 class UserSerializer(serializers.ModelSerializer):
