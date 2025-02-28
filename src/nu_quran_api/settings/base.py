@@ -1,5 +1,6 @@
+from datetime import timedelta
 from pathlib import Path
-from typing import Iterable
+from typing import Any, Iterable
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -83,6 +84,10 @@ DEFAULT_AUTO_FIELD: str = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL: str = "users.User"
 
+SIMPLE_JWT: dict[str, Any] = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+}
+
 REST_FRAMEWORK: dict[str, int | Iterable] = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
@@ -92,8 +97,8 @@ REST_FRAMEWORK: dict[str, int | Iterable] = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.LimitOffsetPagination"),
-    "PAGE_SIZE": 100,
+    "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.PageNumberPagination"),
+    "PAGE_SIZE": 50,
 }
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
