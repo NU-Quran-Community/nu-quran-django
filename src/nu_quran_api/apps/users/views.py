@@ -49,7 +49,7 @@ class UserActivitiesViewSet(viewsets.ModelViewSet):
         permission_classes: t.Sequence[type[permissions.BasePermission]] = []
         if self.action in ("list", "retrieve"):
             permission_classes = [permissions.IsAuthenticated]
-        elif self.action in ("update", "partial_update"):
+        elif self.action in ("create", "update", "partial_update"):
             permission_classes = [
                 permissions.IsAuthenticated,
                 userperms.CanModifyActivity,
@@ -57,7 +57,7 @@ class UserActivitiesViewSet(viewsets.ModelViewSet):
         elif self.action == "destroy":
             permission_classes = [
                 permissions.IsAuthenticated,
-                userperms.CanDeleteActivity,
+                userperms.CanModifyActivity,
             ]
         return [permission() for permission in permission_classes]
 

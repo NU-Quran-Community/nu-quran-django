@@ -30,20 +30,26 @@ class CanDeleteUser(BasePermission):
 
 
 class CanModifyActivity(BasePermission):
+    def has_permission(self, request: Request, view: APIView) -> bool:
+        return (
+            request.user is not None
+            and request.user.is_authenticated
+            and (
+                request.user.groups.filter(name="Admin").exists()
+                or request.user
+                == models.User.objects.get(id=view.kwargs.get("uid")).supervisor
+            )
+        )
+
     def has_object_permission(
         self, request: Request, view: APIView, obj: models.Activity
     ) -> bool:
-        # Allow admins and supervisors to modify activities
-        if request.user.is_authenticated:
-            return request.user.groups.filter(name__in=["Admin", "Supervisor"]).exists()
-        return False
-
-
-class CanDeleteActivity(BasePermission):
-    def has_object_permission(
-        self, request: Request, view: APIView, obj: models.Activity
-    ) -> bool:
-        # Allow admins and supervisors to delete activities
-        if request.user.is_authenticated:
-            return request.user.groups.filter(name__in=["Admin", "Supervisor"]).exists()
-        return False
+        return (
+            request.user is not None
+            and request.user.is_authenticated
+            and (
+                request.user.groups.filter(name="Admin").exists()
+                or request.user
+                == models.User.objects.get(id=view.kwargs.get("uid")).supervisor
+            )
+        )
