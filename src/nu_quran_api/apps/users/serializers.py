@@ -36,13 +36,17 @@ class UserSerializer(serializers.ModelSerializer):
         error_messages={
             "does_not_exist": "No referrer was found with the given username"
         },
+        required=False,
+        allow_null=True,
     )
     supervisor: serializers.SlugRelatedField = serializers.SlugRelatedField(
-        queryset=models.User.objects.all(),
+        queryset=models.User.objects.filter(groups__name="Supervisor"),
         slug_field="username",
         error_messages={
             "does_not_exist": "No supervisor was found with the given username"
         },
+        required=False,
+        allow_null=True,
     )
     groups: serializers.SlugRelatedField = serializers.SlugRelatedField(
         queryset=Group.objects.all(),
@@ -71,14 +75,6 @@ class UserSerializer(serializers.ModelSerializer):
     def validate_username(self, value: str) -> str:
         if models.User.objects.filter(username__exact=value).exists():
             raise serializers.ValidationError("Username already taken")
-        return value
-
-    def validate_supervisor(self, value: str) -> str:
-        user: models.User = models.User.objects.filter(username__exact=value).first()
-        if not user or not user.groups.filter(name__iexact="Supervisor").exists():
-            raise serializers.ValidationError(
-                "No supervisor found with the given username"
-            )
         return value
 
     def create(self, validated_data: dict) -> models.User:

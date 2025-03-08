@@ -3,9 +3,7 @@ import typing as t
 from django.db.models import QuerySet
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import permissions, viewsets
-from rest_framework.exceptions import NotFound, PermissionDenied
-from rest_framework.request import Request
-from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 
 from . import filters, models
 from . import permissions as userperms
@@ -20,18 +18,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self) -> t.Sequence[permissions.BasePermission]:
         permission_classes: t.Sequence[type[permissions.BasePermission]] = []
-        if self.action in ("list", "retrieve"):
+        if self.action == "create":
+            permission_classes = [userperms.CanCreateUser]
+        elif self.action in ("list", "retrieve"):
             permission_classes = [permissions.IsAuthenticated]
         elif self.action in ("update", "partial_update"):
             permission_classes = [permissions.IsAuthenticated, userperms.CanModifyUser]
         elif self.action == "destroy":
             permission_classes = [permissions.IsAuthenticated, userperms.CanDeleteUser]
         return [permission() for permission in permission_classes]
-
-    def create(self, request: Request, *args, **kwargs) -> Response:
-        if "groups" in request.data:
-            raise PermissionDenied("Insufficient permissions to set user groups")
-        return super().create(request, *args, **kwargs)
 
 
 class UserActivitiesViewSet(viewsets.ModelViewSet):

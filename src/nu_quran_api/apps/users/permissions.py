@@ -5,6 +5,14 @@ from rest_framework.views import APIView
 from . import models
 
 
+class CanCreateUser(BasePermission):
+    def has_permission(self, request: Request, view: APIView) -> bool:
+        if not request.user.is_authenticated:
+            return not any(field in request.data for field in ("groups", "supervisor"))
+
+        return request.user.groups.filter(name="Admin").exists()
+
+
 class CanModifyUser(BasePermission):
     def has_object_permission(
         self, request: Request, view: APIView, obj: models.User
