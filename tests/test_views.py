@@ -1,6 +1,6 @@
 import pytest
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.test import APIClient
 
 
@@ -105,20 +105,28 @@ class TestSupervisorActivityPermissions:
         assert response.status_code == status.HTTP_200_OK
 
     def test_supervisor_can_modify_activity(
-        self, client, jwt_supervisor_token, activity
+        self, client, supervisor_user, jwt_supervisor_token, activity
     ):
+        activity.user.supervisor = supervisor_user
+        activity.user.save()
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_supervisor_token}")
+
         data = {"category": activity.category.id, "user": activity.user.id}
         response = client.patch(
             f"/users/{activity.user.id}/activities/{activity.id}/", data, format="json"
         )
+
         assert response.status_code == status.HTTP_200_OK
 
     def test_supervisor_can_delete_activity(
-        self, client, jwt_supervisor_token, activity
+        self, client, supervisor_user, jwt_supervisor_token, activity
     ):
+        activity.user.supervisor = supervisor_user
+        activity.user.save()
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_supervisor_token}")
+
         response = client.delete(f"/users/{activity.user.id}/activities/{activity.id}/")
+
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
 
