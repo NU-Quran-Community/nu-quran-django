@@ -19,9 +19,13 @@ class Command(BaseCommand):
             Permission.objects.get(codename="change_user_activities"),
         )
         admins.permissions.add(
+            Permission.objects.get(codename="add_user"),
             Permission.objects.get(codename="view_user"),
             Permission.objects.get(codename="change_user"),
             Permission.objects.get(codename="delete_user"),
-            Permission.objects.get(codename="add_user"),
+            Permission.objects.get(codename="add_group"),
+            Permission.objects.get(codename="view_group"),
+            Permission.objects.get(codename="change_group"),
+            Permission.objects.get(codename="delete_group"),
         )
         self.stdout.write("  Roles and permissions successfully set up.")

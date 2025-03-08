@@ -1,49 +1,55 @@
 [
-    {
-        "model": "users.category",
-        "pk": 1,
-        "fields": {
-            "name": "Attend the weekly thought session",
-            "value": 1
-        }
-    },
-    {
-        "model": "users.category",
-        "pk": 2,
-        "fields": {
-            "name": "Preparing a thought",
-            "value": 2
-        }
-    },
-    {
-        "model": "users.category",
-        "pk": 3,
-        "fields": {
-            "name": "Reading Quran without reciting",
-            "value": 1
-        }
-    },
-    {
-        "model": "users.category",
-        "fields": {
-            "name": "Recitation from memory",
-            "value": 2
-        }
-    },
-    {
-        "model": "users.category",
-        "pk": 5,
-        "fields": {
-            "name": "Inviting a new member to the group",
-            "value": 1
-        }
-    },
-    {
-        "model": "users.category",
-        "pk": 6,
-        "fields": {
-            "name": "Attending your team meeting",
-            "value": 1
-        }
+  {
+    "model": "users.category",
+    "pk": 1,
+    "fields": {
+      "name": "Attending thought session",
+      "name_ar": "حضور جلسة الخاطرة",
+      "value": 1
     }
+  },
+  {
+    "model": "users.category",
+    "pk": 2,
+    "fields": {
+      "name": "Preparing a thought",
+      "name_ar": "تحضير خاطرة",
+      "value": 2
+    }
+  },
+  {
+    "model": "users.category",
+    "pk": 3,
+    "fields": {
+      "name": "Reading Quran",
+      "name_ar": "قراءة القرآن",
+      "value": 1
+    }
+  },
+  {
+    "model": "users.category",
+    "fields": {
+      "name": "Reciting Quran",
+      "name_ar": "تسميع القرآن",
+      "value": 2
+    }
+  },
+  {
+    "model": "users.category",
+    "pk": 5,
+    "fields": {
+      "name": "Inviting a new member",
+      "name_ar": "دعوة عضو جديد",
+      "value": 1
+    }
+  },
+  {
+    "model": "users.category",
+    "pk": 6,
+    "fields": {
+      "name": "Attending team meeting",
+      "name_ar": "حضور اجتماع الفريق",
+      "value": 1
+    }
+  }
 ]
