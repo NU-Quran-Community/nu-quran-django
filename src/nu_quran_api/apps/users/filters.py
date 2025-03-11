@@ -60,9 +60,34 @@ class UserActivitiesFilter(django_filters.FilterSet):
     )
 
     category = django_filters.NumberFilter(field_name="category", lookup_expr="exact")
-    date = django_filters.DateFilter(field_name="date", lookup_expr="exact")
-    start_date = django_filters.DateFilter(field_name="date", lookup_expr="gte")
-    end_date = django_filters.DateFilter(field_name="date", lookup_expr="lte")
+    date = django_filters.DateFromToRangeFilter(field_name="date")
+
+    class Meta:
+        model = models.Activity
+        fields: list[str] = []
+
+
+class ActivitiesFilter(django_filters.FilterSet):
+    date = django_filters.DateFromToRangeFilter(field_name="date")
+    category = django_filters.NumberFilter(field_name="category", lookup_expr="exact")
+    email: django_filters.CharFilter = django_filters.CharFilter(
+        field_name="user__email", lookup_expr="icontains"
+    )
+    username: django_filters.CharFilter = django_filters.CharFilter(
+        field_name="user__username", lookup_expr="icontains"
+    )
+    first_name: django_filters.CharFilter = django_filters.CharFilter(
+        field_name="user__first_name", lookup_expr="icontains"
+    )
+    last_name: django_filters.CharFilter = django_filters.CharFilter(
+        field_name="user__last_name", lookup_expr="icontains"
+    )
+    referrer = django_filters.CharFilter(
+        field_name="user__referrer__username", lookup_expr="exact"
+    )
+    supervisor = django_filters.CharFilter(
+        field_name="user__supervisor__username", lookup_expr="exact"
+    )
 
     class Meta:
         model = models.Activity
