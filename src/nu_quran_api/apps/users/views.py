@@ -123,3 +123,28 @@ class UserPointsView(generics.ListAPIView):
 
         serializer = self.get_serializer(sorted_data, many=True)
         return Response(serializer.data)
+
+
+class UserPointsId(generics.RetrieveAPIView):
+    serializer_class = serializers.UserPointsSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs.get("id")
+        return models.Activity.objects.filter(user_id=user_id)
+
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        user_id = self.kwargs.get("id")
+        user = get_object_or_404(models.User, id=user_id)
+        activities = self.get_queryset()
+
+        points = (
+            activities.aggregate(Sum("category__value"))["category__value__sum"] or 0
+        )
+
+        response_data = {
+            "user": user.id,
+            "points": points,
+            "activities": activities.values(),
+        }
+
+        return Response(response_data)
