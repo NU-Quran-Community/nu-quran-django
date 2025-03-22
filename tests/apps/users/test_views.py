@@ -300,3 +300,30 @@ class TestUserPointsAPI:
         assert response.data["user"] == existing_user.id
         assert valid_activity.id in response.data["activities"]
         assert invalid_activity.id not in response.data["activities"]
+
+
+@pytest.mark.django_db
+class TestCategoryPointsAPI:
+    def test_get_all_categories(
+        self, client: APIClient, jwt_admin_token, category: Category
+    ):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+        response = client.get("/users/points/categories/")
+        assert response.status_code == status.HTTP_200_OK
+        assert "categories" in response.data
+
+    def test_filter_categories_by_id(
+        self, client: APIClient, jwt_admin_token, category: Category
+    ):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+        response = client.get(f"/users/points/categories/?category={category.id}")
+        assert response.status_code == status.HTTP_200_OK
+        assert len(response.data["categories"]) == 1
+        assert response.data["categories"][0]["id"] == category.id
+
+    def test_filter_with_invalid_category_id(self, client: APIClient, jwt_admin_token):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+        response = client.get("/users/points/categories/?category=999999")
+        assert response.status_code == status.HTTP_200_OK
+        assert len(response.data["categories"]) == 0
+        assert response.data["categories"] == []
