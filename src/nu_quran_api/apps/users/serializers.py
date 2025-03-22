@@ -87,18 +87,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserPointsSerializer(serializers.Serializer):
     user: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
-        read_only=True
-    )
-    points: serializers.IntegerField = serializers.IntegerField()
-    activities: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
-        many=True,
         read_only=True,
     )
-
-    class Meta:
-        model = models.User
-        fields: t.Iterable[str] = (
-            "username",
-            "activities",
-            "points",
-        )
+    points: serializers.IntegerField = serializers.IntegerField(
+        read_only=True,
+        min_value=0,
+        default=0,
+    )
+    activities: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        many=True,
+    )

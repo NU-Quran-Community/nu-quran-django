@@ -73,7 +73,7 @@ class UserActivitiesViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.get_user())
 
 
-class UserPointsView(generics.ListAPIView):
+class UserPointsListView(generics.ListAPIView):
     queryset = models.Activity.objects.all()
     serializer_class = serializers.UserPointsSerializer
     filterset_class = filters.ActivitiesFilter
@@ -92,12 +92,16 @@ class UserPointsView(generics.ListAPIView):
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
         response_data: list[dict] = []
-        activities = self.filter_queryset(self.get_queryset())
-        users = models.User.objects.all()
+        activities: QuerySet[models.Activity] = self.filter_queryset(
+            self.get_queryset()
+        )
+        users: QuerySet[models.User] = models.User.objects.all()
 
         for user in users:
             acts: QuerySet[models.Activity] = activities.filter(user=user)
-            points = acts.aggregate(Sum("category__value"))["category__value__sum"] or 0
+            points: int = (
+                acts.aggregate(Sum("category__value"))["category__value__sum"] or 0
+            )
             response_data.append(
                 {
                     "user": user,
@@ -108,7 +112,7 @@ class UserPointsView(generics.ListAPIView):
 
         # NOTE: sort response data based on the defined ordering fields
         ordering: list[str] = request.GET.get("ordering", "").split(",")
-        sorted_data = response_data
+        sorted_data: list[dict] = response_data
         for field in ("points",):
             if field in ordering or f"-{field}" in ordering:
                 sorted_data = sorted(
@@ -117,7 +121,7 @@ class UserPointsView(generics.ListAPIView):
                     reverse=(f"-{field}" in ordering),
                 )
 
-        page = self.paginate_queryset(sorted_data)
+        page: t.Optional[t.Sequence[dict]] = self.paginate_queryset(sorted_data)
         if page:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
@@ -126,26 +130,20 @@ class UserPointsView(generics.ListAPIView):
         return Response(serializer.data)
 
 
-class UserPointsId(generics.RetrieveAPIView):
+class UserPointsView(generics.RetrieveAPIView):
     serializer_class = serializers.UserPointsSerializer
     filterset_class = filters.ActivitiesFilter
 
+    def get_user(self) -> models.User:
+        uid: t.Optional[int] = self.kwargs.get("id")
+        user = models.User.objects.filter(id=uid).first()
+        if not user:
+            raise NotFound(detail="No user was found with the given ID.")
+        return user
+
     def get_queryset(self):
-        user_id = self.kwargs.get("id")
-        queryset = models.Activity.objects.filter(user_id=user_id)
-
-        category = self.request.query_params.get("category")
-        date_after = self.request.query_params.get("date_after")
-        date_before = self.request.query_params.get("date_before")
-
-        if category:
-            queryset = queryset.filter(category=category)
-        if date_after:
-            queryset = queryset.filter(date__gte=date_after)
-        if date_before:
-            queryset = queryset.filter(date__lte=date_before)
-
-        return queryset
+        user = self.get_user()
+        return models.Activity.objects.filter(user=user)
 
     @extend_schema(
         parameters=[
@@ -163,18 +161,19 @@ class UserPointsId(generics.RetrieveAPIView):
         ]
     )
     def get(self, request: Request, *args, **kwargs) -> Response:
-        user_id = self.kwargs.get("id")
-        user = get_object_or_404(models.User, id=user_id)
-        activities = self.get_queryset()
-
-        points = (
+        user: models.User = self.get_user()
+        activities: QuerySet[models.Activity] = self.filter_queryset(
+            self.get_queryset()
+        )
+        points: int = (
             activities.aggregate(Sum("category__value"))["category__value__sum"] or 0
         )
 
-        response_data = {
-            "user": user.id,
+        response_data: dict = {
+            "user": user,
             "points": points,
-            "activities": list(activities.values()),
+            "activities": activities,
         }
 
-        return Response(response_data)
+        serializer = self.get_serializer(response_data)
+        return Response(serializer.data)
