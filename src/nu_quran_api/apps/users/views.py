@@ -1,7 +1,6 @@
 import typing as t
 
 from django.db.models import QuerySet, Sum
-from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from rest_framework import generics, permissions, viewsets
 from rest_framework.exceptions import NotFound

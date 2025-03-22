@@ -1,7 +1,7 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 import pytest
-from django.utils.timezone import make_aware, now
+from django.utils.timezone import now
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
