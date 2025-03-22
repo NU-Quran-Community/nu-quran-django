@@ -1,6 +1,7 @@
 import typing as t
 
 from django.db.models import QuerySet, Sum
+from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from rest_framework import generics, permissions, viewsets
 from rest_framework.exceptions import NotFound
@@ -127,11 +128,40 @@ class UserPointsView(generics.ListAPIView):
 
 class UserPointsId(generics.RetrieveAPIView):
     serializer_class = serializers.UserPointsSerializer
+    filterset_class = filters.ActivitiesFilter
 
     def get_queryset(self):
         user_id = self.kwargs.get("id")
-        return models.Activity.objects.filter(user_id=user_id)
+        queryset = models.Activity.objects.filter(user_id=user_id)
 
+        category = self.request.query_params.get("category")
+        date_after = self.request.query_params.get("date_after")
+        date_before = self.request.query_params.get("date_before")
+
+        if category:
+            queryset = queryset.filter(category=category)
+        if date_after:
+            queryset = queryset.filter(date__gte=date_after)
+        if date_before:
+            queryset = queryset.filter(date__lte=date_before)
+
+        return queryset
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(name="category", type=int, required=False),
+            OpenApiParameter(
+                name="date_after",
+                type=str,
+                required=False,
+            ),
+            OpenApiParameter(
+                name="date_before",
+                type=str,
+                required=False,
+            ),
+        ]
+    )
     def get(self, request: Request, *args, **kwargs) -> Response:
         user_id = self.kwargs.get("id")
         user = get_object_or_404(models.User, id=user_id)
@@ -144,7 +174,7 @@ class UserPointsId(generics.RetrieveAPIView):
         response_data = {
             "user": user.id,
             "points": points,
-            "activities": activities.values(),
+            "activities": list(activities.values()),
         }
 
         return Response(response_data)
