@@ -83,3 +83,18 @@ class UserSerializer(serializers.ModelSerializer):
 
         validated_data["password"] = make_password(validated_data["password"])
         return super().create(validated_data)
+
+
+class UserPointsSerializer(serializers.Serializer):
+    user: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+    )
+    points: serializers.IntegerField = serializers.IntegerField(
+        read_only=True,
+        min_value=0,
+        default=0,
+    )
+    activities: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        many=True,
+    )

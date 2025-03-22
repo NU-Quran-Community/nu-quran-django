@@ -14,5 +14,7 @@ router.register(
 )
 
 urlpatterns: list[URLPattern | URLResolver] = [
+    path("points/", views.UserPointsListView.as_view()),
+    path("<int:id>/points/", views.UserPointsView.as_view()),
     path("", include(router.urls)),
 ]
