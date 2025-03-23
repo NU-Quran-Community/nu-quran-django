@@ -30,7 +30,17 @@ class User(AbstractUser):
 
 
 class Category(models.Model):
+    class Meta:
+        verbose_name_plural = "Categories"
+        ordering = ["id"]
+
     name: models.CharField = models.CharField(
+        max_length=255,
+        blank=False,
+        null=False,
+        unique=True,
+    )
+    name_ar: models.CharField = models.CharField(
         max_length=255,
         blank=False,
         null=False,
@@ -47,6 +57,7 @@ class Category(models.Model):
 
 class Activity(models.Model):
     class Meta:
+        verbose_name_plural = "Activities"
         ordering = ["-date"]
 
     user: models.ForeignKey = models.ForeignKey(

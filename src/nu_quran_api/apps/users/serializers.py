@@ -36,13 +36,17 @@ class UserSerializer(serializers.ModelSerializer):
         error_messages={
             "does_not_exist": "No referrer was found with the given username"
         },
+        required=False,
+        allow_null=True,
     )
     supervisor: serializers.SlugRelatedField = serializers.SlugRelatedField(
-        queryset=models.User.objects.all(),
+        queryset=models.User.objects.filter(groups__name="Supervisor"),
         slug_field="username",
         error_messages={
             "does_not_exist": "No supervisor was found with the given username"
         },
+        required=False,
+        allow_null=True,
     )
     groups: serializers.SlugRelatedField = serializers.SlugRelatedField(
         queryset=Group.objects.all(),
@@ -73,17 +77,25 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Username already taken")
         return value
 
-    def validate_supervisor(self, value: str) -> str:
-        user: models.User = models.User.objects.filter(username__exact=value).first()
-        if not user or not user.groups.filter(name__iexact="Supervisor").exists():
-            raise serializers.ValidationError(
-                "No supervisor found with the given username"
-            )
-        return value
-
     def create(self, validated_data: dict) -> models.User:
         for i, grp in enumerate(validated_data["groups"]):
             validated_data["groups"][i] = Group.objects.get(name=grp)
 
         validated_data["password"] = make_password(validated_data["password"])
         return super().create(validated_data)
+
+
+class UserPointsSerializer(serializers.Serializer):
+    user: serializers.IntegerField = serializers.IntegerField(
+        read_only=True,
+        default=1,
+    )
+    points: serializers.IntegerField = serializers.IntegerField(
+        read_only=True,
+        min_value=0,
+        default=0,
+    )
+    activities: serializers.ListField = serializers.ListField(
+        child=serializers.IntegerField(min_value=1, read_only=True),
+        read_only=True,
+    )

@@ -52,7 +52,7 @@ def user_data():
 
 
 @pytest.fixture
-def existing_user(db):
+def existing_user(db) -> User:
     group, _ = Group.objects.get_or_create(name="Student")
     user = User.objects.create_user(
         email="existinguser@example.com",
@@ -99,7 +99,7 @@ def category(db) -> Category:
 
 
 @pytest.fixture
-def activity(db, existing_user, category) -> Activity:
+def activity(db, existing_user: User, category: Category) -> Activity:
     activity = Activity.objects.create(
         category=category, user=existing_user, date="2025-02-27T00:00:00Z"
     )
