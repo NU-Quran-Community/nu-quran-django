@@ -309,8 +309,8 @@ class TestCategoryPointsAPI:
     ):
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response = client.get("/users/points/categories/")
+
         assert response.status_code == status.HTTP_200_OK
-        assert "categories" in response.data
 
     def test_filter_categories_by_id(
         self, client: APIClient, jwt_admin_token, category: Category
@@ -318,9 +318,10 @@ class TestCategoryPointsAPI:
         """Test filtering categories by a valid category ID."""
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response = client.get(f"/users/points/categories/?id={category.id}")
+
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data["categories"]) == 1
-        assert response.data["categories"][0]["id"] == category.id
+        assert len(response.data["results"]) == 1
+        assert response.data["results"][0]["id"] == category.id
 
     def test_filter_categories_by_name(
         self, client: APIClient, jwt_admin_token, category: Category
@@ -328,17 +329,18 @@ class TestCategoryPointsAPI:
         """Test filtering categories by a valid category name."""
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response = client.get(f"/users/points/categories/?name={category.name}")
+
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data["categories"]) == 1
-        assert response.data["categories"][0]["name"] == category.name
+        assert len(response.data["results"]) == 1
+        assert response.data["results"][0]["name"] == category.name
 
     def test_filter_with_invalid_category_id(self, client: APIClient, jwt_admin_token):
         """Test filtering with a category ID that does not exist."""
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response = client.get("/users/points/categories/?id=999999")
+
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data["categories"]) == 0
-        assert response.data["categories"] == []
+        assert len(response.data["results"]) == 0
 
     def test_filter_categories_by_value(
         self, client: APIClient, jwt_admin_token, category: Category
@@ -348,13 +350,14 @@ class TestCategoryPointsAPI:
         response = client.get(f"/users/points/categories/?value={category.value}")
 
         assert response.status_code == status.HTTP_200_OK
-        assert "categories" in response.data
-        assert response.data["categories"][0]["value"] == category.value
+        assert response.data["results"][0]["value"] == category.value
 
     def test_empty_category_list(self, client: APIClient, jwt_admin_token):
         """Ensure API returns an empty list when no categories exist."""
-        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         Category.objects.all().delete()
+
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response = client.get("/users/points/categories/")
+
         assert response.status_code == status.HTTP_200_OK
-        assert response.data["categories"] == []
+        assert response.data["results"] == []
