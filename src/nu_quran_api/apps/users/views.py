@@ -180,29 +180,28 @@ class UserPointsView(generics.RetrieveAPIView):
 
 class CategoryPointsListView(generics.ListAPIView):
     serializer_class = serializers.CategorySerializer
-
-    def get_queryset(self):
-        category_id = self.request.query_params.get("category")
-        queryset = models.Category.objects.all()
-
-        if category_id:
-            queryset = queryset.filter(id=category_id)
-
-        return queryset
+    filterset_class = filters.CategoryFilter
 
     @extend_schema(
         parameters=[
             OpenApiParameter(
-                name="category",
-                type=int,
+                name="value",
+                description="Ordering",
+                many=True,
+                type=str,
+                enum=("value", "-value"),
                 required=False,
-                description="Filter categories by ID",
-            ),
+            )
         ]
     )
-    def get(self, request, *args, **kwargs):
-        categories = self.get_queryset()
+    def get_queryset(self) -> QuerySet[models.Category]:
+        queryset = models.Category.objects.all()
+        return queryset
+
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        categories = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(categories, many=True)
         response_data = {
-            "categories": list(categories.values("id", "name", "name_ar", "value")),
+            "categories": serializer.data,
         }
         return Response(response_data)
