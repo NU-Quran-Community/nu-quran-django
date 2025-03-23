@@ -92,3 +92,35 @@ class ActivitiesFilter(django_filters.FilterSet):
     class Meta:
         model = models.Activity
         fields: list[str] = []
+
+
+class CategoryFilter(django_filters.FilterSet):
+    """Filter set for filtering categories."""
+
+    ordering = django_filters.OrderingFilter(
+        fields=(("value", "value"),),
+        field_labels={
+            "value": "value",
+        },
+    )
+
+    id: django_filters.NumberFilter = django_filters.NumberFilter(
+        field_name="id",
+        lookup_expr="exact",
+        help_text="Filter categories by ID",
+    )
+    name: django_filters.CharFilter = django_filters.CharFilter(
+        field_name="name", lookup_expr="exact", help_text="Filter categories by name"
+    )
+    name_ar: django_filters.CharFilter = django_filters.CharFilter(
+        field_name="name_ar",
+        lookup_expr="icontains",
+        help_text="Filter categories by arabic name",
+    )
+    value: django_filters.NumberFilter = django_filters.NumberFilter(
+        field_name="value", lookup_expr="exact", help_text="Filter categories by value"
+    )
+
+    class Meta:
+        model = models.Category
+        fields: list[str] = []

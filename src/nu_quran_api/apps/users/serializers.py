@@ -86,15 +86,16 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserPointsSerializer(serializers.Serializer):
-    user: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
+    user: serializers.IntegerField = serializers.IntegerField(
         read_only=True,
+        default=1,
     )
     points: serializers.IntegerField = serializers.IntegerField(
         read_only=True,
         min_value=0,
         default=0,
     )
-    activities: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
+    activities: serializers.ListField = serializers.ListField(
+        child=serializers.IntegerField(min_value=1, read_only=True),
         read_only=True,
-        many=True,
     )

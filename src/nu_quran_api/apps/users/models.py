@@ -32,6 +32,7 @@ class User(AbstractUser):
 class Category(models.Model):
     class Meta:
         verbose_name_plural = "Categories"
+        ordering = ["id"]
 
     name: models.CharField = models.CharField(
         max_length=255,

@@ -103,9 +103,9 @@ class UserPointsListView(generics.ListAPIView):
             )
             response_data.append(
                 {
-                    "user": user,
+                    "user": user.pk,
                     "points": points,
-                    "activities": acts,
+                    "activities": acts.values_list("id", flat=True),
                 }
             )
 
@@ -169,10 +169,32 @@ class UserPointsView(generics.RetrieveAPIView):
         )
 
         response_data: dict = {
-            "user": user,
+            "user": user.pk,
             "points": points,
-            "activities": activities,
+            "activities": activities.values_list("id", flat=True),
         }
 
         serializer = self.get_serializer(response_data)
+        return Response(serializer.data)
+
+
+class CategoryPointsListView(generics.ListAPIView):
+    serializer_class = serializers.CategorySerializer
+    filterset_class = filters.CategoryFilter
+
+    def get_queryset(self) -> QuerySet[models.Category]:
+        queryset = models.Category.objects.all()
+        return queryset
+
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        categories: QuerySet[models.Category] = self.filter_queryset(
+            self.get_queryset()
+        )
+
+        page: t.Optional[t.Sequence[dict]] = self.paginate_queryset(categories)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(categories, many=True)
         return Response(serializer.data)
