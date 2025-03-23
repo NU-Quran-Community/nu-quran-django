@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nu-quran-api"
-version = "0.1.0"
+version = "0.1.1"
 description = "NU Quran Community platform backend API"
 classifiers = [
   "Framework :: Django",
