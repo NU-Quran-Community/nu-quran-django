@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, ValidationError
-from models import Goal
+from .models import Goal
 
 
 class GoalSerializer(ModelSerializer):
