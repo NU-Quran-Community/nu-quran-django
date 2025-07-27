@@ -11,13 +11,13 @@ class GoalViewSet(viewsets.ModelViewSet):
     filterset_class = GoalFilterSet
 
     def get_permissions(self):
-        permission_classes: list[permissions.BasePermission] = []
+        permission_classes = []
         if self.action in ("list", "retrieve"):
             permission_classes = [permissions.IsAuthenticated]
         elif self.action == "create":
             permission_classes = [CanCreateGoal]
         elif self.action in ("update", "partial_update"):
             permission_classes = [CanModifyGoal]
-        elif self.action == "delete":
+        elif self.action == "destroy":
             permission_classes = [CanDeleteGoal]
         return [permission() for permission in permission_classes]
