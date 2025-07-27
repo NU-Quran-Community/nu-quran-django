@@ -2,11 +2,13 @@ from rest_framework import viewsets, permissions
 from .serializers import GoalSerializer
 from .permissions import CanCreateGoal, CanDeleteGoal, CanModifyGoal
 from .models import Goal
+from .filters import GoalFilterSet
 
 
 class GoalViewSet(viewsets.ModelViewSet):
     serializer_class = GoalSerializer
     queryset = Goal.objects.all()
+    filterset_class = GoalFilterSet
 
     def get_permissions(self):
         permission_classes: list[permissions.BasePermission] = []
