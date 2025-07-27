@@ -8,6 +8,10 @@ class GoalSerializer(ModelSerializer):
         fields = "__all__"
 
     def validate(self, data):
-        if data["current"] > data["target"]:
-            raise ValidationError("Current is greater than target")
+        current = data.get("current")
+        target = data.get("target")
+        if current is not None and target is not None:
+            if current > target:
+                raise ValidationError("Current is greater than target")
+
         return data
