@@ -11,11 +11,15 @@ class Goal(models.Model):
         MONTHLY = "monthly", "Monthly"
         YEARLY = "yearly", "Yearly"
 
-    scope = models.CharField(
+    scope: models.CharField = models.CharField(
         max_length=10, choices=Scope.choices, default=Scope.MONTHLY
     )
-    title = models.CharField(max_length=255, blank=False, null=False)
-    description = models.CharField(max_length=255, blank=True, null=True)
-    target = models.IntegerField(validators=[MinValueValidator(0)])
-    current = models.IntegerField(validators=[MinValueValidator(0)])
-    created_at = models.DateTimeField(auto_now_add=True)
+    title: models.CharField = models.CharField(max_length=255, blank=False, null=False)
+    description: models.CharField = models.CharField(
+        max_length=255, blank=True, null=True
+    )
+    target: models.IntegerField = models.IntegerField(validators=[MinValueValidator(0)])
+    current: models.IntegerField = models.IntegerField(
+        validators=[MinValueValidator(0)]
+    )
+    created_at: models.DateField = models.DateField(auto_now_add=True)
