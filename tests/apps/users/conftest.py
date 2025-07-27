@@ -1,8 +1,6 @@
 import pytest
-from django.contrib.auth.models import Group
 from django.core.management import call_command
 from rest_framework.test import APIClient
-from rest_framework_simplejwt.tokens import AccessToken
 
 from nu_quran_api.apps.users.models import Activity, Category, User
 

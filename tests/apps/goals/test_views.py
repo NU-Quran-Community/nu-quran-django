@@ -2,8 +2,7 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from nu_quran_api.apps.users.models import User
-from datetime import datetime, timedelta, date
-from django.utils.timezone import make_aware
+from datetime import date
 
 
 @pytest.mark.django_db

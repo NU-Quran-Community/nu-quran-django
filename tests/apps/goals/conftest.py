@@ -1,6 +1,5 @@
 import pytest
 from nu_quran_api.apps.goals.models import Goal
-from django.utils.timezone import make_aware
 from rest_framework.test import APIClient
 from django.core.management import call_command
 from datetime import date
