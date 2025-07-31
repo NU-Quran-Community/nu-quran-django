@@ -105,7 +105,7 @@ REST_FRAMEWORK: dict[str, int | Iterable] = {
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "TITLE": "NU Quran API",
     "DESCRIPTION": "NU Quran Community API for keeping track of achievements",
-    "VERSION": "0.1.1",
+    "VERSION": "0.2.0",
 }
 
 INIT_FIXTURES: set[str] = {"category"}
