@@ -19,6 +19,7 @@ INSTALLED_APPS: list[str] = [
     "corsheaders",
     # NOTE: custom apps
     "nu_quran_api.apps.users",
+    "nu_quran_api.apps.goals",
 ]
 
 MIDDLEWARE: list[str] = [
