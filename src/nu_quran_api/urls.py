@@ -12,5 +12,6 @@ urlpatterns: list[URLPattern | URLResolver] = [
     path("auth/", TokenObtainPairView.as_view(), name="authtoken"),
     path("auth/refresh/", TokenRefreshView.as_view(), name="authtoken-refresh"),
     path("users/", include("nu_quran_api.apps.users.urls")),
+    path("goals/", include("nu_quran_api.apps.goals.urls")),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

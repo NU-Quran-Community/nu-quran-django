@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nu-quran-api"
-version = "0.1.1"
+version = "0.2.0"
 description = "NU Quran Community platform backend API"
 classifiers = [
   "Framework :: Django",
@@ -26,14 +26,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-tests = ["pytest","pytest-django"]
-dev = [
-  "ruff",
-  "black",
-  "mypy",
-  "django-stubs",
-  "djangorestframework-stubs",
-]
+tests = ["pytest", "pytest-django"]
+dev = ["ruff", "black", "mypy", "django-stubs", "djangorestframework-stubs"]
 
 [project.scripts]
 nu-quran = "nu_quran_api.cli.main:main"
