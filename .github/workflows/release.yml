@@ -11,7 +11,7 @@ env:
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASS: ${{ github.token }}
   IMAGE_NAME: nu-quran-django
-  IMAGE_PLATFROMS: linux/amd64,linux/arm64
+  IMAGE_PLATFORMS: linux/amd64,linux/arm64
 
 jobs:
   prepare:
@@ -74,7 +74,7 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         with:
           containerfiles: Dockerfile
-          platforms: ${{ env.IMAGE_PLATFROMS }}
+          platforms: ${{ env.IMAGE_PLATFORMS }}
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.VERSION }} latest
 
