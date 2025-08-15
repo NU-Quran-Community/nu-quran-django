@@ -2,11 +2,12 @@ from datetime import timedelta
 
 import pytest
 from django.utils.timezone import now
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
-from nu_quran_api.apps.users.models import Activity, Category, User
+from nu_quran_api.apps.v1.users.models import Activity, Category, User
+from nu_quran_api.apps.v1.users.serializers import UserSerializer
 
 
 @pytest.mark.django_db
@@ -23,6 +24,14 @@ class TestUserAPI:
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response: Response = client.get("/users/999/")
         assert response.status_code == status.HTTP_404_NOT_FOUND
+
+    def test_get_current_user(
+        self, client: APIClient, existing_user: User, jwt_user_token: str
+    ) -> None:
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_user_token}")
+        response: Response = client.get("/users/me/")
+        serialized_user: dict = UserSerializer(existing_user).data
+        assert response.json() == serialized_user
 
 
 @pytest.mark.django_db

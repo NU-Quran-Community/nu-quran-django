@@ -1,8 +1,10 @@
-import pytest
-from rest_framework.test import APIClient
-from rest_framework import status
-from nu_quran_api.apps.users.models import User
 from datetime import date
+
+import pytest
+from rest_framework import status
+from rest_framework.test import APIClient
+
+from nu_quran_api.apps.v1.users.models import User
 
 
 @pytest.mark.django_db
