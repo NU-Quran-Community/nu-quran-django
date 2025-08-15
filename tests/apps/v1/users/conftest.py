@@ -1,13 +1,7 @@
 import pytest
 from django.core.management import call_command
-from rest_framework.test import APIClient
 
-from nu_quran_api.apps.users.models import Activity, Category, User
-
-
-@pytest.fixture
-def client():
-    return APIClient()
+from nu_quran_api.apps.v1.users.models import Activity, Category, User
 
 
 @pytest.fixture(autouse=True, scope="function")

@@ -1,16 +1,16 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=80", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "nu-quran-api"
-version = "0.2.0"
+dynamic = ["version"]
+license = "GPL-3.0-or-later"
 description = "NU Quran Community platform backend API"
 classifiers = [
   "Framework :: Django",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.12",
-  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
 ]
 requires-python = ">= 3.12"
 dependencies = [
@@ -34,6 +34,8 @@ nu-quran = "nu_quran_api.cli.main:main"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.setuptools_scm]
 
 [tool.mypy]
 disable_error_code = ["import-untyped"]
