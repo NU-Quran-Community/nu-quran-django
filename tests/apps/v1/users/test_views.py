@@ -2,7 +2,7 @@ from datetime import timedelta
 
 import pytest
 from django.utils.timezone import now
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
