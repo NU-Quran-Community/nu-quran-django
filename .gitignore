@@ -1,4 +1,5 @@
 # virtural environment
+.envrc
 .venv
 venv
 activate
