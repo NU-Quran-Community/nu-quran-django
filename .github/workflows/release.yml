@@ -11,7 +11,8 @@ env:
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASS: ${{ github.token }}
   IMAGE_NAME: nu-quran-django
-  IMAGE_PLATFROMS: linux/amd64,linux/arm64
+  IMAGE_PLATFORMS: linux/amd64,linux/arm64
+  LICENSE_SPDX: GPL-3.0-or-later
 
 jobs:
   prepare:
@@ -20,25 +21,36 @@ jobs:
       version: ${{ steps.check.outputs.version }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          ref: main
-          sparse-checkout: pyproject.toml
-          sparse-checkout-cone-mode: false
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v6
+
+      - name: Setup Python
+        run: uv venv -p 3.12 .venv
+
+      - name: Install setuptools-scm
+        run: |-
+          source .venv/bin/activate
+          uv pip install setuptools-scm
 
       - id: check
         name: Check release version and commit
         run: |
+          source .venv/bin/activate
           echo "::group::Check tag commit matches latest commit on main"
-          MAIN_SHA="$(git rev-parse --verify main)"
+          MAIN_SHA="$(git rev-parse --verify origin/main)"
           if [ "$MAIN_SHA" != "$GITHUB_SHA" ]; then
             echo "::error title=Commit mismatch::Latest commit on main ($MAIN_SHA) does not match tag commit ($GITHUB_SHA)"
             exit 1
           fi
           echo "::endgroup::"
           echo "::group::Check project version matches tag"
-          PACKAGE_VERSION="$(grep version pyproject.toml | cut -d'"' -f2)"
-          TAG_VERSION="$(echo "${{ github.ref_name }}" | cut -d'v' -f2)"
+          PACKAGE_VERSION="$(python -m setuptools_scm)"
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
           if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
             echo "::error title=Version mismatch::Package version ($PACKAGE_VERSION) does not match tag version ($TAG_VERSION)"
             exit 1
@@ -60,12 +72,20 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - id: install
         name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-user-static
+          sudo apt-get install --no-install-recommends -y qemu-user-static
+
+      - id: prepare-build-args
+        name: Prepare additional build arguments
+        run: |-
+          echo "BUILD_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "${GITHUB_ENV}"
 
       - id: build
         name: Build image
@@ -74,9 +94,15 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         with:
           containerfiles: Dockerfile
-          platforms: ${{ env.IMAGE_PLATFROMS }}
+          platforms: ${{ env.IMAGE_PLATFORMS }}
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.VERSION }} latest
+          build-args: |-
+            BUILD_TIME=${{ env.BUILD_TIME }}
+            SOURCE_URL=https://github.com/${{ github.repository }}
+            VCS_REF=${{ github.sha }}
+            VERSION=${{ env.VERSION }}
+            LICENSE=${{ env.LICENSE_SPDX }}
 
       - id: login
         name: Login to registry
@@ -87,13 +113,13 @@ jobs:
           password: ${{ env.REGISTRY_PASS }}
 
       - id: push
-        name: Push image to reigstry
+        name: Push image to registry
         uses: redhat-actions/push-to-registry@v2
         with:
           registry: ${{ env.REGISTRY }}
           image: ${{ steps.build.outputs.image }}
           tags: ${{ steps.build.outputs.tags }}
-          extra-args: |
+          extra-args: |-
             --compression-format
             zstd
             --compression-level

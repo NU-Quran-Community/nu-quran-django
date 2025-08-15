@@ -1,6 +1,9 @@
 from datetime import timedelta
+from importlib.metadata import version
 from pathlib import Path
 from typing import Any, Iterable
+
+from ..apps import v1
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,9 +20,8 @@ INSTALLED_APPS: list[str] = [
     "drf_spectacular",
     "django_filters",
     "corsheaders",
-    # NOTE: custom apps
-    "nu_quran_api.apps.users",
-    "nu_quran_api.apps.goals",
+    # NOTE: API v1 apps
+    *v1.APPS,
 ]
 
 MIDDLEWARE: list[str] = [
@@ -105,7 +107,7 @@ REST_FRAMEWORK: dict[str, int | Iterable] = {
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "TITLE": "NU Quran API",
     "DESCRIPTION": "NU Quran Community API for keeping track of achievements",
-    "VERSION": "0.2.0",
+    "VERSION": version("nu_quran_api"),
 }
 
 INIT_FIXTURES: set[str] = {"category"}

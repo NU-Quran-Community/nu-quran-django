@@ -1,6 +1,12 @@
+# Exclude unnecessary Git-tracked files
+exclude .gitignore uv.lock Dockerfile
+prune .github
+prune deps
+prune tests
+# Add additional files to package
 graft nu_quran_api/env
 graft nu_quran_api/staticfiles
-graft nu_quran_api/apps/*/fixtures
+graft nu_quran_api/apps/v1/*/fixtures
 graft src/nu_quran_api/env
 graft src/nu_quran_api/staticfiles
-graft src/nu_quran_api/apps/*/fixtures
+graft src/nu_quran_api/apps/v1/*/fixtures

@@ -1,13 +1,9 @@
-import pytest
-from nu_quran_api.apps.goals.models import Goal
-from rest_framework.test import APIClient
-from django.core.management import call_command
 from datetime import date
 
+import pytest
+from django.core.management import call_command
 
-@pytest.fixture
-def client():
-    return APIClient()
+from nu_quran_api.apps.v1.goals.models import Goal
 
 
 @pytest.fixture
@@ -53,7 +49,7 @@ def updated_goal() -> dict:
 
 @pytest.fixture
 def goals_for_filtering(db):
-    from nu_quran_api.apps.goals.models import Goal
+    from nu_quran_api.apps.v1.goals.models import Goal
 
     goals = [
         Goal.objects.create(
