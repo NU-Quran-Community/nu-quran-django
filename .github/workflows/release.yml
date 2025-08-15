@@ -20,15 +20,27 @@ jobs:
       version: ${{ steps.check.outputs.version }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
-          sparse-checkout: pyproject.toml
-          sparse-checkout-cone-mode: false
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v6
+
+      - name: Setup Python
+        run: uv venv -p 3.12 .venv
+
+      - name: Install setuptools-scm
+        run: |-
+          source .venv/bin/activate
+          uv pip install setuptools-scm
 
       - id: check
         name: Check release version and commit
         run: |
+          source .venv/bin/activate
           echo "::group::Check tag commit matches latest commit on main"
           MAIN_SHA="$(git rev-parse --verify main)"
           if [ "$MAIN_SHA" != "$GITHUB_SHA" ]; then
@@ -37,7 +49,7 @@ jobs:
           fi
           echo "::endgroup::"
           echo "::group::Check project version matches tag"
-          PACKAGE_VERSION="$(grep version pyproject.toml | cut -d'"' -f2)"
+          PACKAGE_VERSION="$(python -m setuptools_scm)"
           TAG_VERSION="$(echo "${{ github.ref_name }}" | cut -d'v' -f2)"
           if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
             echo "::error title=Version mismatch::Package version ($PACKAGE_VERSION) does not match tag version ($TAG_VERSION)"

@@ -8,6 +8,7 @@ activate
 __pycache__
 .*cache
 build
+dist
 
 # build
 *.egg-info

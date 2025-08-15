@@ -1,8 +1,10 @@
 import typing as t
 
 from django.db.models import QuerySet, Sum
-from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
+from drf_spectacular.utils import (OpenApiParameter, extend_schema,
+                                   extend_schema_view)
 from rest_framework import generics, permissions, viewsets
+from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -22,13 +24,18 @@ class UserViewSet(viewsets.ModelViewSet):
         permission_classes: t.Sequence[type[permissions.BasePermission]] = []
         if self.action == "create":
             permission_classes = [userperms.CanCreateUser]
-        elif self.action in ("list", "retrieve"):
+        elif self.action in ("list", "retrieve", "current_user"):
             permission_classes = [permissions.IsAuthenticated]
         elif self.action in ("update", "partial_update"):
             permission_classes = [permissions.IsAuthenticated, userperms.CanModifyUser]
         elif self.action == "destroy":
             permission_classes = [permissions.IsAuthenticated, userperms.CanDeleteUser]
         return [permission() for permission in permission_classes]
+
+    @action(detail=False, methods=["GET"], url_path="me")
+    def current_user(self, request: Request) -> Response:
+        serializer: self.serializer_class = self.get_serializer(request.user)
+        return Response(serializer.data)
 
 
 class UserActivitiesViewSet(viewsets.ModelViewSet):
