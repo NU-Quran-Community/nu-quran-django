@@ -5,12 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "nu-quran-api"
 dynamic = ["version"]
+license = "GPL-3.0-or-later"
 description = "NU Quran Community platform backend API"
 classifiers = [
   "Framework :: Django",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.12",
-  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
 ]
 requires-python = ">= 3.12"
 dependencies = [
