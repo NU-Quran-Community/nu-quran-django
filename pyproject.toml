@@ -35,6 +35,8 @@ nu-quran = "nu_quran_api.cli.main:main"
 [tool.setuptools]
 include-package-data = true
 
+[tool.setuptools_scm]
+
 [tool.mypy]
 disable_error_code = ["import-untyped"]
 
