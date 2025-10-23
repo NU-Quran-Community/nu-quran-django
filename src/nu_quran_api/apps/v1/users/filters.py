@@ -33,11 +33,14 @@ class UserFilter(django_filters.FilterSet):
     last_name: django_filters.CharFilter = django_filters.CharFilter(
         field_name="last_name", lookup_expr="icontains"
     )
-    referrer = django_filters.CharFilter(
+    referrer: django_filters.CharFilter = django_filters.CharFilter(
         field_name="referrer__username", lookup_expr="exact"
     )
-    supervisor = django_filters.CharFilter(
+    supervisor: django_filters.CharFilter = django_filters.CharFilter(
         field_name="supervisor__username", lookup_expr="exact"
+    )
+    group: django_filters.CharFilter = django_filters.CharFilter(
+        field_name="groups__name", lookup_expr="iexact"
     )
 
     class Meta:
