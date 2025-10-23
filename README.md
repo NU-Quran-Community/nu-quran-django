@@ -10,7 +10,7 @@
     <p align="center">
       <a href="https://techforpalestine.org/learn-more"><img alt="StandWithPalestine" src="https://raw.githubusercontent.com/Safouene1/support-palestine-banner/master/StandWithPalestine.svg"></a>
       <img alt="GitHub License" src="https://img.shields.io/github/license/nu-quran-community/nu-quran-django">
-      <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nu-quran-community/nu-quran-django/release.yml">
+      <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nu-quran-community/nu-quran-django/publish.yml">
       <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/nu-quran-community/nu-quran-django">
       <img alt="GitHub issues" src="https://img.shields.io/github/issues/nu-quran-community/nu-quran-django">
       <img alt="Python Version from PEP 621 TOML" src="https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fquickwrench%2Fquickwrench-api%2Fmain%2Fpyproject.toml">
