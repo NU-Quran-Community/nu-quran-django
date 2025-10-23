@@ -21,10 +21,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "lts/*"
+          node-version: lts/*
 
       - name: Install semantic-release package
         run: npm install -g semantic-release @semantic-release/changelog conventional-changelog-conventionalcommits -D
 
       - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: semantic-release
