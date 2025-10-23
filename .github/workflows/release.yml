@@ -1,24 +1,16 @@
 name: Release
 on:
   push:
-    tags:
-      - v*.*.*
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
-env:
-  REGISTRY: ghcr.io/nu-quran-community
-  REGISTRY_USER: ${{ github.actor }}
-  REGISTRY_PASS: ${{ github.token }}
-  IMAGE_NAME: nu-quran-django
-  IMAGE_PLATFORMS: linux/amd64,linux/arm64
-  LICENSE_SPDX: GPL-3.0-or-later
-
+    branches:
+      - main
 jobs:
-  prepare:
+  release:
+    name: Release
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.check.outputs.version }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -26,106 +18,13 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
-      - name: Install UV
-        uses: astral-sh/setup-uv@v6
-
-      - name: Setup Python
-        run: uv venv -p 3.12 .venv
-
-      - name: Install setuptools-scm
-        run: |-
-          source .venv/bin/activate
-          uv pip install setuptools-scm
-
-      - id: check
-        name: Check release version and commit
-        run: |
-          source .venv/bin/activate
-          echo "::group::Check tag commit matches latest commit on main"
-          MAIN_SHA="$(git rev-parse --verify origin/main)"
-          if [ "$MAIN_SHA" != "$GITHUB_SHA" ]; then
-            echo "::error title=Commit mismatch::Latest commit on main ($MAIN_SHA) does not match tag commit ($GITHUB_SHA)"
-            exit 1
-          fi
-          echo "::endgroup::"
-          echo "::group::Check project version matches tag"
-          PACKAGE_VERSION="$(python -m setuptools_scm)"
-          TAG_VERSION="${GITHUB_REF_NAME#v}"
-          if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
-            echo "::error title=Version mismatch::Package version ($PACKAGE_VERSION) does not match tag version ($TAG_VERSION)"
-            exit 1
-          fi
-          echo "version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
-          echo "::endgroup::"
-
-  build:
-    needs: prepare
-    runs-on: ubuntu-latest
-    environment:
-      name: ghcr
-      url: https://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.prepare.outputs.version }}
-    permissions:
-      packages: write
-      id-token: write
-      attestations: write
-    steps:
-      - id: checkout
-        name: Checkout repository
-        uses: actions/checkout@v4
-
-      - id: install
-        name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y qemu-user-static
-
-      - id: prepare-build-args
-        name: Prepare additional build arguments
-        run: |-
-          echo "BUILD_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "${GITHUB_ENV}"
-
-      - id: build
-        name: Build image
-        uses: redhat-actions/buildah-build@v2
-        env:
-          VERSION: ${{ needs.prepare.outputs.version }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          containerfiles: Dockerfile
-          platforms: ${{ env.IMAGE_PLATFORMS }}
-          image: ${{ env.IMAGE_NAME }}
-          tags: ${{ env.VERSION }} latest
-          build-args: |-
-            BUILD_TIME=${{ env.BUILD_TIME }}
-            SOURCE_URL=https://github.com/${{ github.repository }}
-            VCS_REF=${{ github.sha }}
-            VERSION=${{ env.VERSION }}
-            LICENSE=${{ env.LICENSE_SPDX }}
+          node-version: "lts/*"
 
-      - id: login
-        name: Login to registry
-        uses: redhat-actions/podman-login@v1
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ env.REGISTRY_USER }}
-          password: ${{ env.REGISTRY_PASS }}
+      - name: Install semantic-release package
+        run: npm install -g semantic-release @semantic-release/github conventional-changelog-conventionalcommits -D
 
-      - id: push
-        name: Push image to registry
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          registry: ${{ env.REGISTRY }}
-          image: ${{ steps.build.outputs.image }}
-          tags: ${{ steps.build.outputs.tags }}
-          extra-args: |-
-            --compression-format
-            zstd
-            --compression-level
-            20
-
-      - id: attest
-        name: Generate image attestation
-        uses: actions/attest-build-provenance@v1
-        with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
+      - name: Run semantic-release
+        run: semantic-release

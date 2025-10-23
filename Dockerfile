@@ -1,16 +1,18 @@
 FROM python:3.12-alpine AS build
 
-SHELL ["/bin/ash", "-o", "pipefail" ]
-
-COPY deps/requirements.prod.txt /usr/local/src/requirements.txt
-
-RUN pip install --no-cache-dir -r /usr/local/src/requirements.txt
-
-COPY MANIFEST.in pyproject.toml src/ /usr/local/src/
+SHELL ["/bin/sh", "-o", "pipefail", "-c" ]
 
 WORKDIR /usr/local/src
 
-RUN echo yes | python manage.py collectstatic && \
+COPY deps/requirements.prod.txt requirements.txt
+
+RUN apk add --no-cache git && \
+  pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+RUN pip install --no-cache-dir -U pip . && \
+  echo yes | python src/manage.py collectstatic && \
   pip install --no-cache-dir -U pip .
 
 FROM python:3.12-alpine AS runtime
