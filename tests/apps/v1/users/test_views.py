@@ -36,7 +36,6 @@ class TestUserAPI:
 
 @pytest.mark.django_db
 class TestUserPermissions:
-
     def test_admin_can_list_users(self, client, jwt_admin_token):
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response = client.get("/users/")
@@ -212,9 +211,9 @@ class TestUserPointsAPI:
         response: Response = client.get(f"/users/{existing_user.id}/points/")
         assert response.status_code == status.HTTP_200_OK
         assert response.data["user"] == existing_user.id
-        assert User.objects.filter(
-            id=existing_user.id
-        ).exists(), "User does not exist in test DB"
+        assert User.objects.filter(id=existing_user.id).exists(), (
+            "User does not exist in test DB"
+        )
         assert "points" in response.data
         assert "activities" in response.data
 

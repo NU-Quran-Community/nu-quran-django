@@ -197,7 +197,6 @@ class TestGoalPermissions:
 
 @pytest.mark.django_db
 class TestGoalFilters:
-
     def test_filter_by_scope(
         self, client: APIClient, goals_for_filtering, existing_user
     ):
