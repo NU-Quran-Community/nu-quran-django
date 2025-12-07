@@ -28,7 +28,6 @@ in
       before = [ "devenv:processes:dev-server" ];
       cwd = config.git.root;
       exec = ''
-        source ''${DEVENV_STATE}/venv/bin/activate
         python ''${DEVENV_ROOT}/src/manage.py makemigrations
         python ''${DEVENV_ROOT}/src/manage.py migrate
       '';
@@ -39,7 +38,6 @@ in
     dev-server = {
       cwd = config.git.root;
       exec = ''
-        source ''${DEVENV_STATE}/venv/bin/activate
         python ''${DEVENV_ROOT}/src/manage.py runserver
       '';
     };
