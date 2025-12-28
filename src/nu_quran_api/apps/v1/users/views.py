@@ -1,13 +1,18 @@
 import typing as t
+from django.utils import timezone
 
 from django.db.models import QuerySet, Sum
-from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
-from rest_framework import generics, permissions, viewsets
+from drf_spectacular.utils import (
+    OpenApiParameter,
+    extend_schema,
+    extend_schema_view,
+    OpenApiExample,
+)
+from rest_framework import generics, permissions, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
-
 from . import filters, models
 from . import permissions as userperms
 from . import serializers
@@ -67,12 +72,47 @@ class UserActivitiesViewSet(viewsets.ModelViewSet):
     def get_queryset(self) -> QuerySet[models.Activity]:
         if getattr(self, "swagger_fake_view", False):
             return models.Activity.objects.none()
+        return models.Activity.objects.filter(user=self.get_user())
 
-        user: models.User = self.get_user()
-        return user.activities.all()
+    def create_activities(self, serializer) -> list[models.Activity]:
+        user = self.get_user()
+        count = serializer.validated_data.pop("count", 1)
+        activity_data = {
+            **serializer.validated_data,
+            "user": user,
+        }
+        activities = [models.Activity(**activity_data) for _ in range(count)]
 
-    def perform_create(self, serializer) -> None:
-        serializer.save(user=self.get_user())
+        models.Activity.objects.bulk_create(activities)
+        return activities
+
+    @extend_schema(
+        examples=[
+            OpenApiExample(
+                "Example 1: Using count",
+                summary="Create multiple activities at once",
+                description="Creates 5 identical activities with different IDs",
+                value={"category": 1, "count": 5, "date": "2025-12-07T05:55:07.704Z"},
+                request_only=True,
+            ),
+            OpenApiExample(
+                "Example 2: Without count (defaults to 1)",
+                summary="Create single activity",
+                description="Creates 1 activity (default behavior)",
+                value={"category": 1, "date": "2025-12-07T05:55:07.704Z"},
+                request_only=True,
+            ),
+        ]
+    )
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        activities = self.create_activities(serializer)
+
+        return Response(
+            {"created": len(activities), "date": timezone.now()},
+            status=status.HTTP_201_CREATED,
+        )
 
     def perform_update(self, serializer) -> None:
         serializer.save(user=self.get_user())
