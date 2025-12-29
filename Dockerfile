@@ -24,8 +24,11 @@ USER watchtower:watchtower
 COPY --chown=watchtower:watchtower src ./src
 COPY --chown=watchtower:watchtower pyproject.toml uv.lock MANIFEST.in ./
 
+SHELL ["/bin/ash", "-o", "pipefail", "-c" ]
+
 RUN --mount=type=bind,source=.git,destination=.git \
   uv sync --frozen --active && \
+  echo yes | python src/manage.py collectstatic && \
   uv build
 
 FROM base AS runtime
