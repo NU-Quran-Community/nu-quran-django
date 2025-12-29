@@ -74,6 +74,12 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - id: install
+        name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y qemu-user-static
+
       - id: build
         name: Build image
         uses: redhat-actions/buildah-build@v2
