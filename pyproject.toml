@@ -41,6 +41,9 @@ include-package-data = true
 [tool.mypy]
 disable_error_code = ["import-untyped"]
 
+[tool.ruff.lint]
+ignore = ["F403"]
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "nu_quran_api.settings"
 pythonpath = ["src"]
