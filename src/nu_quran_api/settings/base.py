@@ -109,5 +109,3 @@ SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "DESCRIPTION": "NU Quran Community API for keeping track of achievements",
     "VERSION": version("nu_quran_api"),
 }
-
-INIT_FIXTURES: set[str] = {"category"}
