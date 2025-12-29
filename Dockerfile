@@ -44,8 +44,9 @@ LABEL org.opencontainers.image.title="NU Quran Django API" \
   org.opencontainers.image.revision="${VCS_REF}" \
   org.opencontainers.image.licenses="${LICENSE}"
 
-RUN --mount=type=bind,from=build,source=/home/watchtower/app/dist,destination=/app/dist \
-  uv pip install --find-links=/app/dist nu-quran-api
+COPY --from=build --chown=watchtower:watchtower /home/watchtower/app/dist /app/dist
+RUN uv pip install --find-links=/app/dist nu-quran-api && \
+  rm -rf /app/dist
 
 EXPOSE 8000
 
