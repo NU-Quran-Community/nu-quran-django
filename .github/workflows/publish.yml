@@ -59,8 +59,6 @@ jobs:
   build:
     needs: prepare
     runs-on: ubuntu-latest
-    container:
-      image: quay.io/buildah/stable:v1.42
     environment:
       name: ghcr
       url: https://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.prepare.outputs.version }}
