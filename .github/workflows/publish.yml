@@ -59,6 +59,8 @@ jobs:
   build:
     needs: prepare
     runs-on: ubuntu-latest
+    container:
+      image: quay.io/buildah/stable:v1.42
     environment:
       name: ghcr
       url: https://${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.prepare.outputs.version }}
@@ -73,12 +75,6 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-
-      - id: install
-        name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y qemu-user-static
 
       - id: build
         name: Build image
@@ -119,7 +115,7 @@ jobs:
 
       - id: attest
         name: Generate image attestation
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v3
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
