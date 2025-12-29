@@ -22,7 +22,7 @@ RUN apk add --no-cache git=2.49.1-r0
 USER watchtower:watchtower
 
 COPY --chown=watchtower:watchtower src ./src
-COPY --chown=watchtower:watchtower pyproject.toml uv.lock ./
+COPY --chown=watchtower:watchtower pyproject.toml uv.lock MANIFEST.in ./
 
 RUN --mount=type=bind,source=.git,destination=.git \
   uv sync --frozen --active && \
