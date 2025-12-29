@@ -8,17 +8,19 @@ dynamic = ["version"]
 license = "GPL-3.0-or-later"
 description = "NU Quran Community platform backend API"
 classifiers = [
-  "Framework :: Django",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Framework :: Django",
 ]
-requires-python = ">= 3.12"
+requires-python = ">= 3.13"
 dependencies = [
   "django",
+  "django-stubs",
   "django-filter",
   "django-cors-headers",
   "psycopg2-binary",
   "djangorestframework",
+  "djangorestframework-stubs",
   "djangorestframework-simplejwt",
   "drf-spectacular",
   "python-dotenv",
@@ -27,7 +29,6 @@ dependencies = [
 
 [project.optional-dependencies]
 tests = ["pytest", "pytest-django"]
-dev = ["ruff", "black", "mypy", "django-stubs", "djangorestframework-stubs"]
 
 [project.scripts]
 nu-quran = "nu_quran_api.cli.main:main"
