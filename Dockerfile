@@ -25,7 +25,7 @@ COPY --chown=watchtower:watchtower src ./src
 COPY --chown=watchtower:watchtower pyproject.toml uv.lock ./
 
 RUN --mount=type=bind,source=.git,destination=.git \
-  uv sync --active && \
+  uv sync --frozen --active && \
   uv build
 
 FROM base AS runtime
@@ -45,8 +45,7 @@ LABEL org.opencontainers.image.title="NU Quran Django API" \
   org.opencontainers.image.licenses="${LICENSE}"
 
 COPY --from=build --chown=watchtower:watchtower /home/watchtower/app/dist /app/dist
-RUN uv pip install --find-links=/app/dist nu-quran-api && \
-  rm -rf /app/dist
+RUN uv pip install --find-links=/app/dist nu-quran-api
 
 EXPOSE 8000
 
