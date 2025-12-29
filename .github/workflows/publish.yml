@@ -80,11 +80,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y qemu-user-static
 
-      - id: prepare-build-args
-        name: Prepare additional build arguments
-        run: |-
-          echo "BUILD_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "${GITHUB_ENV}"
-
       - id: build
         name: Build image
         uses: redhat-actions/buildah-build@v2
@@ -96,7 +91,6 @@ jobs:
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.VERSION }} latest
           build-args: |-
-            BUILD_TIME=${{ env.BUILD_TIME }}
             SOURCE_URL=https://github.com/${{ github.repository }}
             VCS_REF=${{ github.sha }}
             VERSION=${{ env.VERSION }}
