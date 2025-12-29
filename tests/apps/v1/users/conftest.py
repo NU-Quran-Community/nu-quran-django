@@ -7,8 +7,8 @@ from nu_quran_api.apps.v1.users.models import Activity, Category, User
 @pytest.fixture(autouse=True, scope="function")
 def load_data(db, django_db_blocker):
     with django_db_blocker.unblock():
+        call_command("flush", "--no-input")
         call_command("setuproles")
-        call_command("loaddata", "category.json")
 
 
 @pytest.fixture

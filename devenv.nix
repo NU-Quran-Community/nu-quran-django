@@ -71,6 +71,14 @@
           -t nu-quran-api:''${NUQC_IMAGE_TAG} .
         '';
       };
+
+      # NOTE: Run tests against PostgreSQL dev database
+      "nuqc:test:unit" = {
+        exec = ''
+          export DJANGO_DB_USER="''${USER}"
+          pytest
+        '';
+      };
     };
 
   services = {
