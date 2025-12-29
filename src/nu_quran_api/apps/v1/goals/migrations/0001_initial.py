@@ -5,27 +5,53 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Goal',
+            name="Goal",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('scope', models.CharField(choices=[('monthly', 'Monthly'), ('yearly', 'Yearly')], default='monthly', max_length=10)),
-                ('title', models.CharField(max_length=255)),
-                ('description', models.CharField(blank=True, max_length=255, null=True)),
-                ('target', models.IntegerField(validators=[django.core.validators.MinValueValidator(0)])),
-                ('current', models.IntegerField(validators=[django.core.validators.MinValueValidator(0)])),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "scope",
+                    models.CharField(
+                        choices=[("monthly", "Monthly"), ("yearly", "Yearly")],
+                        default="monthly",
+                        max_length=10,
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                (
+                    "description",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                (
+                    "target",
+                    models.IntegerField(
+                        validators=[django.core.validators.MinValueValidator(0)]
+                    ),
+                ),
+                (
+                    "current",
+                    models.IntegerField(
+                        validators=[django.core.validators.MinValueValidator(0)]
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name_plural': 'Goals',
-                'ordering': ['created_at'],
+                "verbose_name_plural": "Goals",
+                "ordering": ["created_at"],
             },
         ),
     ]

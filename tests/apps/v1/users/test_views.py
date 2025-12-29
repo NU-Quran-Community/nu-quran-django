@@ -36,7 +36,6 @@ class TestUserAPI:
 
 @pytest.mark.django_db
 class TestUserPermissions:
-
     def test_admin_can_list_users(self, client, jwt_admin_token):
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         response = client.get("/users/")
@@ -370,3 +369,82 @@ class TestCategoryPointsAPI:
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["results"] == []
+
+
+@pytest.mark.django_db
+class TestUserActivitiesCount:
+    def test_create_activity_with_count(
+        self,
+        client: APIClient,
+        existing_user: User,
+        jwt_admin_token,
+        category: Category,
+    ):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+        payload = {
+            "category": category.id,
+            "count": 5,
+            "date": "2025-12-07T05:55:07Z",
+        }
+        response = client.post(
+            f"/users/{existing_user.id}/activities/",
+            payload,
+            format="json",
+        )
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.data["created"] == 5
+        assert (
+            Activity.objects.filter(
+                user=existing_user,
+                category=category,
+            ).count()
+            == 5
+        )
+
+    def test_create_activity_without_count_defaults_to_one(
+        self,
+        client: APIClient,
+        existing_user: User,
+        jwt_admin_token,
+        category: Category,
+    ):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+        payload = {
+            "category": category.id,
+            "date": "2025-12-07T05:55:07Z",
+        }
+        response = client.post(
+            f"/users/{existing_user.id}/activities/",
+            payload,
+            format="json",
+        )
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.data["created"] == 1
+        assert (
+            Activity.objects.filter(
+                user=existing_user,
+                category=category,
+            ).count()
+            == 1
+        )
+
+    def test_create_activity_with_invalid_count(
+        self,
+        client: APIClient,
+        existing_user: User,
+        jwt_admin_token,
+        category: Category,
+    ):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+        payload = {
+            "category": category.id,
+            "count": 0,
+            "date": "2025-12-07T05:55:07Z",
+        }
+        response = client.post(
+            f"/users/{existing_user.id}/activities/",
+            payload,
+            format="json",
+        )
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert "count" in response.data

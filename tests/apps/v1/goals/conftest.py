@@ -8,7 +8,6 @@ from nu_quran_api.apps.v1.goals.models import Goal
 
 @pytest.fixture
 def test_goal(db) -> Goal:
-
     goal = Goal.objects.create(
         title="goal 1",
         description="goal 1 description",

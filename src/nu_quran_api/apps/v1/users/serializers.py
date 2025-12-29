@@ -18,6 +18,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ActivitySerializer(serializers.ModelSerializer):
+    count: serializers.IntegerField = serializers.IntegerField(
+        required=False,
+        min_value=1,
+        write_only=True,
+        default=1,
+    )
     category: serializers.PrimaryKeyRelatedField = serializers.PrimaryKeyRelatedField(
         queryset=models.Category.objects.all(),
         default=1,
@@ -25,7 +31,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Activity
-        fields: t.Iterable = ("id", "category", "date")
+        fields: t.Iterable = ("id", "category", "count", "date")
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0002_seed_categories"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='category',
-            options={'ordering': ['id'], 'verbose_name_plural': 'Categories'},
+            name="category",
+            options={"ordering": ["id"], "verbose_name_plural": "Categories"},
         ),
     ]
