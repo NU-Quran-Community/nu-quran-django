@@ -14,17 +14,17 @@ classifiers = [
 ]
 requires-python = ">= 3.13"
 dependencies = [
-  "django",
-  "django-stubs",
-  "django-filter",
-  "django-cors-headers",
-  "psycopg2-binary",
-  "djangorestframework",
-  "djangorestframework-stubs",
-  "djangorestframework-simplejwt",
-  "drf-spectacular",
-  "python-dotenv",
-  "uvicorn",
+  "django~=6.0",
+  "django-stubs~=5.2",
+  "django-filter~=25.2",
+  "django-cors-headers~=4.9",
+  "psycopg2-binary~=2.9",
+  "djangorestframework~=3.16",
+  "djangorestframework-stubs~=3.16",
+  "djangorestframework-simplejwt~=5.5",
+  "drf-spectacular~=0.29",
+  "python-dotenv~=1.2",
+  "uvicorn~=0.40",
 ]
 
 [project.optional-dependencies]
