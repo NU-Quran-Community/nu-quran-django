@@ -305,19 +305,19 @@ tests = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django" },
-    { name = "django-cors-headers" },
-    { name = "django-filter" },
-    { name = "django-stubs" },
-    { name = "djangorestframework" },
-    { name = "djangorestframework-simplejwt" },
-    { name = "djangorestframework-stubs" },
-    { name = "drf-spectacular" },
-    { name = "psycopg2-binary" },
+    { name = "django", specifier = "~=6.0" },
+    { name = "django-cors-headers", specifier = "~=4.9" },
+    { name = "django-filter", specifier = "~=25.2" },
+    { name = "django-stubs", specifier = "~=5.2" },
+    { name = "djangorestframework", specifier = "~=3.16" },
+    { name = "djangorestframework-simplejwt", specifier = "~=5.5" },
+    { name = "djangorestframework-stubs", specifier = "~=3.16" },
+    { name = "drf-spectacular", specifier = "~=0.29" },
+    { name = "psycopg2-binary", specifier = "~=2.9" },
     { name = "pytest", marker = "extra == 'tests'" },
     { name = "pytest-django", marker = "extra == 'tests'" },
-    { name = "python-dotenv" },
-    { name = "uvicorn" },
+    { name = "python-dotenv", specifier = "~=1.2" },
+    { name = "uvicorn", specifier = "~=0.40" },
 ]
 provides-extras = ["tests"]
 
