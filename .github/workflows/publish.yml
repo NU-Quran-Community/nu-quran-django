@@ -28,7 +28,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
 
       - name: Setup Python
-        run: uv venv -p 3.12 .venv
+        run: uv venv -p 3.13 .venv
 
       - name: Install setuptools-scm
         run: |-
