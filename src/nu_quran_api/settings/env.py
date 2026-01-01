@@ -21,7 +21,7 @@ SECRET_KEY: str = os.getenv(
 _DB_CONFIG: dict[str, dict[str, str | Path]] = {
     "DEV": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": os.getenv("DJANGO_DB_PATH", BASE_DIR / "db.sqlite3"),
     },
     "PROD": {
         "ENGINE": "django.db.backends.postgresql",

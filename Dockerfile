@@ -21,7 +21,8 @@ RUN --mount=type=bind,source=.git,destination=.git \
 
 FROM base AS runtime
 
-ENV DJANGO_SETTINGS_MODULE=nu_quran_api.settings
+ENV DJANGO_SETTINGS_MODULE=nu_quran_api.settings \
+  DJANGO_DB_PATH=/home/nuqc/db.sqlite3
 
 ARG SOURCE_URL=https://github.com/nu-quran-community/nu-quran-django \
   VCS_REF=HEAD \
