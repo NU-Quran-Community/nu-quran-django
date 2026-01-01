@@ -38,7 +38,8 @@ LABEL org.opencontainers.image.title="NU Quran Django API" \
 
 COPY --from=build /app/dist /app/dist
 
-RUN uv pip install /app/dist/nu_quran_api-*.whl && \
+RUN apk add --no-cache tzdata && \
+  uv pip install /app/dist/nu_quran_api-*.whl && \
   adduser -Ds /usr/bin/bash nuqc
 
 USER nuqc:nuqc
