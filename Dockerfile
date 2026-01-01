@@ -1,9 +1,10 @@
 FROM ghcr.io/astral-sh/uv:alpine3.22 AS base
 
-RUN uv venv -p 3.13 /usr/local/venv
-
-ENV VIRTUAL_ENV="/usr/local/venv" \
+ENV UV_PYTHON_INSTALL_DIR="/usr/local/share/uv/python" \
+  VIRTUAL_ENV="/usr/local/venv" \
   PATH="/usr/local/venv/bin:${PATH}"
+
+RUN uv venv -p 3.13 /usr/local/venv
 
 FROM base AS build
 
