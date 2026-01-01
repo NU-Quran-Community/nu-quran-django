@@ -1,34 +1,21 @@
 FROM ghcr.io/astral-sh/uv:alpine3.22 AS base
 
-RUN adduser -Ds /usr/bin/bash nuqc
+RUN uv venv -p 3.13 /usr/local/venv
 
-USER nuqc:nuqc
-
-WORKDIR /home/nuqc
-
-RUN uv venv -p 3.13 .venv
-
-ENV VIRTUAL_ENV=/home/nuqc/.venv \
-  PATH=/home/nuqc/.venv/bin:$PATH
+ENV VIRTUAL_ENV="/usr/local/venv" \
+  PATH="/usr/local/venv/bin:${PATH}"
 
 FROM base AS build
 
-WORKDIR /home/nuqc/app
-
-USER root:root
+WORKDIR /app
 
 RUN apk add --no-cache git=2.49.1-r0
 
-USER nuqc:nuqc
-
-COPY --chown=nuqc:nuqc src ./src
-COPY --chown=nuqc:nuqc pyproject.toml uv.lock MANIFEST.in ./
-
-SHELL ["/bin/ash", "-o", "pipefail", "-c" ]
+COPY . .
 
 RUN --mount=type=bind,source=.git,destination=.git \
   uv sync --frozen --active && \
-  echo yes | python src/manage.py collectstatic && \
+  python src/manage.py collectstatic --noinput && \
   uv build
 
 FROM base AS runtime
@@ -47,11 +34,15 @@ LABEL org.opencontainers.image.title="NU Quran Django API" \
   org.opencontainers.image.revision="${VCS_REF}" \
   org.opencontainers.image.licenses="${LICENSE}"
 
-COPY --from=build --chown=nuqc:nuqc /home/nuqc/app/dist /app/dist
-RUN uv pip install --find-links=/app/dist nu-quran-api
+COPY --from=build /app/dist /app/dist
+
+RUN uv pip install /app/dist/nu_quran_api-*.whl && \
+  adduser -Ds /usr/bin/bash nuqc
+
+USER nuqc:nuqc
 
 EXPOSE 8000
 
 ENTRYPOINT ["nu-quran"]
 
-CMD [ "server" ]
+CMD ["server"]

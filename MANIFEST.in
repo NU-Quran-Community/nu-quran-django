@@ -1,5 +1,5 @@
 # Exclude unnecessary Git-tracked files
-exclude .gitignore uv.lock Dockerfile
+exclude .gitignore Dockerfile .releaserc* devenv*
 prune .github
 prune deps
 prune tests
