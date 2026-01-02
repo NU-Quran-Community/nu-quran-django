@@ -10,12 +10,14 @@ FROM base AS build
 
 WORKDIR /app
 
-RUN apk add --no-cache git=2.49.1-r0
+COPY src src/
+COPY pyproject.toml uv.lock MANIFEST.in ./
 
-COPY . .
+ARG VERSION=0.0.0
 
-RUN --mount=type=bind,source=.git,destination=.git \
-  uv sync --frozen --active && \
+ENV SETUPTOOLS_SCM_PRETEND_VERSION="${VERSION}"
+
+RUN uv sync --frozen --active && \
   python src/manage.py collectstatic --noinput && \
   uv build
 
