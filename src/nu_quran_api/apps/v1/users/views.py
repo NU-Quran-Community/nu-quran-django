@@ -1,21 +1,21 @@
 import typing as t
-from django.utils import timezone
 
 from django.db.models import QuerySet, Sum
+from django.utils import timezone
 from drf_spectacular.utils import (
+    OpenApiExample,
     OpenApiParameter,
     extend_schema,
     extend_schema_view,
-    OpenApiExample,
 )
-from rest_framework import generics, permissions, viewsets, status
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
-from . import filters, models
+
+from . import filters, models, serializers
 from . import permissions as userperms
-from . import serializers
 
 
 @extend_schema_view(create=extend_schema(auth=[]))
@@ -151,7 +151,7 @@ class UserPointsListView(generics.ListAPIView):
                 {
                     "user": user.pk,
                     "points": points,
-                    "activities": acts.values_list("id", flat=True),
+                    "activities": acts,
                 }
             )
 
@@ -217,7 +217,7 @@ class UserPointsView(generics.RetrieveAPIView):
         response_data: dict = {
             "user": user.pk,
             "points": points,
-            "activities": activities.values_list("id", flat=True),
+            "activities": activities,
         }
 
         serializer = self.get_serializer(response_data)

@@ -101,7 +101,7 @@ class UserPointsSerializer(serializers.Serializer):
         min_value=0,
         default=0,
     )
-    activities: serializers.ListField = serializers.ListField(
-        child=serializers.IntegerField(min_value=1, read_only=True),
+    activities: ActivitySerializer = ActivitySerializer(
+        many=True,
         read_only=True,
     )
