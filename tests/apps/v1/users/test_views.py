@@ -193,7 +193,17 @@ class TestUserPointsAPI:
             "next": None,
             "previous": None,
             "results": [
-                {"user": existing_user.id, "points": 1, "activities": [activity.id]},
+                {
+                    "user": existing_user.id,
+                    "points": 1,
+                    "activities": [
+                        {
+                            "id": activity.id,
+                            "category": activity.category.id,
+                            "date": activity.date,
+                        }
+                    ],
+                },
                 {"user": admin_user.id, "points": 0, "activities": []},
             ],
         }
@@ -211,9 +221,9 @@ class TestUserPointsAPI:
         response: Response = client.get(f"/users/{existing_user.id}/points/")
         assert response.status_code == status.HTTP_200_OK
         assert response.data["user"] == existing_user.id
-        assert User.objects.filter(
-            id=existing_user.id
-        ).exists(), "User does not exist in test DB"
+        assert User.objects.filter(id=existing_user.id).exists(), (
+            "User does not exist in test DB"
+        )
         assert "points" in response.data
         assert "activities" in response.data
 
@@ -272,11 +282,14 @@ class TestUserPointsAPI:
         response: Response = client.get(
             f"/users/{existing_user.id}/points/?date_after={(now() - timedelta(days=5)).strftime('%Y-%m-%d')}&date_before={(now() + timedelta(days=5)).strftime('%Y-%m-%d')}"
         )
+        activites_ids: list[int] = map(
+            lambda act: act["id"], response.data["activities"]
+        )
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["user"] == existing_user.id
-        assert past_activity.id not in response.data["activities"]
-        assert future_activity.id not in response.data["activities"]
+        assert past_activity.id not in activites_ids
+        assert future_activity.id not in activites_ids
 
     def test_filter_user_points_by_category_and_date(
         self,
@@ -303,11 +316,14 @@ class TestUserPointsAPI:
         response = client.get(
             f"/users/{existing_user.id}/points/?category={category.id}&date_after={(today - timedelta(days=5)).strftime('%Y-%m-%d')}&date_before={today.strftime('%Y-%m-%d')}"
         )
+        activites_ids: list[int] = map(
+            lambda act: act["id"], response.data["activities"]
+        )
 
         assert response.status_code == status.HTTP_200_OK
         assert response.data["user"] == existing_user.id
-        assert valid_activity.id in response.data["activities"]
-        assert invalid_activity.id not in response.data["activities"]
+        assert valid_activity.id in activites_ids
+        assert invalid_activity.id not in activites_ids
 
 
 @pytest.mark.django_db
