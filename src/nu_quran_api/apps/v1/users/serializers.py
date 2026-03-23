@@ -2,6 +2,7 @@ import typing as t
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from . import models
@@ -11,10 +12,14 @@ class CategorySerializer(serializers.ModelSerializer):
     value: serializers.IntegerField = serializers.IntegerField(
         default=0,
     )
+    name:serializers.SerializerMethodField = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Category
         fields: str = "__all__"
+
+    def get_name(self, obj) -> str:
+        return _(obj.name)
 
 
 class ActivitySerializer(serializers.ModelSerializer):
@@ -40,7 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
         queryset=models.User.objects.all(),
         slug_field="username",
         error_messages={
-            "does_not_exist": "No referrer was found with the given username"
+            "does_not_exist": _("No referrer was found with the given username")
         },
         required=False,
         allow_null=True,
@@ -49,7 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
         queryset=models.User.objects.filter(groups__name="Supervisor"),
         slug_field="username",
         error_messages={
-            "does_not_exist": "No supervisor was found with the given username"
+            "does_not_exist": _("No supervisor was found with the given username")
         },
         required=False,
         allow_null=True,
@@ -80,7 +85,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate_username(self, value: str) -> str:
         if models.User.objects.filter(username__exact=value).exists():
-            raise serializers.ValidationError("Username already taken")
+            raise serializers.ValidationError(_("Username already taken"))
         return value
 
     def create(self, validated_data: dict) -> models.User:
