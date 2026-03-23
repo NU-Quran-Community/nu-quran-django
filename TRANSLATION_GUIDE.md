@@ -24,7 +24,10 @@ This project follows standard Django internationalization (i18n) and localizatio
     *Note: This requires GNU gettext tools installed on your system.*
 
 3.  **Provide Translations**:
-    Edit the `.po` file located at `src/nu_quran_api/locale/<lang>/LC_MESSAGES/django.po`.
+    Edit the `.po` file located at either:
+    -   `src/nu_quran_api/locale/<lang>/LC_MESSAGES/django.po` (for global translations)
+    -   `src/nu_quran_api/apps/v1/<app_name>/locale/<lang>/LC_MESSAGES/django.po` (for app-specific translations)
+
     ```po
     msgid "Attending thought session"
     msgstr "حضور جلسة الخاطرة"
