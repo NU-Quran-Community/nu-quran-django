@@ -13,6 +13,7 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
+from django.utils.translation import gettext_lazy as _
 
 from . import filters, models, serializers
 from . import permissions as userperms
@@ -50,7 +51,7 @@ class UserActivitiesViewSet(viewsets.ModelViewSet):
         uid: t.Optional[int] = self.kwargs.get("uid")
         user = models.User.objects.filter(id=uid).first()
         if not user:
-            raise NotFound(detail="No user was found with the given ID.")
+            raise NotFound(detail=_("No user was found with the given ID."))
         return user
 
     def get_permissions(self) -> t.Sequence[permissions.BasePermission]:
@@ -183,7 +184,7 @@ class UserPointsView(generics.RetrieveAPIView):
         uid: t.Optional[int] = self.kwargs.get("id")
         user = models.User.objects.filter(id=uid).first()
         if not user:
-            raise NotFound(detail="No user was found with the given ID.")
+            raise NotFound(detail=_("No user was found with the given ID."))
         return user
 
     def get_queryset(self):

@@ -1,0 +1,131 @@
+# Arabic translation for NU Quran API.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-23 00:00+0000\n"
+"PO-Revision-Date: 2026-03-23 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic <ar@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Can change the user's activities"
+msgstr "يمكن تغيير أنشطة المستخدم"
+
+msgid "User referrer reference."
+msgstr "مرجع إحالة المستخدم."
+
+msgid "User supervisor reference (required for students)."
+msgstr "مرجع مشرف المستخدم (مطلوب للطلاب)."
+
+msgid "Categories"
+msgstr "الفئات"
+
+msgid "Activities"
+msgstr "الأنشطة"
+
+msgid "Attending thought session"
+msgstr "حضور جلسة الخاطرة"
+
+msgid "Preparing a thought"
+msgstr "تحضير خاطرة"
+
+msgid "Reading Quran"
+msgstr "قراءة القرآن"
+
+msgid "Reciting Quran"
+msgstr "تسميع القرآن"
+
+msgid "Inviting a new member"
+msgstr "دعوة عضو جديد"
+
+msgid "Attending team meeting"
+msgstr "حضور اجتماع الفريق"
+
+msgid "No referrer was found with the given username"
+msgstr "لم يتم العثور على مرجع باسم المستخدم المحدد"
+
+msgid "No supervisor was found with the given username"
+msgstr "لم يتم العثور على مشرف باسم المستخدم المحدد"
+
+msgid "Username already taken"
+msgstr "اسم المستخدم محجوز بالفعل"
+
+msgid "No user was found with the given ID."
+msgstr "لم يتم العثور على مستخدم بالمعرف المحدد."
+
+msgid "Goals"
+msgstr "الأهداف"
+
+msgid "Monthly"
+msgstr "شهري"
+
+msgid "Yearly"
+msgstr "سنوي"
+
+msgid "Current is greater than target"
+msgstr "القيمة الحالية أكبر من المستهدفة"
+
+msgid "scope"
+msgstr "النطاق"
+
+msgid "title"
+msgstr "العنوان"
+
+msgid "description"
+msgstr "الوصف"
+
+msgid "target"
+msgstr "المستهدف"
+
+msgid "current"
+msgstr "الحالي"
+
+msgid "created at"
+msgstr "تاريخ الإنشاء"
+
+msgid "name"
+msgstr "الاسم"
+
+msgid "value"
+msgstr "القيمة"
+
+msgid "user"
+msgstr "المستخدم"
+
+msgid "category"
+msgstr "الفئة"
+
+msgid "date"
+msgstr "التاريخ"
+
+msgid "Username"
+msgstr "اسم المستخدم"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "First Name"
+msgstr "الاسم الأول"
+
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+msgid "Activity Date"
+msgstr "تاريخ النشاط"
+
+msgid "Category"
+msgstr "الفئة"
+
+msgid "Filter categories by ID"
+msgstr "تصفية الفئات حسب المعرف"
+
+msgid "Filter categories by name"
+msgstr "تصفية الفئات حسب الاسم"
+
+msgid "Filter categories by value"
+msgstr "تصفية الفئات حسب القيمة"

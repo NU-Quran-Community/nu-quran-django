@@ -2,12 +2,12 @@ import typing as t
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 class User(AbstractUser):
     class Meta:
         permissions: t.Iterable[tuple[str, str]] = (
-            ("change_user_activities", "Can change the user's activities"),
+            ("change_user_activities", _("Can change the user's activities")),
         )
         ordering = ["id"]
 
@@ -16,7 +16,7 @@ class User(AbstractUser):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        help_text="User referrer reference.",
+        help_text=_("User referrer reference."),
         related_name="referred",
     )
     supervisor: models.ForeignKey = models.ForeignKey(
@@ -24,29 +24,25 @@ class User(AbstractUser):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        help_text="User supervisor reference (required for students).",
+        help_text=_("User supervisor reference (required for students)."),
         related_name="supervised",
     )
 
 
 class Category(models.Model):
     class Meta:
-        verbose_name_plural = "Categories"
+        verbose_name_plural = _("Categories")
         ordering = ["id"]
 
     name: models.CharField = models.CharField(
-        max_length=255,
-        blank=False,
-        null=False,
-        unique=True,
-    )
-    name_ar: models.CharField = models.CharField(
+        _("name"),
         max_length=255,
         blank=False,
         null=False,
         unique=True,
     )
     value: models.IntegerField = models.IntegerField(
+        _("value"),
         blank=False,
         null=False,
     )
@@ -57,7 +53,7 @@ class Category(models.Model):
 
 class Activity(models.Model):
     class Meta:
-        verbose_name_plural = "Activities"
+        verbose_name_plural = _("Activities")
         ordering = ["-date"]
 
     user: models.ForeignKey = models.ForeignKey(
@@ -66,12 +62,15 @@ class Activity(models.Model):
         blank=False,
         on_delete=models.CASCADE,
         related_name="activities",
+        verbose_name=_("user"),
     )
     category: models.ForeignKey = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
+        verbose_name=_("category"),
     )
     date: models.DateTimeField = models.DateTimeField(
+        _("date"),
         blank=False,
         null=False,
     )

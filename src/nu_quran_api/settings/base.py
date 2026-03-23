@@ -28,6 +28,7 @@ MIDDLEWARE: list[str] = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -76,6 +77,15 @@ LANGUAGE_CODE: str = "en-us"
 TIME_ZONE: str = "UTC"
 
 USE_I18N: bool = True
+
+LANGUAGES = [
+    ("en", "English"),
+    ("ar", "Arabic"),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
 
 USE_TZ: bool = True
 
