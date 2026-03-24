@@ -14,6 +14,7 @@
     DJANGO_DB_NAME = "nuqc";
     DJANGO_DB_USER = "dev";
     DJANGO_DB_PASSWORD = "dev";
+    UV_PYTHON = lib.mkForce "${config.env.DEVENV_STATE}/venv/bin/python";
   };
 
   languages.python = {
@@ -95,6 +96,7 @@
     };
   };
 
+  process.manager.implementation = "process-compose";
   processes = {
     dbmigrate = {
       process-compose.depends_on.postgres.condition = "process_healthy";
@@ -127,4 +129,9 @@
   git-hooks.hooks = {
     treefmt.enable = true;
   };
+
+  enterShell = ''
+    source "${config.env.DEVENV_STATE}/venv/bin/activate"
+    echo "🐍 Python version: $(python -V | cut -d' ' -f2)"
+  '';
 }
