@@ -10,10 +10,7 @@
   env = {
     PYTHONPATH = "${config.git.root}/src";
     DJANGO_SETTINGS_MODULE = "nu_quran_api.settings";
-    DJANGO_ENVIRONMENT = "PROD";
-    DJANGO_DB_NAME = "nuqc";
-    DJANGO_DB_USER = "dev";
-    DJANGO_DB_PASSWORD = "dev";
+    DATABASE_URL = "postgresql://dev:dev@localhost:5432/nuqc";
     UV_PYTHON = lib.mkForce "${config.env.DEVENV_STATE}/venv/bin/python";
   };
 
@@ -73,6 +70,13 @@
         '';
       };
 
+      "nuqc:db:migrate" = {
+        exec = ''
+          django-admin migrate
+          django-admin setuproles
+        '';
+      };
+
       # NOTE: Run tests against PostgreSQL dev database
       "nuqc:test:unit" = {
         exec = ''
@@ -86,6 +90,7 @@
     postgres = {
       enable = true;
       listen_addresses = "localhost";
+      port = 5432;
       initialDatabases = [
         {
           name = "nuqc";
@@ -98,17 +103,8 @@
 
   process.manager.implementation = "process-compose";
   processes = {
-    dbmigrate = {
-      process-compose.depends_on.postgres.condition = "process_healthy";
-      exec = ''
-        django-admin makemigrations
-        django-admin migrate
-        django-admin setuproles
-      '';
-    };
-
     devserver = {
-      process-compose.depends_on.dbmigrate.condition = "process_completed_successfully";
+      after = [ "nuqc:db:migrate@completed" ];
       exec = ''
         django-admin runserver
       '';

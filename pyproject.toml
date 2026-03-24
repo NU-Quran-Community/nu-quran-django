@@ -18,6 +18,7 @@ dependencies = [
   "django-stubs~=5.2",
   "django-filter~=25.2",
   "django-cors-headers~=4.9",
+  "dj-database-url~=3.1",
   "psycopg2-binary~=2.9",
   "djangorestframework~=3.16",
   "djangorestframework-stubs~=3.16",
