@@ -1,0 +1,251 @@
+<a name="md-top"></a>
+
+# Contributing to NUQC Backend API
+
+Thank you for taking the time to contribute to **NUQC Backend API**.
+
+This document explains how to:
+
+- Set up a development environment
+- Make and submit changes (pull requests)
+- Contribute translations
+
+## Table of contents
+
+- [Ways to contribute](#ways-to-contribute)
+- [Before you start](#before-you-start)
+- [Development setup](#development-setup)
+  - [Devenv (recommended)](#devenv-recommended)
+  - [Manual environment](#manual-environment)
+- [Project structure](#project-structure)
+- [Pull request process](#pull-request-process)
+- [Internationalization](#internationalization)
+- [License](#license)
+
+## Ways to contribute
+
+You can contribute in many ways:
+
+- Bug fixes
+- Features
+- Internationalization
+- Docs
+
+If you’re unsure what to work on, check the issue tracker:
+
+- Issues: <https://github.com/NU-Quran-Community/nu-quran-django/issues>
+
+<p align="right">(<a href="#md-top">back to top</a>)</p>
+
+## Before you start
+
+### Discuss first for large changes
+
+For bigger changes, please discuss with other members the issue first so we can align on approach and avoid duplicated effort.
+
+### Keep PRs focused
+
+Small, focused pull requests are easier to review and merge.
+
+## Development setup
+
+### Devenv (recommended)
+
+[Devenv](https://devenv.sh) is the recommended approach for setting up a consistent development environment.
+
+1. Install Nix:
+
+```sh
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
+```
+
+2. Install Devenv:
+
+```sh
+nix profile add nixpkgs#devenv
+```
+
+3. Verify Devenv is accessible:
+
+```sh
+devenv --version
+```
+
+4. Activate development environment:
+
+```sh
+devenv shell
+```
+
+5. Enable automatic environment activation with `direnv` (optional, requires `direnv` to be installed):
+
+```sh
+# Install direnv using Nix
+nix profile add nixpkgs#direnv
+# Create .envrc file and trust it
+cd path/to/repo
+cat <<"EOF" > .envrc
+#!/usr/bin/env bash
+
+export DIRENV_WARN_TIMEOUT=20s
+
+eval "$(devenv direnvrc)"
+
+use devenv
+EOF
+direnv allow .
+```
+
+### Manual environment
+
+You will generally need:
+
+- UV
+- Python >= 3.13
+- Docker (optional)
+
+1. Clone the repo:
+
+```sh
+git clone https://github.com/NU-Quran-Community/nu-quran-django.git
+```
+
+2. Create virtual environment:
+
+```sh
+cd path/to/repo
+uv sync --all-extras --all-groups
+```
+
+3. Activate virtual environment:
+
+```sh
+source .venv/bin/activate
+```
+
+<p align="right">(<a href="#md-top">back to top</a>)</p>
+
+## Project structure
+
+```
+.
+├── src/                                      # Main source code directory
+│   ├── nu_quran_api/                         # Core Django project package
+│   │   ├── apps/                             # Application modules (modular Django apps)
+│   │   │   └── v1/                           # Version 1 of the public API
+│   │   │       ├── goals/                    # Goals domain (business logic for initiative goals)
+│   │   │       │   ├── migrations/           # Django database migrations for goals app
+│   │   │       │   ├── admin.py              # Django admin configuration
+│   │   │       │   ├── apps.py               # App configuration
+│   │   │       │   ├── filters.py            # Custom Django filters for goals app
+│   │   │       │   ├── models.py             # Database models
+│   │   │       │   ├── permissions.py        # Custom permission classes
+│   │   │       │   ├── serializers.py        # DRF serializers
+│   │   │       │   ├── urls.py               # App-specific routes
+│   │   │       │   └── views.py              # API views / viewsets
+│   │   │       ├── users/                    # Users domain (auth, roles, points)
+│   │   │       │   ├── management/           # Custom Django management utilities
+│   │   │       │   │   └── commands/
+│   │   │       │   │       └── setuproles.py # CLI command to initialize user roles (groups)
+│   │   │       │   ├── migrations/           # Database migrations for users app
+│   │   │       │   ├── admin.py              # Admin configuration
+│   │   │       │   ├── apps.py               # App configuration
+│   │   │       │   ├── filters.py            # Filtering logic
+│   │   │       │   ├── models.py             # User-related models
+│   │   │       │   ├── permissions.py        # Access control logic
+│   │   │       │   ├── serializers.py        # DRF serializers
+│   │   │       │   ├── urls.py               # App routes
+│   │   │       │   └── views.py              # API endpoints
+│   │   │       └── urls.py                   # Version-level API router (aggregates app routes)
+│   │   ├── cli/                              # CLI utilities / scripts (non-Django entrypoints)
+│   │   ├── env/                              # Environment configuration .env files (dev only)
+│   │   ├── settings/                         # Django settings
+│   │   ├── asgi.py                           # ASGI entrypoint (async servers)
+│   │   ├── urls.py                           # Root URL configuration
+│   │   └── wsgi.py                           # WSGI entrypoint (sync servers)
+│   └── manage.py                             # Django management CLI entrypoint
+├── tests/                                    # Test suite (mirrors app structure)
+├── CONTRIBUTING.md                           # Contribution guidelines
+├── Dockerfile                                # Container build definition
+├── LICENSE                                   # Project license
+├── MANIFEST.in                               # Packaging include/exclude rules
+├── README.md                                 # Project overview and usage
+├── devenv.lock                               # Locked development environment dependencies
+├── devenv.nix                                # Nix-based development environment definition
+├── devenv.yaml                               # Declarative dev environment configuration
+├── pyproject.toml                            # Python project config (PEP 621, tooling, deps)
+└── uv.lock                                   # Dependency lock file (uv package manager)
+```
+
+<p align="right">(<a href="#md-top">back to top</a>)</p>
+
+## Pull request process
+
+1. Fork the repo and create a branch: `git checkout -b feat/your-branch-name`.
+2. Make changes with a clear scope.
+3. Write unit tests for any introduced changes or refactor existing tests to validate modified behavior.
+4. Write a good PR description:
+   - What changed and why
+   - Link the issue it fixes (e.g. “Fixes #123”)
+
+<p align="right">(<a href="#md-top">back to top</a>)</p>
+
+### Commit messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+#### Format
+
+```text
+<type>(optional scope): <description>
+
+(optional body)
+
+(optional footer(s))
+```
+
+#### Common types
+
+- `fix`: bug fix
+- `feat`: new feature
+- `refactor`: refactor that doesn’t change behavior
+- `perf`: performance improvement
+- `docs`: documentation only changes
+- `style`: formatting only (no logic changes)
+- `test`: adding/updating tests
+- `build`: build system or external dependencies (CMake, packaging, etc.)
+- `ci`: CI workflow changes
+- `chore`: maintenance tasks (non-production code changes)
+
+#### Breaking changes
+
+If a change is breaking, indicate it by:
+
+- adding `!` after the type/scope, e.g. `feat(api)!: ...`, and/or
+- adding a footer like:
+
+```text
+BREAKING CHANGE: describe what changed and how to migrate
+```
+
+#### Referencing issues
+
+If your commit fixes an issue, you can reference it in the footer:
+
+```text
+Refs: #123
+```
+
+<p align="right">(<a href="#md-top">back to top</a>)</p>
+
+## Internationalization
+
+<p align="right">(<a href="#md-top">back to top</a>)</p>
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the project licenses:
+
+- GPL v3 License
+
+<p align="right">(<a href="#md-top">back to top</a>)</p>
