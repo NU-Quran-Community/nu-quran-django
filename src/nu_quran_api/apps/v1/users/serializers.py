@@ -3,6 +3,7 @@ import typing as t
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
+from django_stubs_ext import StrPromise
 from rest_framework import serializers
 
 from . import models
@@ -12,13 +13,13 @@ class CategorySerializer(serializers.ModelSerializer):
     value: serializers.IntegerField = serializers.IntegerField(
         default=0,
     )
-    name:serializers.SerializerMethodField = serializers.SerializerMethodField()
+    name: serializers.SerializerMethodField = serializers.SerializerMethodField()
 
     class Meta:
         model = models.Category
         fields: str = "__all__"
 
-    def get_name(self, obj) -> str:
+    def get_name(self, obj) -> str | StrPromise:
         return _(obj.name)
 
 
