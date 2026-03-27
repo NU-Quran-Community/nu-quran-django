@@ -14,6 +14,8 @@
     UV_PYTHON = lib.mkForce "${config.env.DEVENV_STATE}/venv/bin/python";
   };
 
+  packages = with pkgs; [ gettext ];
+
   languages.python = {
     enable = true;
     version = "3.13";
