@@ -12,17 +12,17 @@ This document explains how to:
 
 ## Table of contents
 
-- [Ways to contribute](#ways-to-contribute)
-- [Before you start](#before-you-start)
-- [Development setup](#development-setup)
+- [Ways To Contribute](#ways-to-contribute)
+- [Before You Start](#before-you-start)
+- [Development Setup](#development-setup)
   - [Devenv (recommended)](#devenv-recommended)
-  - [Manual environment](#manual-environment)
-- [Project structure](#project-structure)
-- [Pull request process](#pull-request-process)
+  - [Manual Environment](#manual-environment)
+- [Project Structure](#project-structure)
+- [Pull Request Process](#pull-request-process)
 - [Internationalization](#internationalization)
 - [License](#license)
 
-## Ways to contribute
+## Ways To Contribute
 
 You can contribute in many ways:
 
@@ -37,7 +37,7 @@ If you’re unsure what to work on, check the issue tracker:
 
 <p align="right">(<a href="#md-top">back to top</a>)</p>
 
-## Before you start
+## Before You Start
 
 ### Discuss first for large changes
 
@@ -47,7 +47,7 @@ For bigger changes, please discuss with other members the issue first so we can 
 
 Small, focused pull requests are easier to review and merge.
 
-## Development setup
+## Development Setup
 
 ### Devenv (recommended)
 
@@ -96,7 +96,7 @@ EOF
 direnv allow .
 ```
 
-### Manual environment
+### Manual Environment
 
 You will generally need:
 
@@ -125,7 +125,7 @@ source .venv/bin/activate
 
 <p align="right">(<a href="#md-top">back to top</a>)</p>
 
-## Project structure
+## Project Structure
 
 ```
 .
@@ -179,7 +179,7 @@ source .venv/bin/activate
 
 <p align="right">(<a href="#md-top">back to top</a>)</p>
 
-## Pull request process
+## Pull Request Process
 
 1. Fork the repo and create a branch: `git checkout -b feat/your-branch-name`.
 2. Make changes with a clear scope.
@@ -190,7 +190,7 @@ source .venv/bin/activate
 
 <p align="right">(<a href="#md-top">back to top</a>)</p>
 
-### Commit messages
+### Commit Messages
 
 This project uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
@@ -204,7 +204,7 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/en/
 (optional footer(s))
 ```
 
-#### Common types
+#### Common Types
 
 - `fix`: bug fix
 - `feat`: new feature
@@ -217,7 +217,7 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/en/
 - `ci`: CI workflow changes
 - `chore`: maintenance tasks (non-production code changes)
 
-#### Breaking changes
+#### Breaking Changes
 
 If a change is breaking, indicate it by:
 
@@ -228,7 +228,7 @@ If a change is breaking, indicate it by:
 BREAKING CHANGE: describe what changed and how to migrate
 ```
 
-#### Referencing issues
+#### Referencing Issues
 
 If your commit fixes an issue, you can reference it in the footer:
 
@@ -239,6 +239,47 @@ Refs: #123
 <p align="right">(<a href="#md-top">back to top</a>)</p>
 
 ## Internationalization
+
+This project follows standard Django internationalization (i18n) and localization (l10n) practices.
+
+### Overview
+
+- **Middlewares**: `LocaleMiddleware` is enabled to detect the user's language from the `Accept-Language` header.
+- **Translatable Strings**: All user-facing strings in models, serializers, and views are wrapped with `gettext_lazy` (as `_`) or `gettext`.
+- **Database Content**: Model fields like `Category.name` are translated dynamically in serializers using `gettext` to allow for scalable multi-language support without hardcoded fields. This is achieved by using a `SerializerMethodField` in the serializer.
+
+### Adding Translations
+
+1.  **Mark Strings for Translation**: In Python files, use `django.utils.translation.gettext_lazy` for models/serializers and `gettext` for dynamic content:
+
+```python
+from django.utils.translation import gettext_lazy as _
+name = models.CharField(_("name"), max_length=255)
+```
+
+2.  **Extract Messages**: Run the following command to create or update the `.po` files:
+
+```bash
+python manage.py makemessages -l ar
+```
+
+3.  **Provide Translations**
+
+Edit the `.po` file located at either:
+
+- `src/nu_quran_api/locale/<lang>/LC_MESSAGES/django.po` (for global translations)
+- `src/nu_quran_api/apps/v1/<app_name>/locale/<lang>/LC_MESSAGES/django.po` (for app-specific translations)
+
+```po
+msgid "Reading Quran"
+msgstr "قراءة القرآن"
+```
+
+4.  **Compile Messages**: Run the following command to generate the `.mo` files used by Django at runtime:
+
+```bash
+python manage.py compilemessages
+```
 
 <p align="right">(<a href="#md-top">back to top</a>)</p>
 
