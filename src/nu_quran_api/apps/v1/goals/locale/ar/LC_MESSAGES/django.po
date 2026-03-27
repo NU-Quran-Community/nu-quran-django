@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-23 00:00+0000\n"
+"POT-Creation-Date: 2026-03-27 07:27+0000\n"
 "PO-Revision-Date: 2026-03-23 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -13,32 +13,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:9
 msgid "Goals"
 msgstr "الأهداف"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:12
 msgid "Monthly"
 msgstr "شهري"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:13
 msgid "Yearly"
 msgstr "سنوي"
 
-msgid "Current is greater than target"
-msgstr "القيمة الحالية أكبر من المستهدفة"
-
+#: src/nu_quran_api/apps/v1/goals/models.py:16
 msgid "scope"
 msgstr "النطاق"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:19
 msgid "title"
 msgstr "العنوان"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:22
 msgid "description"
 msgstr "الوصف"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:25
 msgid "target"
 msgstr "المستهدف"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:28
 msgid "current"
 msgstr "الحالي"
 
+#: src/nu_quran_api/apps/v1/goals/models.py:30
 msgid "created at"
 msgstr "تاريخ الإنشاء"
+
+#: src/nu_quran_api/apps/v1/goals/serializers.py:16
+msgid "Current is greater than target"
+msgstr "القيمة الحالية أكبر من المستهدفة"
