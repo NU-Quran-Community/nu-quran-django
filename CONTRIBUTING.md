@@ -15,7 +15,7 @@ This document explains how to:
 - [Ways To Contribute](#ways-to-contribute)
 - [Before You Start](#before-you-start)
 - [Development Setup](#development-setup)
-  - [Devenv (recommended)](#devenv-recommended)
+  - [Mise (recommended)](#mise-recommended)
   - [Manual Environment](#manual-environment)
 - [Project Structure](#project-structure)
 - [Pull Request Process](#pull-request-process)
@@ -49,51 +49,68 @@ Small, focused pull requests are easier to review and merge.
 
 ## Development Setup
 
-### Devenv (recommended)
+### Mise (recommended)
 
-[Devenv](https://devenv.sh) is the recommended approach for setting up a consistent development environment.
+[Mise](https://mise.jdx.dev) is a development environment setup tool. Mise configuration files are provided for the recommended development environment for the project.
 
-1. Install Nix:
+#### Install Mise
+
+The following is a quick guide on getting started on Ubuntu but the steps should be equivalent on other distros. For Windows instruction, refer to the corresponding `mise` documentation for each step.
+
+1. Install Mise using the following command (for a list of available installation methods, refer to [mise docs](https://mise.jdx.dev/installing-mise.html#installing-mise)):
+
+> [!WARNING]
+> This installs `mise` to `~/.local/bin`. If you want to specify a different install location, replace `sh` with `MISE_INSTALL_PATH=/usr/local/bin/mise sh`.
 
 ```sh
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
+# NOTE: Install mise
+curl https://mise.run | sh
 ```
 
-2. Install Devenv:
+2. Verify `mise` is accessible:
 
 ```sh
-nix profile add nixpkgs#devenv
+mise --version
 ```
 
-3. Verify Devenv is accessible:
+3. Integrate `mise` into your shell for automatic environment activation (see `mise activate --help` for a list of supported shells):
 
 ```sh
-devenv --version
+# NOTE: Bash
+echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
 ```
 
-4. Activate development environment:
+#### Activate Development Environment
+
+1. Navigate to the path where you cloned the repository:
 
 ```sh
-devenv shell
-```
-
-5. Enable automatic environment activation with `direnv` (optional, requires `direnv` to be installed):
-
-```sh
-# Install direnv using Nix
-nix profile add nixpkgs#direnv
-# Create .envrc file and trust it
 cd path/to/repo
-cat <<"EOF" > .envrc
-#!/usr/bin/env bash
+```
 
-export DIRENV_WARN_TIMEOUT=20s
+2. Trust repository configuration:
 
-eval "$(devenv direnvrc)"
+```sh
+mise trust .
+```
 
-use devenv
-EOF
-direnv allow .
+3. Install development environment dependencies:
+
+> [!WARNING]
+> Mise relies on `npm` being already installed on your system to install some dependencies, please make sure to install one of them before proceeding.
+
+```sh
+# NOTE: Install mise tools, Python dependencies, pre-commit hooks
+mise run install
+```
+
+4. Verify environment is properly set up:
+
+```sh
+# NOTE: Tests should be run successfully, indicating correct dependencies and virtual environment setup
+mise run test
+# NOTE: Verify pre-commit hooks
+prek run
 ```
 
 ### Manual Environment
@@ -249,6 +266,9 @@ This project follows standard Django internationalization (i18n) and localizatio
 - **Database Content**: Model fields like `Category.name` are translated dynamically in serializers using `gettext` to allow for scalable multi-language support without hardcoded fields. This is achieved by using a `SerializerMethodField` in the serializer.
 
 ### Adding Translations
+
+> [!WARNING]
+> Working with translations requires GNU `gettext` to be installed.
 
 1.  **Mark Strings for Translation**: In Python files, use `django.utils.translation.gettext_lazy` for models/serializers and `gettext` for dynamic content:
 
