@@ -5,15 +5,14 @@ all_compile = false
 [tools]
 # NOTE: Python
 python = "3.13"
-uv = "latest"
+uv = "0.11"
 # NOTE: Formatter and linters
-ruff = "latest"
-oxfmt = "latest"
-oxlint = "latest"
-taplo = "latest"
+ruff = "0.15"
+oxfmt = "0.43"
+taplo = "0.10"
 # NOTE: Utils
-gum = "latest"
-prek = "latest"
+gum = "0.17"
+prek = "0.3"
 
 [env]
 _.python.venv = { create = true, path = ".venv" }
@@ -21,10 +20,10 @@ PYTHONPATH = "{{ config_root }}/src"
 DJANGO_SETTINGS_MODULE = "nu_quran_api.settings"
 DATABASE_URL = "postgresql://nuqc:nuqc@localhost:5432/nuqc"
 
-[tasks.sync]
-description = "Sync project dependencies"
-alias = "s"
-run = "uv sync --all-groups --all-extras"
+[tasks.install]
+description = "Install dependencies"
+alias = "i"
+run = ["mise install", "uv sync --all-groups --all-extras", "prek install"]
 
 [tasks.postgres]
 description = "Start development PostgreSQL database"
@@ -57,7 +56,7 @@ else
   "${usage_container_image}"
 fi
 
-gum spin --spinner.foreground=4 --title "Waiting for container to start" -- sh -c '
+gum spin --spinner.foreground=4 --title "Waiting for postgres to be ready" -- sh -c '
   while ! docker container exec "${usage_container_name}" pg_isready &>/dev/null; do
     sleep 1
   done
