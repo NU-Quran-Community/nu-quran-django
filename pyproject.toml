@@ -4,29 +4,29 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nu-quran-api"
-dynamic = ["version"]
-license = "GPL-3.0-or-later"
 description = "NU Quran Community platform backend API"
+requires-python = ">= 3.13"
+license = "GPL-3.0-or-later"
 classifiers = [
+  "Framework :: Django",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.13",
-  "Framework :: Django",
 ]
-requires-python = ">= 3.13"
 dependencies = [
-  "django~=6.0",
-  "django-stubs~=5.2",
-  "django-filter~=25.2",
-  "django-cors-headers~=4.9",
   "dj-database-url~=3.1",
-  "psycopg2-binary~=2.9",
+  "django~=6.0",
+  "django-cors-headers~=4.9",
+  "django-filter~=25.2",
+  "django-stubs~=5.2",
   "djangorestframework~=3.16",
-  "djangorestframework-stubs~=3.16",
   "djangorestframework-simplejwt~=5.5",
+  "djangorestframework-stubs~=3.16",
   "drf-spectacular~=0.29",
+  "psycopg2-binary~=2.9",
   "python-dotenv~=1.2",
   "uvicorn~=0.40",
 ]
+dynamic = ["version"]
 
 [project.optional-dependencies]
 tests = ["pytest", "pytest-django"]

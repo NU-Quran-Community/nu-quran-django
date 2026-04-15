@@ -10,22 +10,15 @@ repos:
     hooks:
       - id: ruff-check
       - id: ruff-format
+  # NOTE: TOML
+  - repo: https://github.com/tombi-toml/tombi-pre-commit
+    rev: v0.9.17
+    hooks:
+      - id: tombi-format
+      - id: tombi-lint
   # NOTE: MD and YAML files
   - repo: https://github.com/oxc-project/mirrors-oxfmt
     rev: v0.43.0
     hooks:
       - id: oxfmt
-  # NOTE: Local CLIs
-  - repo: local
-    hooks:
-      # NOTE: TOML
-      - id: taplo-lint
-        name: taplo-lint
-        language: unsupported
-        types_or: [toml]
-        entry: taplo lint
-      - id: taplo-format
-        name: taplo-format
-        language: unsupported
-        types_or: [toml]
-        entry: taplo format --check
+        types_or: [markdown, html, yaml]

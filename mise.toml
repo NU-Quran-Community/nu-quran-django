@@ -9,7 +9,7 @@ uv = "0.11"
 # NOTE: Formatter and linters
 ruff = "0.15"
 oxfmt = "0.43"
-taplo = "0.10"
+tombi = "0.9"
 # NOTE: Utils
 gum = "0.17"
 prek = "0.3"
@@ -136,3 +136,8 @@ else
   gum log -l info "No containers found with prefix: ${usage_prefix}"
 fi
 '''
+
+[tasks.hooks]
+description = "Run all pre-commit hooks"
+alias = "h"
+run = "prek run -a"
