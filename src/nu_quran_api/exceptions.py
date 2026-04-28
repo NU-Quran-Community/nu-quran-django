@@ -18,7 +18,6 @@ def custom_exception_handler(exc, context):
     request = context.get("request")
     if request is not None:
         lang = translation.get_language_from_request(request)
-        print("====== DEBUG LANG ======", lang, "HEADERS:", getattr(request, 'headers', None))
         translation.activate(lang)
 
     # Call REST framework's default exception handler first,
