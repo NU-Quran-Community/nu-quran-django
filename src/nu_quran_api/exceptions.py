@@ -1,7 +1,6 @@
 from django.utils import translation
 from django.utils.translation import gettext as _
 from rest_framework.views import exception_handler
-from rest_framework.exceptions import NotFound
 
 
 def translate_errors(data):
