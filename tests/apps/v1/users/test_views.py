@@ -536,6 +536,6 @@ class TestI18nAPI:
             HTTP_ACCEPT_LANGUAGE="ar"
         )
         assert response.status_code == status.HTTP_404_NOT_FOUND
-        assert "لم يتم العثور على المستخدم" in response.data["detail"]
+        assert "لم يتم العثور على مستخدم يطابق الاستعلام المحدد." in response.data["detail"]
 
 
