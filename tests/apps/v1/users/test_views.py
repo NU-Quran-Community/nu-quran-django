@@ -516,4 +516,26 @@ class TestI18nAPI:
         )
         assert response.status_code == status.HTTP_404_NOT_FOUND
         assert "لم يتم العثور على مستخدم بالمعرف المحدد." in response.data["detail"]
+        
+    def test_user_not_found_translation(
+        self, client, jwt_admin_token
+    ):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+
+        # English
+        response = client.get(
+            "/users/99999/",
+            HTTP_ACCEPT_LANGUAGE="en"
+        )
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert "No User matches the given query." in response.data["detail"]
+
+        # Arabic
+        response = client.get(
+            "/users/99999/",
+            HTTP_ACCEPT_LANGUAGE="ar"
+        )
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert "لم يتم العثور على المستخدم" in response.data["detail"]
+
 
