@@ -1,31 +1,24 @@
 FROM ghcr.io/astral-sh/uv:alpine3.22 AS base
 
-ARG PYTHON_VERSION=3.13
+ENV UV_PYTHON_INSTALL_DIR="/usr/local/share/uv/python" \
+  VIRTUAL_ENV="/usr/local/venv" \
+  PATH="/usr/local/venv/bin:${PATH}"
 
-RUN adduser -Ds /usr/bin/bash watchtower
-
-USER watchtower:watchtower
-
-WORKDIR /home/watchtower
-
-RUN uv venv -p "${PYTHON_VERSION}" .venv
-
-ENV VIRTUAL_ENV=/home/watchtower/.venv \
-  PATH=/home/watchtower/.venv/bin:$PATH
+RUN uv venv -p 3.13 /usr/local/venv
 
 FROM base AS build
 
-WORKDIR /home/watchtower/app
+WORKDIR /app
 
-USER watchtower:watchtower
-
-COPY --chown=watchtower:watchtower src ./src
-COPY --chown=watchtower:watchtower pyproject.toml uv.lock ./
+COPY src src/
+COPY pyproject.toml uv.lock MANIFEST.in ./
 
 ARG VERSION=0.0.0
+
 ENV SETUPTOOLS_SCM_PRETEND_VERSION="${VERSION}"
 
-RUN uv sync --active && \
+RUN uv sync --frozen --active && \
+  python src/manage.py collectstatic --noinput && \
   uv build
 
 FROM base AS runtime
@@ -45,11 +38,15 @@ LABEL org.opencontainers.image.title="NU Quran Django API" \
   org.opencontainers.image.revision="${VCS_REF}" \
   org.opencontainers.image.licenses="${LICENSE}"
 
-COPY --from=build --chown=watchtower:watchtower /home/watchtower/app/dist /app/dist
-RUN uv pip install /app/dist/nu_quran_api-"${VERSION}"-*.whl && \
-  rm -rf /app/dist
+COPY --from=build /app/dist /app/dist
+
+RUN apk add --no-cache tzdata && \
+  uv pip install /app/dist/nu_quran_api-*.whl && \
+  adduser -Ds /usr/bin/bash nuqc
+
+USER nuqc:nuqc
 
 EXPOSE 8000
 
 ENTRYPOINT ["nu-quran"]
-CMD [ "server" ]
+CMD ["server"]

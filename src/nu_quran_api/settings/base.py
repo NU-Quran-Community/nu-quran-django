@@ -1,5 +1,5 @@
 from datetime import timedelta
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -115,8 +115,15 @@ REST_FRAMEWORK: dict[str, int | Iterable] = {
     "EXCEPTION_HANDLER": "nu_quran_api.exceptions.custom_exception_handler",
 }
 
+
+API_VERSION: str = "0.0.0"
+try:
+    API_VERSION = version("nu_quran_api")
+except PackageNotFoundError:
+    pass
+
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "TITLE": "NU Quran API",
     "DESCRIPTION": "NU Quran Community API for keeping track of achievements",
-    "VERSION": version("nu_quran_api"),
+    "VERSION": API_VERSION,
 }
