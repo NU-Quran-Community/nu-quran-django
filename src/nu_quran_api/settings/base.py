@@ -28,6 +28,7 @@ MIDDLEWARE: list[str] = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -77,6 +78,15 @@ TIME_ZONE: str = "UTC"
 
 USE_I18N: bool = True
 
+LANGUAGES = [
+    ("en", "English"),
+    ("ar", "Arabic"),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
+
 USE_TZ: bool = True
 
 STATIC_URL: str = "static/"
@@ -102,6 +112,7 @@ REST_FRAMEWORK: dict[str, int | Iterable] = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.PageNumberPagination"),
     "PAGE_SIZE": 50,
+    "EXCEPTION_HANDLER": "nu_quran_api.exceptions.custom_exception_handler",
 }
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {

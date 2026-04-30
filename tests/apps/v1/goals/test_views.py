@@ -63,6 +63,19 @@ class TestGoalView:
         response = client.post("/goals/", data=goal_data, format="json")
         assert "Current is greater than target" in response.data["non_field_errors"]
 
+    def test_target_lt_current_arabic_translation(
+        self, client: APIClient, goal_data, jwt_admin_token: str
+    ):
+        client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
+        goal_data["target"] = 5
+        goal_data["current"] = 10
+        response = client.post(
+            "/goals/", data=goal_data, format="json", HTTP_ACCEPT_LANGUAGE="ar"
+        )
+        assert (
+            "القيمة الحالية أكبر من المستهدفة" in response.data["non_field_errors"]
+        )
+
 
 @pytest.mark.django_db
 class TestGoalPermissions:

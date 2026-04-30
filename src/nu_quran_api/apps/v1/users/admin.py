@@ -10,7 +10,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "name_ar", "value")
+    list_display = ("id", "name", "value")
     search_fields = ("name",)
 
 

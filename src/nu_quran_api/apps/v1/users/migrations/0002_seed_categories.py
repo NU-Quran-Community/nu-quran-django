@@ -1,5 +1,6 @@
 from django.db import migrations
 from django.db.models import Model
+from django.utils.translation import gettext_noop
 
 
 def create_categories(apps, schema_editor):
@@ -8,37 +9,37 @@ def create_categories(apps, schema_editor):
     categories = [
         {
             "id": 1,
-            "name": "Attending thought session",
+            "name": gettext_noop("Attending thought session"),
             "name_ar": "حضور جلسة الخاطرة",
             "value": 1,
         },
         {
             "id": 2,
-            "name": "Preparing a thought",
+            "name": gettext_noop("Preparing a thought"),
             "name_ar": "تحضير خاطرة",
             "value": 2,
         },
         {
             "id": 3,
-            "name": "Reading Quran",
+            "name": gettext_noop("Reading Quran"),
             "name_ar": "قراءة القرآن",
             "value": 1,
         },
         {
             "id": 4,
-            "name": "Reciting Quran",
+            "name": gettext_noop("Reciting Quran"),
             "name_ar": "تسميع القرآن",
             "value": 2,
         },
         {
             "id": 5,
-            "name": "Inviting a new member",
+            "name": gettext_noop("Inviting a new member"),
             "name_ar": "دعوة عضو جديد",
             "value": 1,
         },
         {
             "id": 6,
-            "name": "Attending team meeting",
+            "name": gettext_noop("Attending team meeting"),
             "name_ar": "حضور اجتماع الفريق",
             "value": 1,
         },
