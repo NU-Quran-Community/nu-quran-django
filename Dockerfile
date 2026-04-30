@@ -24,7 +24,7 @@ RUN uv sync --frozen --active && \
 FROM base AS runtime
 
 ENV DJANGO_SETTINGS_MODULE=nu_quran_api.settings \
-  DJANGO_DB_PATH=/home/nuqc/db.sqlite3
+  DATABASE_URL="sqlite:////home/watchtower/db.sqlite"
 
 ARG SOURCE_URL=https://github.com/nu-quran-community/nu-quran-django \
   VCS_REF=HEAD \
@@ -49,5 +49,4 @@ USER nuqc:nuqc
 EXPOSE 8000
 
 ENTRYPOINT ["nu-quran"]
-
 CMD ["server"]

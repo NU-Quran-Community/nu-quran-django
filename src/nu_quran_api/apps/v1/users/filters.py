@@ -1,4 +1,5 @@
 import django_filters
+from django.utils.translation import gettext_lazy as _
 
 from . import models
 
@@ -14,10 +15,10 @@ class UserFilter(django_filters.FilterSet):
             ("last_name", "last_name"),
         ),
         field_labels={
-            "username": "Username",
-            "email": "Email",
-            "first_name": "First Name",
-            "last_name": "Last Name",
+            "username": _("Username"),
+            "email": _("Email"),
+            "first_name": _("First Name"),
+            "last_name": _("Last Name"),
         },
     )
 
@@ -57,8 +58,8 @@ class UserActivitiesFilter(django_filters.FilterSet):
             ("category__id", "category"),
         ),
         field_labels={
-            "date": "Activity Date",
-            "category__id": "Category",
+            "date": _("Activity Date"),
+            "category__id": _("Category"),
         },
     )
 
@@ -103,25 +104,20 @@ class CategoryFilter(django_filters.FilterSet):
     ordering = django_filters.OrderingFilter(
         fields=(("value", "value"),),
         field_labels={
-            "value": "value",
+            "value": _("value"),
         },
     )
 
     id: django_filters.NumberFilter = django_filters.NumberFilter(
         field_name="id",
         lookup_expr="exact",
-        help_text="Filter categories by ID",
+        help_text=_("Filter categories by ID"),
     )
     name: django_filters.CharFilter = django_filters.CharFilter(
-        field_name="name", lookup_expr="exact", help_text="Filter categories by name"
-    )
-    name_ar: django_filters.CharFilter = django_filters.CharFilter(
-        field_name="name_ar",
-        lookup_expr="icontains",
-        help_text="Filter categories by arabic name",
+        field_name="name", lookup_expr="exact", help_text=_("Filter categories by name")
     )
     value: django_filters.NumberFilter = django_filters.NumberFilter(
-        field_name="value", lookup_expr="exact", help_text="Filter categories by value"
+        field_name="value", lookup_expr="exact", help_text=_("Filter categories by value")
     )
 
     class Meta:

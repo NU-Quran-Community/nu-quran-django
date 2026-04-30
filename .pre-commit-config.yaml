@@ -1,0 +1,24 @@
+repos:
+  # NOTE: Generic
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+  # NOTE: Python
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.9
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
+  # NOTE: TOML
+  - repo: https://github.com/tombi-toml/tombi-pre-commit
+    rev: v0.9.17
+    hooks:
+      - id: tombi-format
+      - id: tombi-lint
+  # NOTE: MD and YAML files
+  - repo: https://github.com/oxc-project/mirrors-oxfmt
+    rev: v0.43.0
+    hooks:
+      - id: oxfmt
+        types_or: [markdown, html, yaml]
