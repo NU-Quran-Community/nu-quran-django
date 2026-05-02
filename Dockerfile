@@ -24,7 +24,7 @@ RUN uv sync --frozen --active && \
 FROM base AS runtime
 
 ENV DJANGO_SETTINGS_MODULE=nu_quran_api.settings \
-  DATABASE_URL="sqlite:////home/watchtower/db.sqlite"
+  DATABASE_URL="sqlite:////home/nuqc/db.sqlite"
 
 ARG SOURCE_URL=https://github.com/nu-quran-community/nu-quran-django \
   VCS_REF=HEAD \
