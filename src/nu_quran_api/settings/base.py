@@ -85,6 +85,8 @@ LANGUAGES = [
 
 LOCALE_PATHS = [
     BASE_DIR / "locale",
+    BASE_DIR / "apps" / "v1" / "users" / "locale",
+    BASE_DIR / "apps" / "v1" / "goals" / "locale",
 ]
 
 USE_TZ: bool = True
