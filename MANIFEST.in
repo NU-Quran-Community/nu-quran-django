@@ -6,5 +6,6 @@ prune tests
 # Add additional files to package
 graft */nu_quran_api/env
 graft */nu_quran_api/staticfiles
+graft */nu_quran_api/locale
 graft */nu_quran_api/apps/v1/*/fixtures
 graft */nu_quran_api/apps/v1/*/locale
