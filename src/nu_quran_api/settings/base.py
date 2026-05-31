@@ -3,6 +3,8 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any, Iterable
 
+from django.utils.translation import gettext_lazy as _
+
 from ..apps import v1
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,9 +80,10 @@ TIME_ZONE: str = "UTC"
 
 USE_I18N: bool = True
 
+LANGUAGE_CODE = "en"
 LANGUAGES = [
-    ("en", "English"),
-    ("ar", "Arabic"),
+    ("en", _("English")),
+    ("ar", _("Arabic")),
 ]
 
 LOCALE_PATHS = [
