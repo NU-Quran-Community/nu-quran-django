@@ -1,10 +1,8 @@
-# Arabic translation for NU Quran API - Goals App.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 18:56+0200\n"
+"POT-Creation-Date: 2026-05-31 07:42+0000\n"
 "PO-Revision-Date: 2026-03-23 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -13,42 +11,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:9
-msgid "Goals"
-msgstr "الأهداف"
+#: src/nu_quran_api/apps/v1/goals/models.py:8
+msgid "Goal"
+msgstr "هدف"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:12
+#: src/nu_quran_api/apps/v1/goals/models.py:9
+msgid "Goals"
+msgstr "أهداف"
+
+#: src/nu_quran_api/apps/v1/goals/models.py:13
 msgid "Monthly"
 msgstr "شهري"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:13
+#: src/nu_quran_api/apps/v1/goals/models.py:14
 msgid "Yearly"
 msgstr "سنوي"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:16
+#: src/nu_quran_api/apps/v1/goals/models.py:17
 msgid "scope"
-msgstr "النطاق"
+msgstr "نطاق"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:19
+#: src/nu_quran_api/apps/v1/goals/models.py:20
 msgid "title"
-msgstr "العنوان"
+msgstr "عنوان"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:22
+#: src/nu_quran_api/apps/v1/goals/models.py:23
 msgid "description"
-msgstr "الوصف"
+msgstr "وصف"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:25
+#: src/nu_quran_api/apps/v1/goals/models.py:26
 msgid "target"
-msgstr "المستهدف"
+msgstr "مستهدف"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:28
+#: src/nu_quran_api/apps/v1/goals/models.py:29
 msgid "current"
-msgstr "الحالي"
+msgstr "حالي"
 
-#: .\nu_quran_api\apps\v1\goals\models.py:30
+#: src/nu_quran_api/apps/v1/goals/models.py:31
 msgid "created at"
-msgstr "تاريخ الإنشاء"
+msgstr "تم إنشاؤه في"
 
-#: .\nu_quran_api\apps\v1\goals\serializers.py:16
+#: src/nu_quran_api/apps/v1/goals/serializers.py:16
 msgid "Current is greater than target"
 msgstr "القيمة الحالية أكبر من المستهدفة"

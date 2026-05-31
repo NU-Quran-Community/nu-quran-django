@@ -1,11 +1,9 @@
-# Arabic translation for NU Quran API.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 18:56+0200\n"
-"PO-Revision-Date: 2026-03-23 00:00+0000\n"
+"POT-Creation-Date: 2026-05-31 09:01+0000\n"
+"PO-Revision-Date: 2026-05-31 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic <ar@li.org>\n"
 "Language: ar\n"
@@ -13,49 +11,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\nu_quran_api\exceptions.py:15
-#, python-format
-msgid "No %(name)s matches the given query."
-msgstr "لم يتم العثور على %(name)s يطابق الاستعلام المحدد."
+#: src/nu_quran_api/settings/base.py:85
+msgid "English"
+msgstr "الإنجليزية"
 
-msgid "User"
-msgstr "مستخدم"
+#: src/nu_quran_api/settings/base.py:86
+msgid "Arabic"
+msgstr "العربية"
 
-msgid "Goal"
-msgstr "هدف"
-
-msgid "Category"
-msgstr "فئة"
-
-msgid "Activity"
-msgstr "نشاط"
-
-msgid "Group"
-msgstr "مجموعة"
-
-msgid "Token is invalid or expired"
-msgstr "الرمز غير صالح أو منتهي الصلاحية"
-
+# NOTE: DRF errors (manually added)
 msgid "No active account found with the given credentials"
-msgstr "لم يتم العثور على حساب نشط ببيانات الاعتماد المقدمة"
+msgstr "لا يوجد حساب نشط يطابق بيانات تسجيل الدخول المدخلة"
 
-msgid "Authentication credentials were not provided."
-msgstr "لم يتم توفير بيانات اعتماد المصادقة."
-
-msgid "You do not have permission to perform this action."
-msgstr "ليس لديك الإذن لأداء هذا الإجراء."
-
-msgid "This field is required."
-msgstr "هذا الحقل مطلوب."
-
-msgid "Enter a valid email address."
-msgstr "أدخل عنوان بريد إلكتروني صالح."
-
-msgid "This field must be unique."
-msgstr "يجب أن يكون هذا الحقل فريداً."
-
-msgid "Enter a valid value."
-msgstr "أدخل قيمة صالحة."
-
-msgid "Invalid input."
-msgstr "مدخل غير صالح."
+# NOTE: Dynamic errors (manually added)
+msgid "No %(model)s matches the given query."
+msgstr "لم يتم العثور على %(model)s يطابق الاستعلام المحدد."

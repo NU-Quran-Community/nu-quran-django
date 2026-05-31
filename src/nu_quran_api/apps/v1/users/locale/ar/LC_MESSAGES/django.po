@@ -1,10 +1,8 @@
-# Arabic translation for NU Quran API - Users App.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 18:56+0200\n"
+"POT-Creation-Date: 2026-05-31 07:42+0000\n"
 "PO-Revision-Date: 2026-03-23 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -13,120 +11,129 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:18
+#: src/nu_quran_api/apps/v1/users/filters.py:18
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:19
+#: src/nu_quran_api/apps/v1/users/filters.py:19
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:20
+#: src/nu_quran_api/apps/v1/users/filters.py:20
 msgid "First Name"
 msgstr "الاسم الأول"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:21
+#: src/nu_quran_api/apps/v1/users/filters.py:21
 msgid "Last Name"
 msgstr "اسم العائلة"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:61
+#: src/nu_quran_api/apps/v1/users/filters.py:61
 msgid "Activity Date"
 msgstr "تاريخ النشاط"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:62
+#: src/nu_quran_api/apps/v1/users/filters.py:62
+#: src/nu_quran_api/apps/v1/users/models.py:36
 msgid "Category"
-msgstr "الفئة"
+msgstr "فئة"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:107
-#: .\nu_quran_api\apps\v1\users\models.py:47
+#: src/nu_quran_api/apps/v1/users/filters.py:107
+#: src/nu_quran_api/apps/v1/users/models.py:48
 msgid "value"
-msgstr "القيمة"
+msgstr "قيمة"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:114
+#: src/nu_quran_api/apps/v1/users/filters.py:114
 msgid "Filter categories by ID"
 msgstr "تصفية الفئات حسب المعرف"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:117
+#: src/nu_quran_api/apps/v1/users/filters.py:117
 msgid "Filter categories by name"
 msgstr "تصفية الفئات حسب الاسم"
 
-#: .\nu_quran_api\apps\v1\users\filters.py:120
+#: src/nu_quran_api/apps/v1/users/filters.py:120
 msgid "Filter categories by value"
 msgstr "تصفية الفئات حسب القيمة"
 
-#: .\nu_quran_api\apps\v1\users\migrations\0002_seed_categories.py:12
+#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:12
 msgid "Attending thought session"
 msgstr "حضور جلسة الخاطرة"
 
-#: .\nu_quran_api\apps\v1\users\migrations\0002_seed_categories.py:18
+#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:18
 msgid "Preparing a thought"
 msgstr "تحضير خاطرة"
 
-#: .\nu_quran_api\apps\v1\users\migrations\0002_seed_categories.py:24
+#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:24
 msgid "Reading Quran"
 msgstr "قراءة القرآن"
 
-#: .\nu_quran_api\apps\v1\users\migrations\0002_seed_categories.py:30
+#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:30
 msgid "Reciting Quran"
 msgstr "تسميع القرآن"
 
-#: .\nu_quran_api\apps\v1\users\migrations\0002_seed_categories.py:36
+#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:36
 msgid "Inviting a new member"
 msgstr "دعوة عضو جديد"
 
-#: .\nu_quran_api\apps\v1\users\migrations\0002_seed_categories.py:42
+#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:42
 msgid "Attending team meeting"
 msgstr "حضور اجتماع الفريق"
 
-#: .\nu_quran_api\apps\v1\users\models.py:12
+#: src/nu_quran_api/apps/v1/users/models.py:12
 msgid "Can change the user's activities"
 msgstr "يمكن تغيير أنشطة المستخدم"
 
-#: .\nu_quran_api\apps\v1\users\models.py:21
+#: src/nu_quran_api/apps/v1/users/models.py:21
 msgid "User referrer reference."
 msgstr "مرجع إحالة المستخدم."
 
-#: .\nu_quran_api\apps\v1\users\models.py:29
+#: src/nu_quran_api/apps/v1/users/models.py:29
 msgid "User supervisor reference (required for students)."
 msgstr "مرجع مشرف المستخدم (مطلوب للطلاب)."
 
-#: .\nu_quran_api\apps\v1\users\models.py:36
+#: src/nu_quran_api/apps/v1/users/models.py:37
 msgid "Categories"
 msgstr "الفئات"
 
-#: .\nu_quran_api\apps\v1\users\models.py:40
+#: src/nu_quran_api/apps/v1/users/models.py:41
 msgid "name"
 msgstr "الاسم"
 
-#: .\nu_quran_api\apps\v1\users\models.py:58
+#: src/nu_quran_api/apps/v1/users/models.py:59
+msgid "Activity"
+msgstr "نشاط"
+
+#: src/nu_quran_api/apps/v1/users/models.py:60
 msgid "Activities"
-msgstr "الأنشطة"
+msgstr "أنشطة"
 
-#: .\nu_quran_api\apps\v1\users\models.py:67
+#: src/nu_quran_api/apps/v1/users/models.py:69
 msgid "user"
-msgstr "المستخدم"
+msgstr "مستخدم"
 
-#: .\nu_quran_api\apps\v1\users\models.py:72
+# NOTE: Manually added
+msgid "User"
+msgstr "مستخدم"
+
+#: src/nu_quran_api/apps/v1/users/models.py:74
 msgid "category"
-msgstr "الفئة"
+msgstr "فئة"
 
-#: .\nu_quran_api\apps\v1\users\models.py:75
+#: src/nu_quran_api/apps/v1/users/models.py:77
 msgid "date"
-msgstr "التاريخ"
+msgstr "تاريخ"
 
-#: .\nu_quran_api\apps\v1\users\serializers.py:49
+#: src/nu_quran_api/apps/v1/users/serializers.py:49
 msgid "No referrer was found with the given username"
 msgstr "لم يتم العثور على مرجع باسم المستخدم المحدد"
 
-#: .\nu_quran_api\apps\v1\users\serializers.py:58
+#: src/nu_quran_api/apps/v1/users/serializers.py:58
 msgid "No supervisor was found with the given username"
 msgstr "لم يتم العثور على مشرف باسم المستخدم المحدد"
 
-#: .\nu_quran_api\apps\v1\users\serializers.py:89
+#: src/nu_quran_api/apps/v1/users/serializers.py:89
 msgid "Username already taken"
 msgstr "اسم المستخدم محجوز بالفعل"
 
-#: .\nu_quran_api\apps\v1\users\views.py:54
-#: .\nu_quran_api\apps\v1\users\views.py:187
+#: src/nu_quran_api/apps/v1/users/views.py:54
+#: src/nu_quran_api/apps/v1/users/views.py:187
 msgid "No user was found with the given ID."
 msgstr "لم يتم العثور على مستخدم بالمعرف المحدد."

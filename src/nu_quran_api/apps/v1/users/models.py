@@ -33,6 +33,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
     class Meta:
+        verbose_name = _("Category")
         verbose_name_plural = _("Categories")
         ordering = ["id"]
 
@@ -55,6 +56,7 @@ class Category(models.Model):
 
 class Activity(models.Model):
     class Meta:
+        verbose_name = _("Activity")
         verbose_name_plural = _("Activities")
         ordering = ["-date"]
 

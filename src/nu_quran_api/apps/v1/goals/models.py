@@ -1,12 +1,13 @@
-from django.db import models
 from django.core.validators import MinValueValidator
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
 class Goal(models.Model):
     class Meta:
-        ordering = ["created_at"]
+        verbose_name = _("Goal")
         verbose_name_plural = _("Goals")
+        ordering = ["created_at"]
 
     class Scope(models.TextChoices):
         MONTHLY = "monthly", _("Monthly")
