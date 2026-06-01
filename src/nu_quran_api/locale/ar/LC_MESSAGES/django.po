@@ -19,10 +19,307 @@ msgstr "الإنجليزية"
 msgid "Arabic"
 msgstr "العربية"
 
-# NOTE: DRF errors (manually added)
+# NOTE: DRF/SimpleJWT static errors (manually added)
 msgid "No active account found with the given credentials"
 msgstr "لا يوجد حساب نشط يطابق بيانات تسجيل الدخول المدخلة"
+
+msgid "This field is required."
+msgstr "هذا الحقل مطلوب."
+
+msgid "This field may not be null."
+msgstr "لا يمكن أن تكون قيمة هذا الحقل فارغة."
+
+msgid "Must be a valid boolean."
+msgstr "يجب أن تكون قيمة منطقية صالحة."
+
+msgid "Not a valid string."
+msgstr "قيمة نصية غير صالحة."
+
+msgid "This field may not be blank."
+msgstr "لا يمكن أن يكون هذا الحقل فارغاً."
+
+msgid "Enter a valid email address."
+msgstr "أدخل عنوان بريد إلكتروني صالح."
+
+msgid "This value does not match the required pattern."
+msgstr "هذه القيمة لا تطابق النمط المطلوب."
+
+msgid "Enter a valid \"slug\" consisting of letters, numbers, underscores or hyphens."
+msgstr "أدخل \"slug\" صالحاً يتكون من حروف أو أرقام أو شرطات سفلية أو وصل."
+
+msgid "Enter a valid \"slug\" consisting of Unicode letters, numbers, underscores, or hyphens."
+msgstr "أدخل \"slug\" صالحاً يتكون من حروف يونيكود أو أرقام أو شرطات سفلية أو وصل."
+
+msgid "Enter a valid URL."
+msgstr "أدخل رابطاً صالحاً."
+
+msgid "Must be a valid UUID."
+msgstr "يجب أن يكون UUID صالحاً."
+
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr "أدخل عنوان IPv4 أو IPv6 صالح."
+
+msgid "A valid integer is required."
+msgstr "مطلوب عدد صحيح صالح."
+
+msgid "String value too large."
+msgstr "القيمة النصية كبيرة جداً."
+
+msgid "A valid number is required."
+msgstr "مطلوب رقم صالح."
+
+msgid "Integer value too large to convert to float"
+msgstr "القيمة الصحيحة كبيرة جداً للتحويل إلى عدد عشري."
+
+msgid "Expected a datetime but got a date."
+msgstr "متوقع تاريخ ووقت ولكن تم استلام تاريخ فقط."
+
+msgid "Datetime value out of range."
+msgstr "قيمة التاريخ والوقت خارج النطاق."
+
+msgid "Expected a date but got a datetime."
+msgstr "متوقع تاريخ ولكن تم استلام تاريخ ووقت."
+
+msgid "Upload a valid image. The file you uploaded was either not an image or a corrupted image."
+msgstr "حمّل صورة صالحة. الملف الذي تم رفعه إما أنه ليس صورة أو أنه تالف."
+
+msgid "This list may not be empty."
+msgstr "لا يمكن أن تكون هذه القائمة فارغة."
+
+msgid "This dictionary may not be empty."
+msgstr "لا يمكن أن يكون هذا القاموس فارغاً."
+
+msgid "Invalid value."
+msgstr "قيمة غير صالحة."
+
+msgid "Invalid hyperlink - No URL match."
+msgstr "رابط غير صالح - لا يوجد تطابق للرابط."
+
+msgid "Invalid hyperlink - Incorrect URL match."
+msgstr "رابط غير صالح - تطابق رابط غير صحيح."
+
+msgid "Invalid hyperlink - Object does not exist."
+msgstr "رابط غير صالح - الكائن غير موجود."
+
+msgid "This selection may not be empty."
+msgstr "لا يمكن أن تكون هذه المجموعة فارغة."
+
+msgid "No file was submitted."
+msgstr "لم يتم إرسال ملف."
+
+msgid "The submitted data was not a file. Check the encoding type on the form."
+msgstr "البيانات المرسلة ليست ملفاً. تحقق من نوع الترميز في النموذج."
+
+msgid "No filename could be determined."
+msgstr "تعذر تحديد اسم الملف."
+
+msgid "The submitted file is empty."
+msgstr "الملف المرسل فارغ."
+
+msgid "Value must be valid JSON."
+msgstr "يجب أن تكون القيمة JSON صالحاً."
+
+msgid "No input was provided."
+msgstr "لم يتم تقديم أي إدخال."
+
+msgid "This field must be unique."
+msgstr "يجب أن تكون قيمة هذا الحقل فريدة."
+
+msgid "A server error occurred."
+msgstr "حدث خطأ في الخادم."
+
+msgid "Invalid input."
+msgstr "إدخال غير صالح."
+
+msgid "Malformed request."
+msgstr "طلب مشوه."
+
+msgid "Incorrect authentication credentials."
+msgstr "بيانات اعتماد المصادقة غير صحيحة."
+
+msgid "Authentication credentials were not provided."
+msgstr "لم يتم تقديم بيانات اعتماد المصادقة."
+
+msgid "You do not have permission to perform this action."
+msgstr "ليس لديك صلاحية لتنفيذ هذا الإجراء."
+
+msgid "Not found."
+msgstr "غير موجود."
+
+msgid "Could not satisfy the request Accept header."
+msgstr "تعذر تلبية رأس Accept للطلب."
+
+msgid "Request was throttled."
+msgstr "تم تقييد الطلب."
+
+msgid "Invalid page."
+msgstr "صفحة غير صالحة."
+
+msgid "Invalid cursor"
+msgstr "مؤشر غير صالح."
+
+msgid "No active account found for the given token."
+msgstr "لا يوجد حساب نشط يطابق الرمز المميز المُعطى."
+
+msgid "Token is blacklisted"
+msgstr "الرمز المميز مدرج في القائمة السوداء."
+
+msgid "Cannot create token with no type or lifetime"
+msgstr "تعذر إنشاء رمز مميز بدون نوع أو مدة صلاحية."
+
+msgid "Token is expired"
+msgstr "انتهت صلاحية الرمز المميز."
+
+msgid "Token is invalid"
+msgstr "الرمز المميز غير صالح."
+
+msgid "Token has no id"
+msgstr "الرمز المميز لا يحتوي على معرف."
+
+msgid "Token has no type"
+msgstr "الرمز المميز لا يحتوي على نوع."
+
+msgid "Token has wrong type"
+msgstr "نوع الرمز المميز غير صحيح."
+
+msgid "Token is invalid or expired"
+msgstr "الرمز المميز غير صالح أو منتهي الصلاحية."
+
+msgid "Authorization header must contain two space-delimited values"
+msgstr "يجب أن يحتوي رأس التفويض على قيمتين مفصولتين بمسافة."
+
+msgid "Given token not valid for any token type"
+msgstr "الرمز المميز المُعطى غير صالح لأي نوع من الرموز."
+
+msgid "Token contained no recognizable user identification"
+msgstr "الرمز المميز لا يحتوي على هوية مستخدم يمكن التعرف عليها."
+
+msgid "User not found"
+msgstr "المستخدم غير موجود."
+
+msgid "User is inactive"
+msgstr "المستخدم غير نشط."
+
+msgid "The user's password has been changed."
+msgstr "تم تغيير كلمة مرور المستخدم."
+
+msgid "Invalid algorithm specified"
+msgstr "الخوارزمية المحددة غير صالحة."
 
 # NOTE: Dynamic errors (manually added)
 msgid "No %(model)s matches the given query."
 msgstr "لم يتم العثور على %(model)s يطابق الاستعلام المحدد."
+
+msgid "Ensure this field has no more than %(max_length)s characters."
+msgstr "تأكد من أن هذا الحقل لا يحتوي على أكثر من %(max_length)s حرفاً."
+
+msgid "Ensure this field has at least %(min_length)s characters."
+msgstr "تأكد من أن هذا الحقل يحتوي على %(min_length)s حرفاً على الأقل."
+
+msgid "Ensure this value is less than or equal to %(max_value)s."
+msgstr "تأكد من أن هذه القيمة أقل من أو تساوي %(max_value)s."
+
+msgid "Ensure this value is greater than or equal to %(min_value)s."
+msgstr "تأكد من أن هذه القيمة أكبر من أو تساوي %(min_value)s."
+
+msgid "Ensure that there are no more than %(max_digits)s digits in total."
+msgstr "تأكد من أن العدد الإجمالي للأرقام لا يتجاوز %(max_digits)s."
+
+msgid "Ensure that there are no more than %(max_decimal_places)s decimal places."
+msgstr "تأكد من أن عدد الأماكن العشرية لا يتجاوز %(max_decimal_places)s."
+
+msgid "Ensure that there are no more than %(max_whole_digits)s digits before the decimal point."
+msgstr "تأكد من أن عدد الأرقام قبل الفاصلة العشرية لا يتجاوز %(max_whole_digits)s."
+
+msgid "Datetime has wrong format. Use one of these formats instead: %(format)s."
+msgstr "تنسيق التاريخ والوقت غير صحيح. استخدم أحد هذه التنسيقات بدلاً من ذلك: %(format)s."
+
+msgid "Invalid datetime for the timezone \"%(timezone)s\"."
+msgstr "تاريخ ووقت غير صالح للمنطقة الزمنية \"%(timezone)s\"."
+
+msgid "Date has wrong format. Use one of these formats instead: %(format)s."
+msgstr "تنسيق التاريخ غير صحيح. استخدم أحد هذه التنسيقات بدلاً من ذلك: %(format)s."
+
+msgid "Time has wrong format. Use one of these formats instead: %(format)s."
+msgstr "تنسيق الوقت غير صحيح. استخدم أحد هذه التنسيقات بدلاً من ذلك: %(format)s."
+
+msgid "Duration has wrong format. Use one of these formats instead: %(format)s."
+msgstr "تنسيق المدة غير صحيح. استخدم أحد هذه التنسيقات بدلاً من ذلك: %(format)s."
+
+msgid "The number of days must be between %(min_days)s and %(max_days)s."
+msgstr "يجب أن يكون عدد الأيام بين %(min_days)s و %(max_days)s."
+
+msgid "Ensure this field has no more than %(max_length)s elements."
+msgstr "تأكد من أن هذا الحقل لا يحتوي على أكثر من %(max_length)s عنصراً."
+
+msgid "Ensure this field has at least %(min_length)s elements."
+msgstr "تأكد من أن هذا الحقل يحتوي على %(min_length)s عنصراً على الأقل."
+
+msgid "Expected a list of items but got type \"%(input_type)s\"."
+msgstr "متوقع قائمة من العناصر ولكن تم استلام نوع \"%(input_type)s\"."
+
+msgid "Expected a dictionary of items but got type \"%(input_type)s\"."
+msgstr "متوقع قاموس من العناصر ولكن تم استلام نوع \"%(input_type)s\"."
+
+msgid "\"%(input)s\" is not a valid choice."
+msgstr "\"%(input)s\" ليس خياراً صالحاً."
+
+msgid "\"%(input)s\" is not a valid path choice."
+msgstr "\"%(input)s\" ليس خيار مسار صالحاً."
+
+msgid "Model has no field named \"%(field_name)s\"."
+msgstr "النموذج لا يحتوي على حقل باسم \"%(field_name)s\"."
+
+msgid "Ensure this filename has at most %(max_length)s characters (it has %(length)s)."
+msgstr "تأكد من أن اسم الملف لا يحتوي على أكثر من %(max_length)s حرفاً (الحالي %(length)s)."
+
+msgid "Invalid pk \"%(pk_value)s\" - object does not exist."
+msgstr "المعرف الرئيسي \"%(pk_value)s\" غير صالح - الكائن غير موجود."
+
+msgid "Incorrect type. Expected pk value, received %(data_type)s."
+msgstr "نوع غير صحيح. متوقع قيمة معرف رئيسي، تم استلام %(data_type)s."
+
+msgid "Incorrect type. Expected URL string, received %(data_type)s."
+msgstr "نوع غير صحيح. متوقع رابط URL نصي، تم استلام %(data_type)s."
+
+msgid "Object with %(slug_name)s=%(value)s does not exist."
+msgstr "الكائن ذو %(slug_name)s=%(value)s غير موجود."
+
+msgid "Method \"%(method)s\" not allowed."
+msgstr "الطريقة \"%(method)s\" غير مسموح بها."
+
+msgid "Unsupported media type \"%(media_type)s\" in request."
+msgstr "نوع الوسائط \"%(media_type)s\" غير مدعوم في الطلب."
+
+msgid "Request was throttled. Expected available in %(wait)s seconds."
+msgstr "تم تقييد الطلب. المتوقع التوفر خلال %(wait)s ثانية/ثوانٍ."
+
+msgid "The fields %(field_names)s must make a unique set."
+msgstr "يجب أن تشكّل الحقول %(field_names)s مجموعة فريدة."
+
+msgid "This field must be unique for the \"%(date_field)s\" date."
+msgstr "يجب أن يكون هذا الحقل فريداً لتاريخ \"%(date_field)s\"."
+
+msgid "This field must be unique for the \"%(date_field)s\" month."
+msgstr "يجب أن يكون هذا الحقل فريداً لشهر \"%(date_field)s\"."
+
+msgid "This field must be unique for the \"%(date_field)s\" year."
+msgstr "يجب أن يكون هذا الحقل فريداً لسنة \"%(date_field)s\"."
+
+msgid "Invalid data. Expected a dictionary, but got %(datatype)s."
+msgstr "بيانات غير صالحة. متوقع قاموس، ولكن تم استلام %(datatype)s."
+
+msgid "Surrogate characters are not allowed: U+%(code_point)s."
+msgstr "الأحرف البديلة غير مسموح بها: U+%(code_point)s."
+
+msgid "Token has no '%(claim)s' claim"
+msgstr "الرمز المميز لا يحتوي على مطالبة '%(claim)s'."
+
+msgid "Token '%(claim)s' claim has expired"
+msgstr "انتهت صلاحية مطالبة '%(claim)s' في الرمز المميز."
+
+msgid "Unrecognized algorithm type '%(algorithm)s'"
+msgstr "نوع الخوارزمية '%(algorithm)s' غير معروف."
+
+msgid "You must have cryptography installed to use %(algorithm)s."
+msgstr "يجب تثبيت مكتبة cryptography لاستخدام %(algorithm)s."
