@@ -8,11 +8,19 @@ from django_stubs_ext import StrPromise
 
 class User(AbstractUser):
     class Meta:
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
         permissions: t.Iterable[tuple[str, str | StrPromise]] = (
             ("change_user_activities", _("Can change the user's activities")),
         )
         ordering = ["id"]
 
+    email = models.EmailField(
+        _("email address"),
+        unique=True,
+        blank=False,
+        null=False,
+    )
     referrer: models.ForeignKey = models.ForeignKey(
         "self",
         null=True,

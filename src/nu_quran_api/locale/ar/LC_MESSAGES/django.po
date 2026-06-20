@@ -323,3 +323,6 @@ msgstr "نوع الخوارزمية '%(algorithm)s' غير معروف."
 
 msgid "You must have cryptography installed to use %(algorithm)s."
 msgstr "يجب تثبيت مكتبة cryptography لاستخدام %(algorithm)s."
+
+msgid "user with this email address already exists."
+msgstr "يوجد مستخدم مسجل بالفعل بهذا البريد الإلكتروني."

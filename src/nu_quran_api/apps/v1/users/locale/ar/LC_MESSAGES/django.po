@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 07:42+0000\n"
+"POT-Creation-Date: 2026-06-20 16:44+0000\n"
 "PO-Revision-Date: 2026-03-23 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -32,12 +32,12 @@ msgid "Activity Date"
 msgstr "تاريخ النشاط"
 
 #: src/nu_quran_api/apps/v1/users/filters.py:62
-#: src/nu_quran_api/apps/v1/users/models.py:36
+#: src/nu_quran_api/apps/v1/users/models.py:62
 msgid "Category"
 msgstr "فئة"
 
 #: src/nu_quran_api/apps/v1/users/filters.py:107
-#: src/nu_quran_api/apps/v1/users/models.py:48
+#: src/nu_quran_api/apps/v1/users/models.py:74
 msgid "value"
 msgstr "قيمة"
 
@@ -77,35 +77,43 @@ msgstr "دعوة عضو جديد"
 msgid "Attending team meeting"
 msgstr "حضور اجتماع الفريق"
 
-#: src/nu_quran_api/apps/v1/users/models.py:12
+#: src/nu_quran_api/apps/v1/users/models.py:11
+msgid "Only Arabic letters are allowed."
+msgstr "يسمح فقط بالحروف العربية."
+
+#: src/nu_quran_api/apps/v1/users/models.py:18
 msgid "Can change the user's activities"
 msgstr "يمكن تغيير أنشطة المستخدم"
 
-#: src/nu_quran_api/apps/v1/users/models.py:21
+#: src/nu_quran_api/apps/v1/users/models.py:23
+msgid "email address"
+msgstr "عنوان بريد إلكتروني"
+
+#: src/nu_quran_api/apps/v1/users/models.py:47
 msgid "User referrer reference."
 msgstr "مرجع إحالة المستخدم."
 
-#: src/nu_quran_api/apps/v1/users/models.py:29
+#: src/nu_quran_api/apps/v1/users/models.py:55
 msgid "User supervisor reference (required for students)."
 msgstr "مرجع مشرف المستخدم (مطلوب للطلاب)."
 
-#: src/nu_quran_api/apps/v1/users/models.py:37
+#: src/nu_quran_api/apps/v1/users/models.py:63
 msgid "Categories"
 msgstr "الفئات"
 
-#: src/nu_quran_api/apps/v1/users/models.py:41
+#: src/nu_quran_api/apps/v1/users/models.py:67
 msgid "name"
 msgstr "الاسم"
 
-#: src/nu_quran_api/apps/v1/users/models.py:59
+#: src/nu_quran_api/apps/v1/users/models.py:85
 msgid "Activity"
 msgstr "نشاط"
 
-#: src/nu_quran_api/apps/v1/users/models.py:60
+#: src/nu_quran_api/apps/v1/users/models.py:86
 msgid "Activities"
 msgstr "أنشطة"
 
-#: src/nu_quran_api/apps/v1/users/models.py:69
+#: src/nu_quran_api/apps/v1/users/models.py:95
 msgid "user"
 msgstr "مستخدم"
 
@@ -113,11 +121,11 @@ msgstr "مستخدم"
 msgid "User"
 msgstr "مستخدم"
 
-#: src/nu_quran_api/apps/v1/users/models.py:74
+#: src/nu_quran_api/apps/v1/users/models.py:100
 msgid "category"
 msgstr "فئة"
 
-#: src/nu_quran_api/apps/v1/users/models.py:77
+#: src/nu_quran_api/apps/v1/users/models.py:103
 msgid "date"
 msgstr "تاريخ"
 
@@ -133,7 +141,7 @@ msgstr "لم يتم العثور على مشرف باسم المستخدم ال�
 msgid "Username already taken"
 msgstr "اسم المستخدم محجوز بالفعل"
 
-#: src/nu_quran_api/apps/v1/users/views.py:54
-#: src/nu_quran_api/apps/v1/users/views.py:187
+#: src/nu_quran_api/apps/v1/users/views.py:71
+#: src/nu_quran_api/apps/v1/users/views.py:204
 msgid "No user was found with the given ID."
 msgstr "لم يتم العثور على مستخدم بالمعرف المحدد."
