@@ -2,6 +2,7 @@ import typing as t
 
 from django.db.models import QuerySet, Sum
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import (
     OpenApiExample,
     OpenApiParameter,
@@ -13,13 +14,29 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.request import Request
 from rest_framework.response import Response
-from django.utils.translation import gettext_lazy as _
 
 from . import filters, models, serializers
 from . import permissions as userperms
 
 
-@extend_schema_view(create=extend_schema(auth=[]))
+@extend_schema_view(
+    create=extend_schema(
+        auth=[],
+        examples=[
+            OpenApiExample(
+                name="User Signup",
+                value={
+                    "username": "ahmed",
+                    "email": "user@example.com",
+                    "password": "password",
+                    "first_name": "أحمد",
+                    "last_name": "محمد",
+                    "referrer": "username",
+                },
+            )
+        ],
+    )
+)
 class UserViewSet(viewsets.ModelViewSet):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
