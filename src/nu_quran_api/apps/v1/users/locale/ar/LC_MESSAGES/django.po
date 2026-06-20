@@ -89,18 +89,6 @@ msgstr "يمكن تغيير أنشطة المستخدم"
 msgid "email address"
 msgstr "عنوان بريد إلكتروني"
 
-#: src/nu_quran_api/apps/v1/users/models.py:29
-#, fuzzy
-#| msgid "First Name"
-msgid "first name"
-msgstr "الاسم الأول"
-
-#: src/nu_quran_api/apps/v1/users/models.py:36
-#, fuzzy
-#| msgid "Last Name"
-msgid "last name"
-msgstr "اسم العائلة"
-
 #: src/nu_quran_api/apps/v1/users/models.py:47
 msgid "User referrer reference."
 msgstr "مرجع إحالة المستخدم."

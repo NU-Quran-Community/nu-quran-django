@@ -1,15 +1,9 @@
 import typing as t
 
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_stubs_ext import StrPromise
-
-ARABIC_ONLY_VALIDATOR: RegexValidator = RegexValidator(
-    regex=r"[\u0600-\u06FF\s]+",
-    message=_("Only Arabic letters are allowed."),
-)
 
 
 class User(AbstractUser):
@@ -26,20 +20,6 @@ class User(AbstractUser):
         unique=True,
         blank=False,
         null=False,
-    )
-    first_name = models.CharField(
-        _("first name"),
-        max_length=150,
-        blank=False,
-        null=False,
-        validators=[ARABIC_ONLY_VALIDATOR],
-    )
-    last_name = models.CharField(
-        _("last name"),
-        max_length=150,
-        blank=False,
-        null=False,
-        validators=[ARABIC_ONLY_VALIDATOR],
     )
     referrer: models.ForeignKey = models.ForeignKey(
         "self",
