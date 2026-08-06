@@ -29,6 +29,7 @@ INSTALLED_APPS: list[str] = [
 MIDDLEWARE: list[str] = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -120,6 +121,11 @@ REST_FRAMEWORK: dict[str, int | Iterable] = {
     "EXCEPTION_HANDLER": "nu_quran_api.exceptions.custom_exception_handler",
 }
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
+}
 
 API_VERSION: str = "0.0.0"
 try:
