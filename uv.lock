@@ -232,7 +232,7 @@ wheels = [
 ]
 
 [[package]]
-name = "nu-quran-api"
+name = "nile-quran-community-api"
 source = { editable = "." }
 dependencies = [
   { name = "dj-database-url" },

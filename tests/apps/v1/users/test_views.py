@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
-from nu_quran_api.apps.v1.users.models import Activity, Category, User
-from nu_quran_api.apps.v1.users.serializers import UserSerializer
+from nile_quran_community_api.apps.v1.users.models import Activity, Category, User
+from nile_quran_community_api.apps.v1.users.serializers import UserSerializer
 
 
 @pytest.mark.django_db
@@ -465,20 +465,15 @@ class TestUserActivitiesCount:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "count" in response.data
 
+
 @pytest.mark.django_db
 class TestI18nAPI:
-
-    def test_categories_translation_arabic(
-        self, client, jwt_admin_token
-    ):
+    def test_categories_translation_arabic(self, client, jwt_admin_token):
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
         Category.objects.create(name="Attending thought session", value=1)
 
         # English
-        response = client.get(
-            "/users/points/categories/",
-            HTTP_ACCEPT_LANGUAGE="en"
-        )
+        response = client.get("/users/points/categories/", HTTP_ACCEPT_LANGUAGE="en")
         assert response.status_code == status.HTTP_200_OK
         assert any(
             "Attending thought session" in item.get("name", "")
@@ -486,56 +481,38 @@ class TestI18nAPI:
         )
 
         # Arabic
-        response = client.get(
-            "/users/points/categories/",
-            HTTP_ACCEPT_LANGUAGE="ar"
-        )
+        response = client.get("/users/points/categories/", HTTP_ACCEPT_LANGUAGE="ar")
         assert response.status_code == status.HTTP_200_OK
         assert any(
             "حضور جلسة الخاطرة" in item.get("name", "")
             for item in response.data["results"]
         )
 
-    def test_404_translation(
-        self, client, jwt_admin_token
-    ):
+    def test_404_translation(self, client, jwt_admin_token):
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
 
         # English
-        response = client.get(
-            "/users/999999/activities/",
-            HTTP_ACCEPT_LANGUAGE="en"
-        )
+        response = client.get("/users/999999/activities/", HTTP_ACCEPT_LANGUAGE="en")
         assert response.status_code == status.HTTP_404_NOT_FOUND
         assert "No user was found with the given ID." in response.data["detail"]
 
         # Arabic
-        response = client.get(
-            "/users/999999/activities/",
-            HTTP_ACCEPT_LANGUAGE="ar"
-        )
+        response = client.get("/users/999999/activities/", HTTP_ACCEPT_LANGUAGE="ar")
         assert response.status_code == status.HTTP_404_NOT_FOUND
         assert "لم يتم العثور على مستخدم بالمعرف المحدد." in response.data["detail"]
-        
-    def test_user_not_found_translation(
-        self, client, jwt_admin_token
-    ):
+
+    def test_user_not_found_translation(self, client, jwt_admin_token):
         client.credentials(HTTP_AUTHORIZATION=f"Bearer {jwt_admin_token}")
 
         # English
-        response = client.get(
-            "/users/99999/",
-            HTTP_ACCEPT_LANGUAGE="en"
-        )
+        response = client.get("/users/99999/", HTTP_ACCEPT_LANGUAGE="en")
         assert response.status_code == status.HTTP_404_NOT_FOUND
         assert "No User matches the given query." in response.data["detail"]
 
         # Arabic
-        response = client.get(
-            "/users/99999/",
-            HTTP_ACCEPT_LANGUAGE="ar"
-        )
+        response = client.get("/users/99999/", HTTP_ACCEPT_LANGUAGE="ar")
         assert response.status_code == status.HTTP_404_NOT_FOUND
-        assert "لم يتم العثور على مستخدم يطابق الاستعلام المحدد." in response.data["detail"]
-
-
+        assert (
+            "لم يتم العثور على مستخدم يطابق الاستعلام المحدد."
+            in response.data["detail"]
+        )

@@ -1,7 +1,8 @@
+from collections.abc import Iterable
 from datetime import timedelta
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from django.utils.translation import gettext_lazy as _
 
@@ -55,9 +56,9 @@ TEMPLATES: list[dict] = [
     },
 ]
 
-ROOT_URLCONF: str = "nu_quran_api.urls"
+ROOT_URLCONF: str = "nile_quran_community_api.urls"
 
-WSGI_APPLICATION: str = "nu_quran_api.wsgi.application"
+WSGI_APPLICATION: str = "nile_quran_community_api.wsgi.application"
 
 AUTH_PASSWORD_VALIDATORS: list[dict[str, str]] = [
     {
@@ -118,7 +119,7 @@ REST_FRAMEWORK: dict[str, int | Iterable] = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": ("rest_framework.pagination.PageNumberPagination"),
     "PAGE_SIZE": 50,
-    "EXCEPTION_HANDLER": "nu_quran_api.exceptions.custom_exception_handler",
+    "EXCEPTION_HANDLER": "nile_quran_community_api.exceptions.custom_exception_handler",
 }
 
 STORAGES = {
@@ -129,12 +130,12 @@ STORAGES = {
 
 API_VERSION: str = "0.0.0"
 try:
-    API_VERSION = version("nu_quran_api")
+    API_VERSION = version("nile_quran_community_api")
 except PackageNotFoundError:
     pass
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
-    "TITLE": "NU Quran API",
-    "DESCRIPTION": "NU Quran Community API for keeping track of achievements",
+    "TITLE": "Nile Quran Community API",
+    "DESCRIPTION": "Nile Quran Community API for keeping track of achievements",
     "VERSION": API_VERSION,
 }

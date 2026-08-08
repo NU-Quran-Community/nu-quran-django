@@ -4,7 +4,7 @@ import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from nu_quran_api.apps.v1.users.models import User
+from nile_quran_community_api.apps.v1.users.models import User
 
 
 @pytest.mark.django_db
@@ -72,9 +72,7 @@ class TestGoalView:
         response = client.post(
             "/goals/", data=goal_data, format="json", HTTP_ACCEPT_LANGUAGE="ar"
         )
-        assert (
-            "القيمة الحالية أكبر من المستهدفة" in response.data["non_field_errors"]
-        )
+        assert "القيمة الحالية أكبر من المستهدفة" in response.data["non_field_errors"]
 
 
 @pytest.mark.django_db

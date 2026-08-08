@@ -6,10 +6,10 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: true
 env:
-  REGISTRY: ghcr.io/nu-quran-community
+  REGISTRY: ghcr.io/nile-quran-community
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASS: ${{ github.token }}
-  IMAGE_NAME: nu-quran-django
+  IMAGE_NAME: nile-quran-django
   IMAGE_PLATFORMS: linux/amd64,linux/arm64
   LICENSE_SPDX: GPL-3.0-or-later
 jobs:

@@ -11,46 +11,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:8
+#: src/nile_quran_community_api/apps/v1/goals/models.py:8
 msgid "Goal"
 msgstr "هدف"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:9
+#: src/nile_quran_community_api/apps/v1/goals/models.py:9
 msgid "Goals"
 msgstr "أهداف"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:13
+#: src/nile_quran_community_api/apps/v1/goals/models.py:13
 msgid "Monthly"
 msgstr "شهري"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:14
+#: src/nile_quran_community_api/apps/v1/goals/models.py:14
 msgid "Yearly"
 msgstr "سنوي"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:17
+#: src/nile_quran_community_api/apps/v1/goals/models.py:17
 msgid "scope"
 msgstr "نطاق"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:20
+#: src/nile_quran_community_api/apps/v1/goals/models.py:20
 msgid "title"
 msgstr "عنوان"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:23
+#: src/nile_quran_community_api/apps/v1/goals/models.py:23
 msgid "description"
 msgstr "وصف"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:26
+#: src/nile_quran_community_api/apps/v1/goals/models.py:26
 msgid "target"
 msgstr "مستهدف"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:29
+#: src/nile_quran_community_api/apps/v1/goals/models.py:29
 msgid "current"
 msgstr "حالي"
 
-#: src/nu_quran_api/apps/v1/goals/models.py:31
+#: src/nile_quran_community_api/apps/v1/goals/models.py:31
 msgid "created at"
 msgstr "تم إنشاؤه في"
 
-#: src/nu_quran_api/apps/v1/goals/serializers.py:16
+#: src/nile_quran_community_api/apps/v1/goals/serializers.py:16
 msgid "Current is greater than target"
 msgstr "القيمة الحالية أكبر من المستهدفة"

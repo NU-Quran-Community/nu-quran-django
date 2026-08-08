@@ -1,7 +1,7 @@
 import pytest
 from django.core.management import call_command
 
-from nu_quran_api.apps.v1.users.models import Activity, Category, User
+from nile_quran_community_api.apps.v1.users.models import Activity, Category, User
 
 
 @pytest.fixture(autouse=True, scope="function")

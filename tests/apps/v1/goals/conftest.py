@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 from django.core.management import call_command
 
-from nu_quran_api.apps.v1.goals.models import Goal
+from nile_quran_community_api.apps.v1.goals.models import Goal
 
 
 @pytest.fixture
@@ -48,7 +48,7 @@ def updated_goal() -> dict:
 
 @pytest.fixture
 def goals_for_filtering(db):
-    from nu_quran_api.apps.v1.goals.models import Goal
+    from nile_quran_community_api.apps.v1.goals.models import Goal
 
     goals = [
         Goal.objects.create(

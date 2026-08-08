@@ -1,6 +1,6 @@
 [project]
-name = "nu-quran-api"
-description = "NU Quran Community platform backend API"
+name = "nile-quran-community-api"
+description = "Nile Quran Community platform backend API"
 requires-python = ">= 3.13"
 license = "GPL-3.0-or-later"
 classifiers = [
@@ -26,7 +26,7 @@ dependencies = [
 dynamic = ["version"]
 
 [project.scripts]
-nu-quran = "nu_quran_api.cli.main:main"
+nqc = "nile_quran_community_api.cli.main:main"
 
 [project.optional-dependencies]
 tests = ["pytest", "pytest-django"]
@@ -42,7 +42,7 @@ disable_error_code = ["import-untyped"]
 python_files = ["test_*.py"]
 pythonpath = ["src"]
 testpaths = ["tests"]
-DJANGO_SETTINGS_MODULE = "nu_quran_api.settings"
+DJANGO_SETTINGS_MODULE = "nile_quran_community_api.settings"
 
 [tool.ruff.lint]
 ignore = ["F403"]

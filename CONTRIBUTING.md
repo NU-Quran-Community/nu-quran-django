@@ -1,8 +1,8 @@
 <a name="md-top"></a>
 
-# Contributing to NUQC Backend API
+# Contributing to NQC Backend API
 
-Thank you for taking the time to contribute to **NUQC Backend API**.
+Thank you for taking the time to contribute to **NQC Backend API**.
 
 This document explains how to:
 
@@ -33,7 +33,7 @@ You can contribute in many ways:
 
 If you’re unsure what to work on, check the issue tracker:
 
-- Issues: <https://github.com/NU-Quran-Community/nu-quran-django/issues>
+- Issues: <https://github.com/nile-quran-community/nile-quran-django/issues>
 
 <p align="right">(<a href="#md-top">back to top</a>)</p>
 
@@ -124,7 +124,7 @@ You will generally need:
 1. Clone the repo:
 
 ```sh
-git clone https://github.com/NU-Quran-Community/nu-quran-django.git
+git clone https://github.com/nile-quran-community/nile-quran-django.git
 ```
 
 2. Create virtual environment:
@@ -147,7 +147,7 @@ source .venv/bin/activate
 ```
 .
 ├── src/                                      # Main source code directory
-│   ├── nu_quran_api/                         # Core Django project package
+│   ├── nile_quran_community_api/                         # Core Django project package
 │   │   ├── apps/                             # Application modules (modular Django apps)
 │   │   │   └── v1/                           # Version 1 of the public API
 │   │   │       ├── goals/                    # Goals domain (business logic for initiative goals)
@@ -287,8 +287,8 @@ python manage.py makemessages -l ar
 
 Edit the `.po` file located at either:
 
-- `src/nu_quran_api/locale/<lang>/LC_MESSAGES/django.po` (for global translations)
-- `src/nu_quran_api/apps/v1/<app_name>/locale/<lang>/LC_MESSAGES/django.po` (for app-specific translations)
+- `src/nile_quran_community_api/locale/<lang>/LC_MESSAGES/django.po` (for global translations)
+- `src/nile_quran_community_api/apps/v1/<app_name>/locale/<lang>/LC_MESSAGES/django.po` (for app-specific translations)
 
 ```po
 msgid "Reading Quran"

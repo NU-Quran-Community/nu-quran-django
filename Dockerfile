@@ -23,16 +23,16 @@ RUN uv sync --frozen --active && \
 
 FROM base AS runtime
 
-ENV DJANGO_SETTINGS_MODULE=nu_quran_api.settings \
-  DATABASE_URL="sqlite:////home/nuqc/db.sqlite"
+ENV DJANGO_SETTINGS_MODULE=nile_quran_community_api.settings \
+  DATABASE_URL="sqlite:////home/nqc/db.sqlite"
 
-ARG SOURCE_URL=https://github.com/nu-quran-community/nu-quran-django \
+ARG SOURCE_URL=https://github.com/nile-quran-community/nile-quran-django \
   VCS_REF=HEAD \
   VERSION=0.0.0 \
   LICENSE=GPL-3.0-or-later
 
-LABEL org.opencontainers.image.title="NU Quran Django API" \
-  org.opencontainers.image.description="NU Quran Community Django backend API" \
+LABEL org.opencontainers.image.title="Nile Quran Community Django API" \
+  org.opencontainers.image.description="Nile Quran Community Django backend API" \
   org.opencontainers.image.source="${SOURCE_URL}" \
   org.opencontainers.image.version="${VERSION}" \
   org.opencontainers.image.revision="${VCS_REF}" \
@@ -41,12 +41,12 @@ LABEL org.opencontainers.image.title="NU Quran Django API" \
 COPY --from=build /app/dist /app/dist
 
 RUN apk add --no-cache tzdata && \
-  uv pip install /app/dist/nu_quran_api-*.whl && \
-  adduser -Ds /usr/bin/bash nuqc
+  uv pip install /app/dist/nile_quran_community_api-*.whl && \
+  adduser -Ds /usr/bin/bash nqc
 
-USER nuqc:nuqc
+USER nqc:nqc
 
 EXPOSE 8000
 
-ENTRYPOINT ["nu-quran"]
+ENTRYPOINT ["nqc"]
 CMD ["server"]

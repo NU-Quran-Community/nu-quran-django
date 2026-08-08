@@ -11,11 +11,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/nu_quran_api/settings/base.py:85
+#: src/nile_quran_community_api/settings/base.py:85
 msgid "English"
 msgstr "الإنجليزية"
 
-#: src/nu_quran_api/settings/base.py:86
+#: src/nile_quran_community_api/settings/base.py:86
 msgid "Arabic"
 msgstr "العربية"
 

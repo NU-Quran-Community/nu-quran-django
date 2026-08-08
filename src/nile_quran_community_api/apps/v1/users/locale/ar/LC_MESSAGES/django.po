@@ -11,109 +11,109 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:18
+#: src/nile_quran_community_api/apps/v1/users/filters.py:18
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:19
+#: src/nile_quran_community_api/apps/v1/users/filters.py:19
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:20
+#: src/nile_quran_community_api/apps/v1/users/filters.py:20
 msgid "First Name"
 msgstr "الاسم الأول"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:21
+#: src/nile_quran_community_api/apps/v1/users/filters.py:21
 msgid "Last Name"
 msgstr "اسم العائلة"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:61
+#: src/nile_quran_community_api/apps/v1/users/filters.py:61
 msgid "Activity Date"
 msgstr "تاريخ النشاط"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:62
-#: src/nu_quran_api/apps/v1/users/models.py:62
+#: src/nile_quran_community_api/apps/v1/users/filters.py:62
+#: src/nile_quran_community_api/apps/v1/users/models.py:62
 msgid "Category"
 msgstr "فئة"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:107
-#: src/nu_quran_api/apps/v1/users/models.py:74
+#: src/nile_quran_community_api/apps/v1/users/filters.py:107
+#: src/nile_quran_community_api/apps/v1/users/models.py:74
 msgid "value"
 msgstr "قيمة"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:114
+#: src/nile_quran_community_api/apps/v1/users/filters.py:114
 msgid "Filter categories by ID"
 msgstr "تصفية الفئات حسب المعرف"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:117
+#: src/nile_quran_community_api/apps/v1/users/filters.py:117
 msgid "Filter categories by name"
 msgstr "تصفية الفئات حسب الاسم"
 
-#: src/nu_quran_api/apps/v1/users/filters.py:120
+#: src/nile_quran_community_api/apps/v1/users/filters.py:120
 msgid "Filter categories by value"
 msgstr "تصفية الفئات حسب القيمة"
 
-#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:12
+#: src/nile_quran_community_api/apps/v1/users/migrations/0002_seed_categories.py:12
 msgid "Attending thought session"
 msgstr "حضور جلسة الخاطرة"
 
-#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:18
+#: src/nile_quran_community_api/apps/v1/users/migrations/0002_seed_categories.py:18
 msgid "Preparing a thought"
 msgstr "تحضير خاطرة"
 
-#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:24
+#: src/nile_quran_community_api/apps/v1/users/migrations/0002_seed_categories.py:24
 msgid "Reading Quran"
 msgstr "قراءة القرآن"
 
-#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:30
+#: src/nile_quran_community_api/apps/v1/users/migrations/0002_seed_categories.py:30
 msgid "Reciting Quran"
 msgstr "تسميع القرآن"
 
-#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:36
+#: src/nile_quran_community_api/apps/v1/users/migrations/0002_seed_categories.py:36
 msgid "Inviting a new member"
 msgstr "دعوة عضو جديد"
 
-#: src/nu_quran_api/apps/v1/users/migrations/0002_seed_categories.py:42
+#: src/nile_quran_community_api/apps/v1/users/migrations/0002_seed_categories.py:42
 msgid "Attending team meeting"
 msgstr "حضور اجتماع الفريق"
 
-#: src/nu_quran_api/apps/v1/users/models.py:11
+#: src/nile_quran_community_api/apps/v1/users/models.py:11
 msgid "Only Arabic letters are allowed."
 msgstr "يسمح فقط بالحروف العربية."
 
-#: src/nu_quran_api/apps/v1/users/models.py:18
+#: src/nile_quran_community_api/apps/v1/users/models.py:18
 msgid "Can change the user's activities"
 msgstr "يمكن تغيير أنشطة المستخدم"
 
-#: src/nu_quran_api/apps/v1/users/models.py:23
+#: src/nile_quran_community_api/apps/v1/users/models.py:23
 msgid "email address"
 msgstr "عنوان بريد إلكتروني"
 
-#: src/nu_quran_api/apps/v1/users/models.py:47
+#: src/nile_quran_community_api/apps/v1/users/models.py:47
 msgid "User referrer reference."
 msgstr "مرجع إحالة المستخدم."
 
-#: src/nu_quran_api/apps/v1/users/models.py:55
+#: src/nile_quran_community_api/apps/v1/users/models.py:55
 msgid "User supervisor reference (required for students)."
 msgstr "مرجع مشرف المستخدم (مطلوب للطلاب)."
 
-#: src/nu_quran_api/apps/v1/users/models.py:63
+#: src/nile_quran_community_api/apps/v1/users/models.py:63
 msgid "Categories"
 msgstr "الفئات"
 
-#: src/nu_quran_api/apps/v1/users/models.py:67
+#: src/nile_quran_community_api/apps/v1/users/models.py:67
 msgid "name"
 msgstr "الاسم"
 
-#: src/nu_quran_api/apps/v1/users/models.py:85
+#: src/nile_quran_community_api/apps/v1/users/models.py:85
 msgid "Activity"
 msgstr "نشاط"
 
-#: src/nu_quran_api/apps/v1/users/models.py:86
+#: src/nile_quran_community_api/apps/v1/users/models.py:86
 msgid "Activities"
 msgstr "أنشطة"
 
-#: src/nu_quran_api/apps/v1/users/models.py:95
+#: src/nile_quran_community_api/apps/v1/users/models.py:95
 msgid "user"
 msgstr "مستخدم"
 
@@ -121,27 +121,27 @@ msgstr "مستخدم"
 msgid "User"
 msgstr "مستخدم"
 
-#: src/nu_quran_api/apps/v1/users/models.py:100
+#: src/nile_quran_community_api/apps/v1/users/models.py:100
 msgid "category"
 msgstr "فئة"
 
-#: src/nu_quran_api/apps/v1/users/models.py:103
+#: src/nile_quran_community_api/apps/v1/users/models.py:103
 msgid "date"
 msgstr "تاريخ"
 
-#: src/nu_quran_api/apps/v1/users/serializers.py:49
+#: src/nile_quran_community_api/apps/v1/users/serializers.py:49
 msgid "No referrer was found with the given username"
 msgstr "لم يتم العثور على مرجع باسم المستخدم المحدد"
 
-#: src/nu_quran_api/apps/v1/users/serializers.py:58
+#: src/nile_quran_community_api/apps/v1/users/serializers.py:58
 msgid "No supervisor was found with the given username"
 msgstr "لم يتم العثور على مشرف باسم المستخدم المحدد"
 
-#: src/nu_quran_api/apps/v1/users/serializers.py:89
+#: src/nile_quran_community_api/apps/v1/users/serializers.py:89
 msgid "Username already taken"
 msgstr "اسم المستخدم محجوز بالفعل"
 
-#: src/nu_quran_api/apps/v1/users/views.py:71
-#: src/nu_quran_api/apps/v1/users/views.py:204
+#: src/nile_quran_community_api/apps/v1/users/views.py:71
+#: src/nile_quran_community_api/apps/v1/users/views.py:204
 msgid "No user was found with the given ID."
 msgstr "لم يتم العثور على مستخدم بالمعرف المحدد."

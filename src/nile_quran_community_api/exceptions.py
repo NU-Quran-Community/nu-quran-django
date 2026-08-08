@@ -1,7 +1,7 @@
 from django.utils import translation
 from rest_framework.views import exception_handler
 
-from nu_quran_api.i18n import DynamicErrorTranslator
+from nile_quran_community_api.i18n import DynamicErrorTranslator
 
 DYNAMIC_TRANSLATOR: DynamicErrorTranslator = DynamicErrorTranslator()
 

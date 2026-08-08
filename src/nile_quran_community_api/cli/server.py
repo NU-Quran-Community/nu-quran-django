@@ -16,7 +16,7 @@ def initialize_roles() -> None:
 @click.command(
     "server",
     short_help="Start HTTP server",
-    help="Start HTTP server for NU Quran API",
+    help="Start HTTP server for Nile Quran Community API",
 )
 @click.help_option("-h", "--help")
 @click.option(

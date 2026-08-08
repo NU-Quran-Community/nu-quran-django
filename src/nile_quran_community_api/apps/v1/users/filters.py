@@ -117,7 +117,9 @@ class CategoryFilter(django_filters.FilterSet):
         field_name="name", lookup_expr="exact", help_text=_("Filter categories by name")
     )
     value: django_filters.NumberFilter = django_filters.NumberFilter(
-        field_name="value", lookup_expr="exact", help_text=_("Filter categories by value")
+        field_name="value",
+        lookup_expr="exact",
+        help_text=_("Filter categories by value"),
     )
 
     class Meta:

@@ -10,6 +10,6 @@ urlpatterns: list[URLPattern | URLResolver] = [
     path("docs/", SpectacularSwaggerView.as_view(), name="docs"),
     path("auth/", TokenObtainPairView.as_view(), name="authtoken"),
     path("auth/refresh/", TokenRefreshView.as_view(), name="authtoken-refresh"),
-    path("api/v1/", include("nu_quran_api.apps.v1.urls")),
+    path("api/v1/", include("nile_quran_community_api.apps.v1.urls")),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

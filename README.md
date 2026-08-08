@@ -1,32 +1,32 @@
 <a id="readme-top"></a>
 
 <div align="center">
-  <a href="https://github.com/nu-quran-community/nu-quran-django">
+  <a href="https://github.com/nile-quran-community/nile-quran-django">
     <img src="https://avatars.githubusercontent.com/u/186422981" alt="Logo" height="150" style="border-radius: 10px">
   </a>
-  <h2 align="center">NU Quran API</h2>
+  <h2 align="center">Nile Quran Community API</h2>
   <p align="center">
-    Backend API powering NU Quran community platform 🌙
+    Backend API powering Nile Quran community platform 🌙
     <p align="center">
       <a href="https://techforpalestine.org/learn-more"><img alt="StandWithPalestine" src="https://raw.githubusercontent.com/Safouene1/support-palestine-banner/master/StandWithPalestine.svg"></a>
-      <img alt="GitHub License" src="https://img.shields.io/github/license/nu-quran-community/nu-quran-django">
-      <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nu-quran-community/nu-quran-django/publish.yml">
-      <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/nu-quran-community/nu-quran-django">
-      <img alt="GitHub issues" src="https://img.shields.io/github/issues/nu-quran-community/nu-quran-django">
+      <img alt="GitHub License" src="https://img.shields.io/github/license/nile-quran-community/nile-quran-django">
+      <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nile-quran-community/nile-quran-django/publish.yml">
+      <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/nile-quran-community/nile-quran-django">
+      <img alt="GitHub issues" src="https://img.shields.io/github/issues/nile-quran-community/nile-quran-django">
       <img alt="Python Version from PEP 621 TOML" src="https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fquickwrench%2Fquickwrench-api%2Fmain%2Fpyproject.toml">
     </p>
     <a href="#getting-started">Getting Started</a>
     ·
-    <a href="https://github.com/nu-quran-community/nu-quran-django/issues">Report Bug</a>
+    <a href="https://github.com/nile-quran-community/nile-quran-django/issues">Report Bug</a>
     ·
-    <a href="https://github.com/nu-quran-community/nu-quran-django/issues">Request Feature</a>
+    <a href="https://github.com/nile-quran-community/nile-quran-django/issues">Request Feature</a>
 
   </p>
 </div>
 
 ## About The Project ✨
 
-Backend API that powers the NU Quran Community platform, providing a structured and efficient way to manage donations, track student achievements, and facilitate community engagement. It serves as the core infrastructure for handling authentication, user data, contribution records, and achievement tracking.
+Backend API that powers the Nile Quran Community platform, providing a structured and efficient way to manage donations, track student achievements, and facilitate community engagement. It serves as the core infrastructure for handling authentication, user data, contribution records, and achievement tracking.
 
 ### Key Features:
 
@@ -61,13 +61,13 @@ sudo apt install docker.io
 1. Clone the repo
 
 ```sh
-git clone https://github.com/nu-quran-community/nu-quran-django.git
+git clone https://github.com/nile-quran-community/nile-quran-django.git
 ```
 
 2. Navigate to the project directory
 
 ```sh
-cd nu-quran-django
+cd nile-quran-django
 ```
 
 3. Set up a virtual environment and activate it

@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth.models import Group
 from rest_framework_simplejwt.tokens import AccessToken
 
-from nu_quran_api.apps.v1.users.models import User
+from nile_quran_community_api.apps.v1.users.models import User
 
 
 @pytest.fixture

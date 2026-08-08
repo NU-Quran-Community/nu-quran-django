@@ -17,8 +17,8 @@ prek = "0.3"
 [env]
 _.python.venv = { create = true, path = ".venv" }
 PYTHONPATH = "{{ config_root }}/src"
-DJANGO_SETTINGS_MODULE = "nu_quran_api.settings"
-DATABASE_URL = "postgresql://nuqc:nuqc@localhost:5432/nuqc"
+DJANGO_SETTINGS_MODULE = "nile_quran_community_api.settings"
+DATABASE_URL = "postgresql://nqc:nqc@localhost:5432/nqc"
 
 [tasks.install]
 description = "Install dependencies"
@@ -30,12 +30,12 @@ description = "Start development PostgreSQL database"
 tools = { docker-cli = "29" }
 alias = "pg"
 usage = '''
-flag "-n --container-name <container-name>" help="Name for the postgres container" default="nuqc-postgres-dev"
+flag "-n --container-name <container-name>" help="Name for the postgres container" default="nqc-postgres-dev"
 flag "-i --container-image <container-image>" help="Image to use for creating the postgres container" default="postgres:18-alpine"
 flag "-P --port <port>" help="Port to listen on for postgresql connections" default="5432"
-flag "-u --username <username>" help="superuser username" default="nuqc"
-flag "-p --password <password>" help="superuser password" default="nuqc"
-flag "-d --database <database>" help="initial database name" default="nuqc"
+flag "-u --username <username>" help="superuser username" default="nqc"
+flag "-p --password <password>" help="superuser password" default="nqc"
+flag "-d --database <database>" help="initial database name" default="nqc"
 '''
 run = '''
 #!/usr/bin/env bash
@@ -92,7 +92,7 @@ description = "Stop all running dev containers (requires containers to have the 
 wait_for = ["devserver"]
 tools = { docker-cli = "29" }
 usage = '''
-flag "-p --prefix <prefix>" help="Prefix used for all project containers" default="nuqc-"
+flag "-p --prefix <prefix>" help="Prefix used for all project containers" default="nqc-"
 '''
 run = '''
 #!/usr/bin/env bash
@@ -114,7 +114,7 @@ description = "Remove all development containers and volumes (requires container
 depends = ["stop"]
 tools = { docker-cli = "29" }
 usage = '''
-flag "-p --prefix <prefix>" help="Prefix used for all project containers" default="nuqc-"
+flag "-p --prefix <prefix>" help="Prefix used for all project containers" default="nqc-"
 '''
 run = '''
 #!/usr/bin/env bash
